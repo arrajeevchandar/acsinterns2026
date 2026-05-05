@@ -23,7 +23,7 @@ const Process: React.FC = () => {
       <div className="home-wrap week-journey week-journey--compact">
         <div className={`week-journey__intro reveal ${isVisible ? 'is-visible' : ''}`}>
           <span className="section-kicker">Journey</span>
-          <h2 className="section-heading">10 weeks at ACS.</h2>
+          <h2 className="section-heading">Internship arc.</h2>
         </div>
 
         <div className={`week-map reveal ${isVisible ? 'is-visible' : ''}`} aria-label="Internship weekly journey">
@@ -37,6 +37,7 @@ const Process: React.FC = () => {
                     key={item.week}
                     className={active === realIndex ? 'is-active' : ''}
                     onClick={() => setActive(realIndex)}
+                    onFocus={() => setActive(realIndex)}
                     onMouseEnter={() => setActive(realIndex)}
                     aria-label={`${item.week}: ${item.title}`}
                   >

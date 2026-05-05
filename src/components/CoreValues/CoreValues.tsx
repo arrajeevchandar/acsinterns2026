@@ -46,7 +46,7 @@ const CoreValues: React.FC = () => {
       <div className="values-scroll__sticky">
         <div className="values-scroll__intro">
           <span className="section-kicker">Core Values</span>
-          <h2>Scroll the values.</h2>
+          <h2>What we practice.</h2>
         </div>
 
         <div className="values-scroll__stage">

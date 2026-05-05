@@ -14,8 +14,15 @@ const Marquee: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState(0);
   const [maxOffset, setMaxOffset] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
+  const displayOffsetRef = useRef(0);
+  const targetOffsetRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+  const releaseRef = useRef<'up' | 'down' | null>(null);
+  const releaseCooldownUntilRef = useRef(0);
+  const lockedScrollYRef = useRef<number | null>(null);
 
   useEffect(() => {
     const measure = () => {
@@ -24,7 +31,9 @@ const Marquee: React.FC = () => {
       if (!viewport || !strip) return;
       const nextMax = Math.max(0, strip.scrollWidth - viewport.clientWidth);
       setMaxOffset(nextMax);
-      setOffset((current) => Math.min(current, nextMax));
+      targetOffsetRef.current = Math.min(targetOffsetRef.current, nextMax);
+      displayOffsetRef.current = Math.min(displayOffsetRef.current, nextMax);
+      setOffset(displayOffsetRef.current);
     };
 
     measure();
@@ -35,35 +44,98 @@ const Marquee: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const nextProgress = maxOffset > 0 ? offset / maxOffset : 0;
-    setProgress(nextProgress);
-    setActive(Math.min(MOMENTS.length - 1, Math.round(nextProgress * (MOMENTS.length - 1))));
-  }, [offset, maxOffset]);
+    const syncDisplay = (nextOffset: number) => {
+      const nextProgress = maxOffset > 0 ? nextOffset / maxOffset : 0;
+      setOffset(nextOffset);
+      setProgress(nextProgress);
+      setActive(Math.min(MOMENTS.length - 1, Math.round(nextProgress * (MOMENTS.length - 1))));
+    };
 
-  const handleWheel = (event: React.WheelEvent<HTMLElement>) => {
-    if (maxOffset <= 0) return;
+    const animate = () => {
+      const current = displayOffsetRef.current;
+      const target = targetOffsetRef.current;
+      const diff = target - current;
+      const next = Math.abs(diff) < 0.35 ? target : current + diff * 0.22;
 
-    const direction = event.deltaY;
-    const atStart = offset <= 0;
-    const atEnd = offset >= maxOffset;
+      displayOffsetRef.current = next;
+      syncDisplay(next);
 
-    if ((direction < 0 && atStart) || (direction > 0 && atEnd)) return;
+      if (next !== target) {
+        rafRef.current = window.requestAnimationFrame(animate);
+      } else {
+        rafRef.current = null;
+        const section = sectionRef.current;
+        if (section && releaseRef.current) {
+          const direction = releaseRef.current;
+          releaseRef.current = null;
+          lockedScrollYRef.current = null;
+          releaseCooldownUntilRef.current = performance.now() + 650;
+          window.scrollBy({ top: direction === 'down' ? 180 : -180, behavior: 'smooth' });
+        }
+      }
+    };
 
-    event.preventDefault();
-    setOffset((current) => Math.min(maxOffset, Math.max(0, current + direction)));
-  };
+    const startAnimation = () => {
+      if (rafRef.current === null) {
+        rafRef.current = window.requestAnimationFrame(animate);
+      }
+    };
+
+    const handleWheel = (event: WheelEvent) => {
+      const section = sectionRef.current;
+      if (!section || maxOffset <= 0) return;
+      if (performance.now() < releaseCooldownUntilRef.current) return;
+
+      const rect = section.getBoundingClientRect();
+      const scrollingDown = event.deltaY > 0;
+      const scrollingUp = event.deltaY < 0;
+      const sectionIsPinned = rect.top <= 48 && rect.bottom >= window.innerHeight - 48;
+      const enteringFromBelow = scrollingUp && rect.top < window.innerHeight && rect.bottom > window.innerHeight;
+      const inSectionBand = sectionIsPinned || enteringFromBelow;
+      const needsDownLock = scrollingDown && inSectionBand && (
+        targetOffsetRef.current < maxOffset || displayOffsetRef.current < maxOffset - 1
+      );
+      const needsUpLock = scrollingUp && inSectionBand && (
+        targetOffsetRef.current > 0 || displayOffsetRef.current > 1
+      );
+
+      if (!needsDownLock && !needsUpLock) return;
+
+      event.preventDefault();
+      if (lockedScrollYRef.current === null) {
+        lockedScrollYRef.current = window.scrollY;
+      }
+      const wheelDelta = Math.sign(event.deltaY) * Math.min(Math.abs(event.deltaY) * 1.05, 120);
+      const nextTarget = Math.min(
+        maxOffset,
+        Math.max(0, targetOffsetRef.current + wheelDelta),
+      );
+      targetOffsetRef.current = nextTarget;
+      releaseRef.current = nextTarget >= maxOffset && scrollingDown ? 'down' : nextTarget <= 0 && scrollingUp ? 'up' : null;
+      startAnimation();
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [maxOffset]);
 
   return (
     <section
       id="gallery"
+      ref={sectionRef}
       className="moments moments--scroll"
-      onWheel={handleWheel}
     >
       <div className="moments__sticky">
         <div className="moments__top">
           <div>
             <span className="section-kicker">Moments</span>
-            <h2 className="moments__title">Scroll the summer.</h2>
+            <h2 className="moments__title">Inside the cohort.</h2>
           </div>
 
           <div className="moments__progress" aria-hidden="true">

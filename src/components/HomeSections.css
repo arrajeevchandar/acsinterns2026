@@ -886,41 +886,75 @@ html[data-theme="dark"] .week-map button em {
 
 /* Two-line weekly internship map */
 .week-journey--compact {
-  gap: 3rem;
+  gap: 2.4rem;
 }
 
 .week-map {
+  position: relative;
   display: grid;
-  gap: 4.4rem;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+  align-content: center;
+  gap: clamp(5.2rem, 9vw, 7rem);
+  min-height: 500px;
+  padding: clamp(4rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
   border: 1px solid rgba(255, 255, 255, 0.82);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.58);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(235, 28, 36, 0.12), transparent 16rem),
+    radial-gradient(circle at 88% 82%, rgba(255, 255, 255, 0.92), transparent 18rem),
+    rgba(255, 255, 255, 0.58);
   backdrop-filter: blur(30px) saturate(1.75);
   -webkit-backdrop-filter: blur(30px) saturate(1.75);
   box-shadow: 0 30px 100px rgba(20, 20, 20, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.week-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.28), transparent 34%, rgba(255, 255, 255, 0.08) 68%, transparent);
+  mix-blend-mode: screen;
 }
 
 .week-map__row {
   position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.6rem;
+  gap: clamp(0.55rem, 1.6vw, 1rem);
+  z-index: 1;
 }
 
 .week-map__row::before {
   content: '';
   position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 24px;
-  height: 2px;
-  background: rgba(0, 0, 0, 0.12);
+  left: 9%;
+  right: 9%;
+  top: 28px;
+  height: 4px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(235, 28, 36, 0.08), rgba(235, 28, 36, 0.86), rgba(235, 28, 36, 0.08)),
+    repeating-linear-gradient(90deg, transparent 0 26px, rgba(255, 255, 255, 0.7) 26px 29px);
+  box-shadow: 0 0 28px rgba(235, 28, 36, 0.2);
+}
+
+.week-map__row:first-child::after {
+  display: none;
+}
+
+.week-map__row:last-child {
+  direction: rtl;
+}
+
+.week-map__row:last-child button {
+  direction: ltr;
 }
 
 .week-map button {
   position: relative;
-  min-height: 95px;
+  min-height: 112px;
   display: grid;
   justify-items: center;
   align-content: start;
@@ -933,13 +967,39 @@ html[data-theme="dark"] .week-map button em {
 .week-map__dot {
   position: relative;
   z-index: 2;
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   border: 2px solid #EB1C24;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 9px rgba(235, 28, 36, 0.08);
+  background:
+    radial-gradient(circle at 50% 50%, #EB1C24 0 4px, transparent 5px),
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.95), transparent 30%),
+    rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(1.7);
+  -webkit-backdrop-filter: blur(16px) saturate(1.7);
+  box-shadow: 0 0 0 10px rgba(235, 28, 36, 0.08), inset 0 1px 10px rgba(255, 255, 255, 0.95);
   transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.week-map__dot::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(235, 28, 36, 0.22);
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.week-map__dot::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: inherit;
+  background: rgba(235, 28, 36, 0.12);
+  transform: scale(0);
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .week-map button small {
@@ -948,16 +1008,17 @@ html[data-theme="dark"] .week-map button em {
   font-weight: 850;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  transition: color 180ms ease, transform 180ms ease;
 }
 
 .week-map button em {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 0.7rem);
+  bottom: calc(100% + 0.95rem);
   z-index: 5;
   width: min(230px, 42vw);
   padding: 0.85rem;
-  border-radius: 14px;
+  border-radius: 8px;
   color: #111;
   background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(24px) saturate(1.6);
@@ -969,8 +1030,8 @@ html[data-theme="dark"] .week-map button em {
   line-height: 1.45;
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%) translateY(10px) scale(0.96);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transform: translateX(-50%) translateY(12px) scale(0.94);
+  transition: opacity 200ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .week-map button em::after {
@@ -996,9 +1057,28 @@ html[data-theme="dark"] .week-map button em {
 
 .week-map button:hover .week-map__dot,
 .week-map button.is-active .week-map__dot {
-  background: #EB1C24;
-  box-shadow: 0 0 0 11px rgba(235, 28, 36, 0.14), 0 12px 34px rgba(235, 28, 36, 0.3);
+  background:
+    radial-gradient(circle at 50% 50%, #fff 0 4px, transparent 5px),
+    #EB1C24;
+  box-shadow: 0 0 0 14px rgba(235, 28, 36, 0.14), 0 16px 40px rgba(235, 28, 36, 0.34);
   transform: scale(1.25);
+}
+
+.week-map button:hover .week-map__dot::before,
+.week-map button.is-active .week-map__dot::before {
+  transform: scale(1);
+}
+
+.week-map button:hover small,
+.week-map button.is-active small {
+  color: #EB1C24;
+  transform: translateY(2px);
+}
+
+.week-map button:hover .week-map__dot::after,
+.week-map button.is-active .week-map__dot::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .week-map button:hover em,
@@ -1011,6 +1091,7 @@ html[data-theme="dark"] .week-map button em {
 .moments--scroll {
   padding: 0;
   min-height: 100svh;
+  overscroll-behavior: contain;
   background:
     radial-gradient(circle at 18% 20%, rgba(235, 28, 36, 0.12), transparent 24rem),
     radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.95), transparent 30rem),
@@ -1063,7 +1144,7 @@ html[data-theme="dark"] .week-map button em {
   gap: clamp(0.85rem, 2vw, 1.25rem);
   overflow: visible;
   scroll-snap-type: none;
-  transition: transform 80ms linear;
+  transition: none;
   will-change: transform;
 }
 
@@ -1404,15 +1485,17 @@ html[data-theme="dark"] .stats-cinema__label {
 
 /* Final journey alignment */
 .week-map__row {
-  width: min(920px, 88%);
+  width: min(850px, 82%);
 }
 
 .week-map__row:first-child {
   justify-self: start;
+  transform: translateX(-0.35rem);
 }
 
 .week-map__row:last-child {
   justify-self: end;
+  transform: translateX(0.35rem);
 }
 
 @media (max-width: 780px) {
@@ -1436,6 +1519,7 @@ html[data-theme="dark"] .stats-cinema__label {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
+
 
 @media (max-width: 620px) {
   .week-journey__rail {
