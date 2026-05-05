@@ -7,6 +7,10 @@ interface AdobeLogoProps {
   animated?: boolean;
 }
 
+/**
+ * Accurate recreation of the Adobe corporate logo — the iconic triangular "A".
+ * Based on the official Adobe brandmark proportions.
+ */
 const AdobeLogo: React.FC<AdobeLogoProps> = ({
   size = 48,
   color = 'currentColor',
@@ -17,41 +21,35 @@ const AdobeLogo: React.FC<AdobeLogoProps> = ({
     <svg
       width={size}
       height={size}
-      viewBox="0 0 100 100"
+      viewBox="0 0 240 234"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={`adobe-logo ${animated ? 'adobe-logo--animated' : ''} ${className}`}
       aria-label="Adobe Logo"
     >
-      {/* Triangular "A" — Adobe style */}
+      {/* Left triangle */}
       <path
-        d="M50 5 L95 95 L65 95 L55 72 L35 72 L50 40 L60 62 L70 62 L50 5 Z"
+        d="M0 233.4V0L93.6 233.4H0Z"
         fill={animated ? 'none' : color}
         stroke={animated ? color : 'none'}
-        strokeWidth={animated ? 2 : 0}
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeWidth={animated ? 2.5 : 0}
         className={animated ? 'adobe-logo__path' : ''}
       />
-      {/* Left half of the A */}
+      {/* Right triangle */}
       <path
-        d="M5 95 L50 5 L50 95 Z"
+        d="M240 233.4V0L146.4 233.4H240Z"
         fill={animated ? 'none' : color}
         stroke={animated ? color : 'none'}
-        strokeWidth={animated ? 2 : 0}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={animated ? 'adobe-logo__path adobe-logo__path--left' : ''}
-      />
-      {/* Right half of the A */}
-      <path
-        d="M95 95 L50 5 L50 95 Z"
-        fill={animated ? 'none' : color}
-        stroke={animated ? color : 'none'}
-        strokeWidth={animated ? 2 : 0}
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeWidth={animated ? 2.5 : 0}
         className={animated ? 'adobe-logo__path adobe-logo__path--right' : ''}
+      />
+      {/* Center "A" notch */}
+      <path
+        d="M120 46.8L163.2 153.6H141.6L128.4 120H97.2L120 46.8Z"
+        fill={animated ? 'none' : color}
+        stroke={animated ? color : 'none'}
+        strokeWidth={animated ? 2.5 : 0}
+        className={animated ? 'adobe-logo__path adobe-logo__path--center' : ''}
       />
     </svg>
   );

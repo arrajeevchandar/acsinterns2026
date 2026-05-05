@@ -1,29 +1,37 @@
 import React from 'react';
 
-const TEAMS = ['AEM', 'WORKFRONT', 'DATA', 'UI', 'DACOE'];
+const ITEMS = ['AEM', 'WORKFRONT', 'DATA', 'UI', 'DACOE', 'INNOVATION', 'COLLABORATION', 'EXCELLENCE'];
 
-const MarqueeRow: React.FC<{ reverse?: boolean }> = ({ reverse = false }) => {
-  const content = TEAMS.map((team, i) => (
+const MarqueeRow: React.FC<{ reverse?: boolean; speed?: number }> = ({ reverse = false, speed = 25 }) => {
+  const content = ITEMS.map((item, i) => (
     <React.Fragment key={i}>
       <span style={{
-        fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+        fontSize: 'clamp(2rem, 5vw, 4.5rem)',
         fontWeight: 800,
-        letterSpacing: '-0.02em',
+        letterSpacing: '-0.03em',
         color: 'var(--text-primary)',
-        opacity: 0.15,
+        opacity: 0.06,
         whiteSpace: 'nowrap' as const,
-        transition: 'opacity 0.3s ease',
+        transition: 'opacity 0.5s ease',
+        cursor: 'default',
+        userSelect: 'none' as const,
       }}
-        onMouseEnter={(e) => { (e.target as HTMLElement).style.opacity = '0.6'; }}
-        onMouseLeave={(e) => { (e.target as HTMLElement).style.opacity = '0.15'; }}
+        onMouseEnter={(e) => {
+          (e.target as HTMLElement).style.opacity = '0.25';
+          (e.target as HTMLElement).style.color = '#E8302A';
+        }}
+        onMouseLeave={(e) => {
+          (e.target as HTMLElement).style.opacity = '0.06';
+          (e.target as HTMLElement).style.color = 'var(--text-primary)';
+        }}
       >
-        {team}
+        {item}
       </span>
       <span style={{
         color: '#E8302A',
-        fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-        margin: '0 1.5rem',
-        opacity: 0.4,
+        fontSize: 'clamp(0.5rem, 1vw, 0.8rem)',
+        margin: '0 clamp(1rem, 3vw, 2.5rem)',
+        opacity: 0.3,
       }}>
         ◆
       </span>
@@ -31,25 +39,14 @@ const MarqueeRow: React.FC<{ reverse?: boolean }> = ({ reverse = false }) => {
   ));
 
   return (
-    <div style={{
-      display: 'flex',
-      overflow: 'hidden',
-      width: '100%',
-      padding: '0.75rem 0',
-    }}>
+    <div style={{ display: 'flex', overflow: 'hidden', width: '100%' }}>
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        animation: reverse
-          ? 'marqueeReverse 25s linear infinite'
-          : 'marquee 25s linear infinite',
+        animation: `${reverse ? 'marqueeReverse' : 'marquee'} ${speed}s linear infinite`,
         whiteSpace: 'nowrap' as const,
       }}>
-        {/* Duplicate for seamless loop */}
-        {content}
-        {content}
-        {content}
-        {content}
+        {content}{content}{content}{content}
       </div>
     </div>
   );
@@ -60,13 +57,14 @@ const Marquee: React.FC = () => {
     <section style={{
       borderTop: '1px solid var(--border-color)',
       borderBottom: '1px solid var(--border-color)',
-      padding: '1rem 0',
+      padding: '2rem 0',
       overflow: 'hidden',
-      background: 'var(--bg-secondary)',
-      transition: 'background 0.4s ease',
+      background: 'var(--bg-primary)',
+      transition: 'background 0.5s ease',
     }}>
-      <MarqueeRow />
-      <MarqueeRow reverse />
+      <MarqueeRow speed={35} />
+      <div style={{ height: '0.75rem' }} />
+      <MarqueeRow reverse speed={30} />
     </section>
   );
 };

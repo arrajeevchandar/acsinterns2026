@@ -1,7 +1,7 @@
 /* ============================================================
-   SPLASH SCREEN STYLES
+   SPLASH SCREEN — CINEMATIC OVERHAUL
    ============================================================ */
-.splash-screen {
+.splash {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -9,143 +9,229 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(ellipse at center, rgba(232, 48, 42, 0.04) 0%, #0D0D0D 70%);
+  background: #000;
   overflow: hidden;
 }
 
-.splash-screen--exiting {
-  animation: splashExit 0.8s ease-in-out forwards;
+/* Subtle radial gradient behind logo */
+.splash::before {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 48, 42, 0.08) 0%, transparent 70%);
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* --- Logo Container --- */
-.splash-logo-container {
+/* Exit animation — clip from bottom to top like a curtain */
+.splash--exit {
+  animation: splashExit 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* --- Logo wrapper --- */
+.splash__logo-wrap {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.splash-logo-container svg {
-  width: 120px;
-  height: 120px;
+.splash__logo-wrap svg {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  z-index: 3;
 }
 
 @media (min-width: 768px) {
-  .splash-logo-container svg {
-    width: 180px;
-    height: 180px;
+  .splash__logo-wrap svg {
+    width: 200px;
+    height: 200px;
   }
 }
 
-/* --- SVG Stroke Draw Animation --- */
-.splash-logo-path {
-  stroke-dasharray: 800;
-  stroke-dashoffset: 800;
-  animation: logoDraw 2s ease-in-out forwards;
+/* --- SVG stroke draw --- */
+.splash__logo-path {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: splashLogoDraw 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   stroke: #E8302A;
-  stroke-width: 1.5;
+  stroke-width: 2;
   fill: transparent;
 }
 
-.splash-logo-path--fill {
-  animation: logoDraw 2s ease-in-out forwards, logoFill 0.8s ease-in-out 1.8s forwards;
+.splash__logo-path--right {
+  animation-delay: 0.15s;
 }
 
-/* --- Logo Glow --- */
-.splash-logo-glow {
-  animation: logoGlow 1.5s ease-in-out 2.2s forwards;
+.splash__logo-path--center {
+  animation-delay: 0.3s;
 }
 
-/* --- Logo Scale Down --- */
-.splash-logo-scale {
-  animation: logoScale 0.6s ease-in-out 3s forwards;
+/* Fill after draw completes */
+.splash__logo-fill .splash__logo-path {
+  animation: splashLogoDraw 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards,
+             splashLogoFill 0.6s ease-in-out 2s forwards;
 }
 
-/* --- Text "ADOBE" --- */
-.splash-text {
-  margin-top: 24px;
-  font-size: 1.25rem;
-  font-weight: 300;
-  color: white;
-  letter-spacing: 0.5em;
-  opacity: 0;
-  animation: textReveal 0.6s ease-out 2.6s forwards;
+.splash__logo-fill .splash__logo-path--right {
+  animation-delay: 0.15s, 2.15s;
+}
+
+.splash__logo-fill .splash__logo-path--center {
+  animation-delay: 0.3s, 2.3s;
+}
+
+/* Glow effect on the entire SVG group */
+.splash__glow {
+  animation: splashLogoGlow 1.8s ease-in-out 2.2s forwards;
+}
+
+/* --- Expanding rings behind logo --- */
+.splash__ring {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 48, 42, 0.3);
+  animation: splashRingExpand 2s ease-out forwards;
+  pointer-events: none;
 }
 
 @media (min-width: 768px) {
-  .splash-text {
-    font-size: 1.5rem;
+  .splash__ring {
+    width: 200px;
+    height: 200px;
   }
+}
+
+.splash__ring:nth-child(1) { animation-delay: 2.0s; }
+.splash__ring:nth-child(2) { animation-delay: 2.2s; }
+.splash__ring:nth-child(3) { animation-delay: 2.4s; }
+.splash__ring:nth-child(4) { animation-delay: 2.6s; }
+
+/* --- Horizontal line expanding from center --- */
+.splash__line {
+  position: absolute;
+  width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 48, 42, 0.5), transparent);
+  transform-origin: center;
+  transform: scaleX(0);
+  animation: splashLineExpand 0.8s ease-out 2.4s forwards;
+}
+
+@media (min-width: 768px) {
+  .splash__line {
+    width: 500px;
+  }
+}
+
+.splash__line--top {
+  top: calc(50% - 110px);
+}
+
+.splash__line--bottom {
+  top: calc(50% + 110px);
+}
+
+@media (min-width: 768px) {
+  .splash__line--top { top: calc(50% - 140px); }
+  .splash__line--bottom { top: calc(50% + 140px); }
+}
+
+/* --- "ADOBE" text --- */
+.splash__text {
+  margin-top: 40px;
+  font-size: 1rem;
+  font-weight: 200;
+  color: white;
+  letter-spacing: 1em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: splashTextReveal 0.8s ease-out 2.6s forwards;
+  position: relative;
+  z-index: 3;
+}
+
+@media (min-width: 768px) {
+  .splash__text {
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Subtext --- */
+.splash__subtext {
+  margin-top: 12px;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.3em;
+  opacity: 0;
+  animation: splashSubTextReveal 0.6s ease-out 3s forwards;
+  position: relative;
+  z-index: 3;
 }
 
 /* --- Particles --- */
-.splash-particles {
+.splash__particles {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
+  z-index: 2;
 }
 
-.splash-particle {
+.splash__particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   background: #E8302A;
   border-radius: 50%;
   opacity: 0;
-  animation: particleFloat 4s ease-in-out infinite;
 }
 
-.splash-particle:nth-child(1) { top: 40%; left: 30%; animation-delay: 0.2s; }
-.splash-particle:nth-child(2) { top: 50%; left: 70%; animation-delay: 0.5s; }
-.splash-particle:nth-child(3) { top: 30%; left: 50%; animation-delay: 0.8s; }
-.splash-particle:nth-child(4) { top: 60%; left: 40%; animation-delay: 1.1s; }
-.splash-particle:nth-child(5) { top: 45%; left: 60%; animation-delay: 1.4s; }
-.splash-particle:nth-child(6) { top: 55%; left: 35%; animation-delay: 1.7s; }
-.splash-particle:nth-child(7) { top: 35%; left: 65%; animation-delay: 2.0s; }
-.splash-particle:nth-child(8) { top: 65%; left: 55%; animation-delay: 2.3s; }
-.splash-particle:nth-child(9) { top: 42%; left: 45%; animation-delay: 0.3s; }
-.splash-particle:nth-child(10) { top: 58%; left: 52%; animation-delay: 0.9s; }
+/* Particles burst from center on fill */
+.splash__particle:nth-child(1)  { top: 50%; left: 50%; --tx: -80px;  --ty: -120px; animation: splashParticle 1.5s ease-out 2.2s forwards; }
+.splash__particle:nth-child(2)  { top: 50%; left: 50%; --tx: 100px;  --ty: -90px;  animation: splashParticle 1.5s ease-out 2.3s forwards; }
+.splash__particle:nth-child(3)  { top: 50%; left: 50%; --tx: -120px; --ty: 60px;   animation: splashParticle 1.5s ease-out 2.25s forwards; }
+.splash__particle:nth-child(4)  { top: 50%; left: 50%; --tx: 70px;   --ty: 130px;  animation: splashParticle 1.5s ease-out 2.35s forwards; }
+.splash__particle:nth-child(5)  { top: 50%; left: 50%; --tx: -50px;  --ty: -150px; animation: splashParticle 1.5s ease-out 2.4s forwards; }
+.splash__particle:nth-child(6)  { top: 50%; left: 50%; --tx: 140px;  --ty: 30px;   animation: splashParticle 1.5s ease-out 2.28s forwards; }
+.splash__particle:nth-child(7)  { top: 50%; left: 50%; --tx: -130px; --ty: -40px;  animation: splashParticle 1.5s ease-out 2.33s forwards; }
+.splash__particle:nth-child(8)  { top: 50%; left: 50%; --tx: 30px;   --ty: -160px; animation: splashParticle 1.5s ease-out 2.38s forwards; }
+.splash__particle:nth-child(9)  { top: 50%; left: 50%; --tx: 160px;  --ty: -20px;  animation: splashParticle 1.5s ease-out 2.22s forwards; }
+.splash__particle:nth-child(10) { top: 50%; left: 50%; --tx: -90px;  --ty: 100px;  animation: splashParticle 1.5s ease-out 2.32s forwards; }
+.splash__particle:nth-child(11) { top: 50%; left: 50%; --tx: 50px;   --ty: 150px;  animation: splashParticle 1.5s ease-out 2.27s forwards; }
+.splash__particle:nth-child(12) { top: 50%; left: 50%; --tx: -160px; --ty: -10px;  animation: splashParticle 1.5s ease-out 2.37s forwards; }
 
-.splash-particle:nth-child(odd) {
-  width: 3px;
-  height: 3px;
-  background: rgba(232, 48, 42, 0.6);
+/* Some particles are larger with glow */
+.splash__particle:nth-child(even) {
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 6px rgba(232, 48, 42, 0.8);
 }
 
-/* --- Ring pulse behind logo --- */
-.splash-ring {
+.splash__particle:nth-child(3n) {
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* --- Corner markers (cinematic framing) --- */
+.splash__corner {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  border: 1px solid rgba(232, 48, 42, 0.15);
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-color: rgba(232, 48, 42, 0.2);
+  border-style: solid;
+  border-width: 0;
   opacity: 0;
-  animation: ringPulse 2s ease-out 1.5s forwards;
+  animation: fadeIn 0.5s ease-out 2.8s forwards;
 }
 
-.splash-ring:nth-child(2) {
-  width: 280px;
-  height: 280px;
-  animation-delay: 1.8s;
-}
-
-.splash-ring:nth-child(3) {
-  width: 360px;
-  height: 360px;
-  animation-delay: 2.1s;
-}
-
-@keyframes ringPulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.5);
-  }
-}
+.splash__corner--tl { top: 40px; left: 40px; border-top-width: 1px; border-left-width: 1px; }
+.splash__corner--tr { top: 40px; right: 40px; border-top-width: 1px; border-right-width: 1px; }
+.splash__corner--bl { bottom: 40px; left: 40px; border-bottom-width: 1px; border-left-width: 1px; }
+.splash__corner--br { bottom: 40px; right: 40px; border-bottom-width: 1px; border-right-width: 1px; }

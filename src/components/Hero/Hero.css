@@ -1,5 +1,5 @@
 /* ============================================================
-   HERO SECTION STYLES
+   HERO SECTION — CINEMATIC OVERHAUL
    ============================================================ */
 .hero {
   position: relative;
@@ -8,29 +8,47 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6rem 2rem 4rem;
+  padding: 8rem 2rem 6rem;
   overflow: hidden;
   background: var(--hero-gradient);
 }
 
-/* --- Grid/Dot Pattern Background --- */
-.hero__grid-pattern {
+/* --- Subtle grid lines — editorial look --- */
+.hero__grid {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, var(--border-color) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.3;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(var(--text-primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--text-primary) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Vertical center accent line */
+.hero__center-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(232, 48, 42, 0.15) 30%,
+    rgba(232, 48, 42, 0.15) 70%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
-/* --- Watermark Adobe Logo --- */
+/* --- Watermark Adobe Logo in background --- */
 .hero__watermark {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.03;
-  animation: watermarkRotate 120s linear infinite;
+  opacity: 0.015;
   pointer-events: none;
 }
 
@@ -39,138 +57,259 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 900px;
+  max-width: 1100px;
+  width: 100%;
 }
 
+/* --- Label pill above title --- */
+.hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #E8302A;
+  padding: 8px 20px;
+  border: 1px solid rgba(232, 48, 42, 0.25);
+  border-radius: 50px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  background: rgba(232, 48, 42, 0.03);
+}
+
+.hero__label--visible {
+  animation: fadeUp 0.7s ease-out forwards;
+}
+
+.hero__label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E8302A;
+  animation: pulseGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(232, 48, 42, 0.5);
+}
+
+/* --- Main Title --- */
 .hero__title {
-  font-size: clamp(3rem, 10vw, 8rem);
+  font-size: clamp(3.5rem, 12vw, 9rem);
   font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  margin: 0 0 1.5rem;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  margin: 0 0 2rem;
   color: var(--text-primary);
 }
 
 .hero__title-line {
   display: block;
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(60px);
 }
 
 .hero__title-line--visible {
-  animation: fadeUp 0.8s ease-out forwards;
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Gradient-filled accent word */
 .hero__title-accent {
-  color: #E8302A;
+  background: linear-gradient(135deg, #E8302A, #FF6B35, #E8302A);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+/* Outline/stroke text effect */
+.hero__title-outline {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px var(--text-primary);
+  color: transparent;
 }
 
 /* --- Subtitle --- */
 .hero__subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
   font-weight: 300;
   color: var(--text-secondary);
-  margin: 0 0 2.5rem;
-  line-height: 1.6;
+  margin: 0 0 3.5rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(25px);
 }
 
 .hero__subtitle--visible {
-  animation: fadeUp 0.8s ease-out 0.4s forwards;
+  animation: fadeUp 0.9s ease-out 0.5s forwards;
 }
 
-/* --- CTA Button --- */
+/* --- CTA Row --- */
+.hero__cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.hero__cta-row--visible {
+  animation: fadeUp 0.9s ease-out 0.7s forwards;
+}
+
+/* Primary CTA — filled pill */
 .hero__cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 16px 36px;
+  gap: 10px;
+  padding: 16px 40px;
   background: #E8302A;
   color: white;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.hero__cta--visible {
-  animation: fadeUp 0.8s ease-out 0.6s forwards;
+.hero__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.hero__cta:hover::before {
+  transform: translateX(100%);
 }
 
 .hero__cta:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 30px rgba(232, 48, 42, 0.4), 0 10px 40px rgba(232, 48, 42, 0.2);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 40px rgba(232, 48, 42, 0.4), 0 0 0 1px rgba(232, 48, 42, 0.3);
 }
 
 .hero__cta-arrow {
   transition: transform 0.3s ease;
+  font-size: 1.1rem;
 }
 
 .hero__cta:hover .hero__cta-arrow {
-  transform: translateX(4px);
+  transform: translateX(5px);
+}
+
+/* Secondary CTA — ghost pill */
+.hero__cta--ghost {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.hero__cta--ghost:hover {
+  border-color: rgba(232, 48, 42, 0.5);
+  background: rgba(232, 48, 42, 0.05);
+  box-shadow: none;
+  transform: translateY(-3px);
 }
 
 /* --- Scroll Indicator --- */
-.hero__scroll-indicator {
+.hero__scroll {
   position: absolute;
-  bottom: 2rem;
+  bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
+  gap: 10px;
+  animation: bounceDown 2.5s ease-in-out infinite;
+}
+
+.hero__scroll-text {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  animation: bounceDown 2s ease-in-out infinite;
+  color: var(--text-muted);
 }
 
-.hero__scroll-chevron {
-  width: 24px;
-  height: 24px;
-  border-right: 2px solid var(--text-muted);
-  border-bottom: 2px solid var(--text-muted);
-  transform: rotate(45deg);
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--text-muted), transparent);
 }
 
-/* --- Floating decorative elements --- */
-.hero__float-element {
+/* --- Floating orbs --- */
+.hero__orb {
   position: absolute;
   border-radius: 50%;
-  background: rgba(232, 48, 42, 0.08);
-  animation: float 6s ease-in-out infinite;
   pointer-events: none;
+  animation: float 8s ease-in-out infinite;
+  filter: blur(60px);
 }
 
-.hero__float-element:nth-child(1) {
-  width: 300px;
-  height: 300px;
-  top: 10%;
-  right: -5%;
+.hero__orb--1 {
+  width: 400px;
+  height: 400px;
+  top: -10%;
+  right: -10%;
+  background: rgba(232, 48, 42, 0.06);
   animation-delay: 0s;
 }
 
-.hero__float-element:nth-child(2) {
-  width: 200px;
-  height: 200px;
-  bottom: 15%;
-  left: -3%;
-  animation-delay: 2s;
+.hero__orb--2 {
+  width: 300px;
+  height: 300px;
+  bottom: 5%;
+  left: -8%;
+  background: rgba(232, 48, 42, 0.04);
+  animation-delay: 3s;
 }
 
-.hero__float-element:nth-child(3) {
-  width: 150px;
-  height: 150px;
+.hero__orb--3 {
+  width: 200px;
+  height: 200px;
+  top: 40%;
+  left: 15%;
+  background: rgba(255, 107, 53, 0.03);
+  animation-delay: 5s;
+}
+
+/* --- Side text (editorial) --- */
+.hero__side-text {
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  writing-mode: vertical-rl;
+  opacity: 0.5;
+}
+
+.hero__side-text--left {
+  left: 2rem;
+  bottom: 30%;
+}
+
+.hero__side-text--right {
+  right: 2rem;
   top: 30%;
-  left: 10%;
-  animation-delay: 4s;
-  background: rgba(232, 48, 42, 0.04);
+}
+
+@media (max-width: 768px) {
+  .hero__side-text { display: none; }
 }

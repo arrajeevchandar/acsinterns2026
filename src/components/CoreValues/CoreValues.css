@@ -1,103 +1,163 @@
 /* ============================================================
-   CORE VALUES STYLES
+   CORE VALUES — PREMIUM OVERHAUL
    ============================================================ */
-.core-values {
-  padding: 6rem 2rem;
+.values {
+  padding: 8rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
-.core-values__header {
+.values__header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
-.core-values__label {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
+.values__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #E8302A;
-  margin-bottom: 1rem;
-  padding: 6px 16px;
-  border: 1px solid rgba(232, 48, 42, 0.3);
+  margin-bottom: 1.25rem;
+  padding: 8px 20px;
+  border: 1px solid rgba(232, 48, 42, 0.2);
   border-radius: 50px;
+  background: rgba(232, 48, 42, 0.03);
 }
 
-.core-values__title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+.values__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: var(--text-primary);
   margin: 0;
+  line-height: 1;
 }
 
-.core-values__accent-line {
-  width: 60px;
-  height: 3px;
-  background: #E8302A;
-  margin: 1.5rem auto 0;
-  border-radius: 2px;
+.values__subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin: 1.25rem auto 0;
+  max-width: 500px;
+  line-height: 1.7;
 }
 
 /* --- Cards Grid --- */
-.core-values__grid {
+.values__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 640px) {
-  .core-values__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .values__grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 1024px) {
-  .core-values__grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  .values__grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* --- Individual Card --- */
-.core-values__card {
+/* --- Card --- */
+.values__card {
+  position: relative;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 20px;
+  padding: 2.5rem 1.75rem;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: default;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px);
+  overflow: hidden;
 }
 
-.core-values__card--visible {
-  animation: fadeUp 0.7s ease-out forwards;
+.values__card--visible {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.core-values__card:hover {
-  transform: translateY(-8px);
-  border-color: #E8302A;
-  box-shadow: 0 20px 60px rgba(232, 48, 42, 0.1), 0 0 0 1px rgba(232, 48, 42, 0.2);
+/* Gradient accent line at top */
+.values__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E8302A, transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-.core-values__card-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.values__card:hover::before {
+  opacity: 1;
+}
+
+/* Inner glow on hover */
+.values__card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(232, 48, 42, 0.04), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.values__card:hover::after {
+  opacity: 1;
+}
+
+.values__card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(232, 48, 42, 0.2);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(232, 48, 42, 0.1);
+}
+
+.values__card-icon {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
-.core-values__card-title {
-  font-size: 1.2rem;
+.values__card-title {
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 2;
 }
 
-.core-values__card-desc {
-  font-size: 0.9rem;
+.values__card-desc {
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card number */
+.values__card-num {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  z-index: 2;
 }

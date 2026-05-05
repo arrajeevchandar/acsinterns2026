@@ -9,15 +9,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Start exit animation after 3.4 seconds
-    const exitTimer = setTimeout(() => {
-      setIsExiting(true);
-    }, 3400);
-
-    // Unmount after exit animation completes
-    const completeTimer = setTimeout(() => {
-      onComplete();
-    }, 4200);
+    // Start exit after all animations complete
+    const exitTimer = setTimeout(() => setIsExiting(true), 3800);
+    const completeTimer = setTimeout(() => onComplete(), 4800);
 
     return () => {
       clearTimeout(exitTimer);
@@ -26,52 +20,57 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className={`splash-screen ${isExiting ? 'splash-screen--exiting' : ''}`}>
-      {/* Particle effects */}
-      <div className="splash-particles">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="splash-particle" />
+    <div className={`splash ${isExiting ? 'splash--exit' : ''}`}>
+      {/* Corner markers — cinematic framing */}
+      <div className="splash__corner splash__corner--tl" />
+      <div className="splash__corner splash__corner--tr" />
+      <div className="splash__corner splash__corner--bl" />
+      <div className="splash__corner splash__corner--br" />
+
+      {/* Horizontal accent lines */}
+      <div className="splash__line splash__line--top" />
+      <div className="splash__line splash__line--bottom" />
+
+      {/* Particle burst */}
+      <div className="splash__particles">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div key={i} className="splash__particle" />
         ))}
       </div>
 
-      {/* Pulsing rings behind logo */}
-      <div className="splash-logo-container splash-logo-glow splash-logo-scale">
-        <div className="splash-ring" />
-        <div className="splash-ring" />
-        <div className="splash-ring" />
+      {/* Logo area */}
+      <div className="splash__logo-wrap splash__glow">
+        {/* Expanding rings */}
+        <div className="splash__ring" />
+        <div className="splash__ring" />
+        <div className="splash__ring" />
+        <div className="splash__ring" />
 
-        {/* Adobe "A" Triangle Logo — SVG inline */}
+        {/* Adobe Logo — accurate SVG */}
         <svg
-          viewBox="0 0 100 100"
+          viewBox="0 0 240 234"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-label="Adobe Logo"
         >
-          {/* Left side of the A */}
           <path
-            d="M5 95 L50 5 L50 95 Z"
-            className="splash-logo-path splash-logo-path--fill"
+            d="M0 233.4V0L93.6 233.4H0Z"
+            className="splash__logo-path splash__logo-fill"
           />
-          {/* Right side of the A */}
           <path
-            d="M95 95 L50 5 L50 95 Z"
-            className="splash-logo-path splash-logo-path--fill"
-            style={{ animationDelay: '0.3s, 2.1s' }}
+            d="M240 233.4V0L146.4 233.4H240Z"
+            className="splash__logo-path splash__logo-path--right splash__logo-fill"
           />
-          {/* Center notch / crossbar of the A */}
           <path
-            d="M65 95 L50 55 L35 95 Z"
-            className="splash-logo-path splash-logo-path--fill"
-            style={{ animationDelay: '0.6s, 2.4s' }}
-            stroke="#E8302A"
-            strokeWidth="1.5"
-            fill="transparent"
+            d="M120 46.8L163.2 153.6H141.6L128.4 120H97.2L120 46.8Z"
+            className="splash__logo-path splash__logo-path--center splash__logo-fill"
           />
         </svg>
       </div>
 
-      {/* "ADOBE" text */}
-      <div className="splash-text">ADOBE</div>
+      {/* Text */}
+      <div className="splash__text">ADOBE</div>
+      <div className="splash__subtext">ACS INTERNS 2026</div>
     </div>
   );
 };
