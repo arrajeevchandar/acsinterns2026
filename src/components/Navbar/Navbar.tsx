@@ -46,11 +46,14 @@ const Navbar: React.FC = () => {
 
         <div className="navbar__right">
           <button
-            className="navbar__theme-toggle"
+            className={`navbar__theme-toggle navbar__theme-toggle--${theme}`}
             onClick={toggleTheme}
+            role="switch"
+            aria-checked={theme === 'dark'}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
-            {theme === 'dark' ? 'Light' : 'Dark'}
+            <span>Light</span>
+            <span>Dark</span>
           </button>
 
           <button

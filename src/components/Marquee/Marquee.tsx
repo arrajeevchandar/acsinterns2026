@@ -57,7 +57,7 @@ const Marquee: React.FC = () => {
       id="gallery"
       ref={sectionRef}
       className="moments moments--scroll"
-      style={{ height: `${Math.max(180, moments.length * 44)}vh` }}
+      style={{ height: `${Math.max(360, moments.length * 88)}vh` }}
     >
       <div className="moments__sticky">
         <div className="moments__top">

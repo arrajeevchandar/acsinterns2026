@@ -12,8 +12,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   useEffect(() => {
     const timers = [
       window.setTimeout(() => setPhase('form'), 420),
-      window.setTimeout(() => setPhase('open'), 3300),
-      window.setTimeout(onComplete, 4600),
+      window.setTimeout(() => setPhase('open'), 3000),
+      window.setTimeout(onComplete, 4300),
     ];
 
     return () => timers.forEach(window.clearTimeout);

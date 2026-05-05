@@ -4,9 +4,9 @@ import './ScrollProgress.css';
 const SECTIONS = [
   { id: 'hero', label: 'Intro' },
   { id: 'gallery', label: 'Moments' },
+  { id: 'values', label: 'Values' },
   { id: 'about', label: 'People' },
   { id: 'timeline', label: 'Journey' },
-  { id: 'values', label: 'Values' },
   { id: 'teams', label: 'Teams' },
 ];
 

@@ -28,9 +28,9 @@ function App() {
       <main>
         <Hero contentReady={contentReady} />
         <Marquee />
+        <CoreValues />
         <About />
         <Process />
-        <CoreValues />
         <Stats />
         <TeamsPreview />
       </main>

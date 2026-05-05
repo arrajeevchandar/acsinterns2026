@@ -905,6 +905,152 @@
   box-shadow: 0 34px 100px rgba(235, 28, 36, 0.18), 0 30px 90px rgba(20, 20, 20, 0.16);
 }
 
+.week-journey {
+  display: grid;
+  gap: 2rem;
+}
+
+.week-journey__intro {
+  max-width: 760px;
+}
+
+.week-journey__board {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.6fr) minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: stretch;
+}
+
+.week-journey__detail {
+  min-height: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  color: #111;
+  background:
+    radial-gradient(circle at 80% 16%, rgba(235, 28, 36, 0.16), transparent 14rem),
+    rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(30px) saturate(1.75);
+  -webkit-backdrop-filter: blur(30px) saturate(1.75);
+  box-shadow: 0 30px 100px rgba(20, 20, 20, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.week-journey__detail span {
+  color: #EB1C24;
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.week-journey__detail strong {
+  color: #111;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.09em;
+}
+
+.week-journey__detail p {
+  max-width: 320px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.58);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.week-journey__rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 0.4rem;
+  align-content: center;
+  min-height: 430px;
+  padding: 2rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(30px) saturate(1.75);
+  -webkit-backdrop-filter: blur(30px) saturate(1.75);
+  box-shadow: 0 30px 100px rgba(20, 20, 20, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.week-journey__rail::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  top: 50%;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.12);
+  transform: translateY(-50%);
+}
+
+.week-journey__rail button {
+  position: relative;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.week-journey__rail button span {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #EB1C24;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 8px rgba(235, 28, 36, 0.08);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.week-journey__rail button small {
+  color: rgba(0, 0, 0, 0.52);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.week-journey__rail button em {
+  position: absolute;
+  top: 0.4rem;
+  min-width: 110px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  background: #111;
+  font-style: normal;
+  font-size: 0.58rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.week-journey__rail button:hover span,
+.week-journey__rail button.is-active span {
+  background: #EB1C24;
+  transform: scale(1.35);
+}
+
+.week-journey__rail button:hover em,
+.week-journey__rail button.is-active em {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .moments--scroll .moment-card img {
   min-height: clamp(360px, 58vh, 560px);
 }
@@ -1009,6 +1155,90 @@
 
   .phase__bars {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Theme polish */
+html[data-theme="dark"] .moments,
+html[data-theme="dark"] .home-section--soft,
+html[data-theme="dark"] .home-section--light {
+  background:
+    radial-gradient(circle at 20% 16%, rgba(235, 28, 36, 0.18), transparent 24rem),
+    linear-gradient(180deg, var(--page-soft-start), var(--page-soft-end));
+  color: var(--page-ink);
+}
+
+html[data-theme="dark"] .moments__title,
+html[data-theme="dark"] .section-heading,
+html[data-theme="dark"] .hub__glass strong,
+html[data-theme="dark"] .team-switcher__orb span,
+html[data-theme="dark"] .week-journey__detail strong,
+html[data-theme="dark"] .value-minimal__tile strong {
+  color: var(--page-ink);
+}
+
+html[data-theme="dark"] .section-copy,
+html[data-theme="dark"] .week-journey__detail p,
+html[data-theme="dark"] .phase__label {
+  color: var(--page-muted);
+}
+
+html[data-theme="dark"] .moments__controls button,
+html[data-theme="dark"] .moments__filters button,
+html[data-theme="dark"] .hub__tab,
+html[data-theme="dark"] .team-switcher__list button,
+html[data-theme="dark"] .week-journey__detail,
+html[data-theme="dark"] .week-journey__rail,
+html[data-theme="dark"] .phase__screen,
+html[data-theme="dark"] .team-switcher__visual,
+html[data-theme="dark"] .team-switcher__panel,
+html[data-theme="dark"] .value-minimal__tile,
+html[data-theme="dark"] .stats-cinema__item {
+  color: var(--page-ink);
+  border-color: var(--page-glass-border);
+  background: var(--page-glass);
+}
+
+html[data-theme="dark"] .week-journey__rail::before {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+html[data-theme="dark"] .week-journey__rail button small,
+html[data-theme="dark"] .value-minimal__tile span {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+html[data-theme="dark"] .week-journey__rail button span {
+  background: #111;
+}
+
+html[data-theme="dark"] .hub__stage,
+html[data-theme="dark"] .moment-card {
+  border-color: var(--page-glass-border);
+  background: var(--page-glass);
+}
+
+html[data-theme="dark"] .stats-cinema__label {
+  color: var(--page-ink);
+}
+
+@media (max-width: 900px) {
+  .week-journey__board {
+    grid-template-columns: 1fr;
+  }
+
+  .week-journey__rail {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .week-journey__rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .week-journey__rail::before {
+    display: none;
   }
 }
 

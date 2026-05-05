@@ -53,6 +53,24 @@
   --mesh-3: rgba(20, 100, 220, 0.02);
 }
 
+html[data-theme="dark"] {
+  --page-soft-start: #101010;
+  --page-soft-end: #181818;
+  --page-ink: #FFFFFF;
+  --page-muted: rgba(255, 255, 255, 0.62);
+  --page-glass: rgba(255, 255, 255, 0.08);
+  --page-glass-border: rgba(255, 255, 255, 0.16);
+}
+
+html[data-theme="light"] {
+  --page-soft-start: #fbfbfb;
+  --page-soft-end: #f0f0f0;
+  --page-ink: #111111;
+  --page-muted: rgba(0, 0, 0, 0.58);
+  --page-glass: rgba(255, 255, 255, 0.66);
+  --page-glass-border: rgba(255, 255, 255, 0.82);
+}
+
 /* ============================================================
    BASE
    ============================================================ */
