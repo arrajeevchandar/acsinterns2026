@@ -18,34 +18,27 @@ const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isScrolled = scrollY > 30;
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
     setIsMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
       <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} id="navbar">
-        <a href="#hero" className="navbar__brand" onClick={(e) => handleNavClick(e, '#hero')}>
+        <a href="#hero" className="navbar__brand" onClick={(event) => handleNavClick(event, '#hero')}>
           <span className="navbar__brand-logo">
-            <AdobeLogo size={28} color="#E8302A" />
+            <AdobeLogo size={28} color="#eb1c24" />
           </span>
           <span className="navbar__brand-sep" />
-          <span>ACS Interns '26</span>
+          <span>ACS Interns 2026</span>
         </a>
 
         <ul className="navbar__links">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="navbar__link"
-                onClick={(e) => handleNavClick(e, link.href)}
-              >
+              <a href={link.href} className="navbar__link" onClick={(event) => handleNavClick(event, link.href)}>
                 {link.label}
               </a>
             </li>
@@ -58,7 +51,7 @@ const Navbar: React.FC = () => {
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
-            {theme === 'dark' ? '☀️' : '🌙'}
+            {theme === 'dark' ? 'Light' : 'Dark'}
           </button>
 
           <button
@@ -79,7 +72,7 @@ const Navbar: React.FC = () => {
             key={link.href}
             href={link.href}
             className="navbar__mobile-link"
-            onClick={(e) => handleNavClick(e, link.href)}
+            onClick={(event) => handleNavClick(event, link.href)}
           >
             <span className="navbar__mobile-link-num">0{i + 1}</span>
             {link.label}

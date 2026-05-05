@@ -1,237 +1,263 @@
-/* ============================================================
-   SPLASH SCREEN — CINEMATIC OVERHAUL
-   ============================================================ */
 .splash {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #000;
+  display: grid;
+  place-items: center;
   overflow: hidden;
+  background: #020202;
+  color: #fff;
+  isolation: isolate;
 }
 
-/* Subtle radial gradient behind logo */
 .splash::before {
   content: '';
   position: absolute;
-  width: 800px;
-  height: 800px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 48, 42, 0.08) 0%, transparent 70%);
-  animation: float 8s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* Exit animation — clip from bottom to top like a curtain */
-.splash--exit {
-  animation: splashExit 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
-
-/* --- Logo wrapper --- */
-.splash__logo-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.splash__logo-wrap svg {
-  width: 140px;
-  height: 140px;
-  position: relative;
-  z-index: 3;
-}
-
-@media (min-width: 768px) {
-  .splash__logo-wrap svg {
-    width: 200px;
-    height: 200px;
-  }
-}
-
-/* --- SVG stroke draw --- */
-.splash__logo-path {
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
-  animation: splashLogoDraw 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  stroke: #E8302A;
-  stroke-width: 2;
-  fill: transparent;
-}
-
-.splash__logo-path--right {
-  animation-delay: 0.15s;
-}
-
-.splash__logo-path--center {
-  animation-delay: 0.3s;
-}
-
-/* Fill after draw completes */
-.splash__logo-fill .splash__logo-path {
-  animation: splashLogoDraw 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards,
-             splashLogoFill 0.6s ease-in-out 2s forwards;
-}
-
-.splash__logo-fill .splash__logo-path--right {
-  animation-delay: 0.15s, 2.15s;
-}
-
-.splash__logo-fill .splash__logo-path--center {
-  animation-delay: 0.3s, 2.3s;
-}
-
-/* Glow effect on the entire SVG group */
-.splash__glow {
-  animation: splashLogoGlow 1.8s ease-in-out 2.2s forwards;
-}
-
-/* --- Expanding rings behind logo --- */
-.splash__ring {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border: 1px solid rgba(232, 48, 42, 0.3);
-  animation: splashRingExpand 2s ease-out forwards;
-  pointer-events: none;
-}
-
-@media (min-width: 768px) {
-  .splash__ring {
-    width: 200px;
-    height: 200px;
-  }
-}
-
-.splash__ring:nth-child(1) { animation-delay: 2.0s; }
-.splash__ring:nth-child(2) { animation-delay: 2.2s; }
-.splash__ring:nth-child(3) { animation-delay: 2.4s; }
-.splash__ring:nth-child(4) { animation-delay: 2.6s; }
-
-/* --- Horizontal line expanding from center --- */
-.splash__line {
-  position: absolute;
-  width: 300px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(232, 48, 42, 0.5), transparent);
-  transform-origin: center;
-  transform: scaleX(0);
-  animation: splashLineExpand 0.8s ease-out 2.4s forwards;
-}
-
-@media (min-width: 768px) {
-  .splash__line {
-    width: 500px;
-  }
-}
-
-.splash__line--top {
-  top: calc(50% - 110px);
-}
-
-.splash__line--bottom {
-  top: calc(50% + 110px);
-}
-
-@media (min-width: 768px) {
-  .splash__line--top { top: calc(50% - 140px); }
-  .splash__line--bottom { top: calc(50% + 140px); }
-}
-
-/* --- "ADOBE" text --- */
-.splash__text {
-  margin-top: 40px;
-  font-size: 1rem;
-  font-weight: 200;
-  color: white;
-  letter-spacing: 1em;
-  text-transform: uppercase;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(235, 28, 36, 0.26), transparent 28%),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05), transparent 24%),
+    linear-gradient(110deg, transparent 0 44%, rgba(255, 255, 255, 0.08) 48%, transparent 52% 100%);
   opacity: 0;
-  animation: splashTextReveal 0.8s ease-out 2.6s forwards;
-  position: relative;
-  z-index: 3;
+  transform: scale(0.9) rotate(-6deg);
+  transition: opacity 900ms ease, transform 1300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (min-width: 768px) {
-  .splash__text {
-    font-size: 1.2rem;
-  }
+.splash--form::before,
+.splash--open::before {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
 }
 
-/* --- Subtext --- */
-.splash__subtext {
-  margin-top: 12px;
-  font-size: 0.7rem;
-  font-weight: 300;
-  color: white;
-  letter-spacing: 0.3em;
-  opacity: 0;
-  animation: splashSubTextReveal 0.6s ease-out 3s forwards;
-  position: relative;
-  z-index: 3;
+.splash__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.2%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 18%),
+    #030303;
+  z-index: 4;
+  transition: transform 1150ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* --- Particles --- */
-.splash__particles {
+.splash__panel--left {
+  left: 0;
+  border-right: 1px solid rgba(235, 28, 36, 0.22);
+}
+
+.splash__panel--right {
+  right: 0;
+  border-left: 1px solid rgba(235, 28, 36, 0.22);
+  transform: scaleX(-1);
+}
+
+.splash--open .splash__panel--left {
+  transform: translateX(-101%);
+}
+
+.splash--open .splash__panel--right {
+  transform: translateX(101%) scaleX(-1);
+}
+
+.splash__scanline {
   position: absolute;
   inset: 0;
+  z-index: 6;
   pointer-events: none;
-  z-index: 2;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  height: 24vh;
+  transform: translateY(-120vh);
+  animation: splashScan 2200ms cubic-bezier(0.65, 0, 0.35, 1) 520ms forwards;
 }
 
-.splash__particle {
+.splash__stage {
+  position: relative;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  gap: 2rem;
+  perspective: 900px;
+  transition: opacity 600ms ease, transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.splash--open .splash__stage {
+  opacity: 0;
+  transform: scale(1.55) translateY(-2vh);
+}
+
+.splash__rings {
   position: absolute;
-  width: 3px;
-  height: 3px;
-  background: #E8302A;
+  width: min(64vw, 520px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 900ms ease, transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.splash--form .splash__rings,
+.splash--open .splash__rings {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.splash__rings span {
+  position: absolute;
+  inset: calc(var(--i, 0) * 12%);
+  border: 1px solid rgba(235, 28, 36, 0.18);
   border-radius: 50%;
+  animation: ringTurn 5200ms linear infinite;
+}
+
+.splash__rings span:nth-child(1) { --i: 0; }
+.splash__rings span:nth-child(2) { --i: 1; animation-direction: reverse; }
+.splash__rings span:nth-child(3) { --i: 2; animation-duration: 3900ms; }
+
+.splash__mark {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  display: grid;
+  place-items: center;
+  transform: rotateX(66deg) rotateZ(-20deg) scale(0.72);
   opacity: 0;
+  filter: drop-shadow(0 0 0 rgba(235, 28, 36, 0));
+  transition:
+    opacity 700ms ease,
+    transform 1700ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1700ms ease;
 }
 
-/* Particles burst from center on fill */
-.splash__particle:nth-child(1)  { top: 50%; left: 50%; --tx: -80px;  --ty: -120px; animation: splashParticle 1.5s ease-out 2.2s forwards; }
-.splash__particle:nth-child(2)  { top: 50%; left: 50%; --tx: 100px;  --ty: -90px;  animation: splashParticle 1.5s ease-out 2.3s forwards; }
-.splash__particle:nth-child(3)  { top: 50%; left: 50%; --tx: -120px; --ty: 60px;   animation: splashParticle 1.5s ease-out 2.25s forwards; }
-.splash__particle:nth-child(4)  { top: 50%; left: 50%; --tx: 70px;   --ty: 130px;  animation: splashParticle 1.5s ease-out 2.35s forwards; }
-.splash__particle:nth-child(5)  { top: 50%; left: 50%; --tx: -50px;  --ty: -150px; animation: splashParticle 1.5s ease-out 2.4s forwards; }
-.splash__particle:nth-child(6)  { top: 50%; left: 50%; --tx: 140px;  --ty: 30px;   animation: splashParticle 1.5s ease-out 2.28s forwards; }
-.splash__particle:nth-child(7)  { top: 50%; left: 50%; --tx: -130px; --ty: -40px;  animation: splashParticle 1.5s ease-out 2.33s forwards; }
-.splash__particle:nth-child(8)  { top: 50%; left: 50%; --tx: 30px;   --ty: -160px; animation: splashParticle 1.5s ease-out 2.38s forwards; }
-.splash__particle:nth-child(9)  { top: 50%; left: 50%; --tx: 160px;  --ty: -20px;  animation: splashParticle 1.5s ease-out 2.22s forwards; }
-.splash__particle:nth-child(10) { top: 50%; left: 50%; --tx: -90px;  --ty: 100px;  animation: splashParticle 1.5s ease-out 2.32s forwards; }
-.splash__particle:nth-child(11) { top: 50%; left: 50%; --tx: 50px;   --ty: 150px;  animation: splashParticle 1.5s ease-out 2.27s forwards; }
-.splash__particle:nth-child(12) { top: 50%; left: 50%; --tx: -160px; --ty: -10px;  animation: splashParticle 1.5s ease-out 2.37s forwards; }
-
-/* Some particles are larger with glow */
-.splash__particle:nth-child(even) {
-  width: 4px;
-  height: 4px;
-  box-shadow: 0 0 6px rgba(232, 48, 42, 0.8);
+.splash--form .splash__mark,
+.splash--open .splash__mark {
+  opacity: 1;
+  transform: rotateX(0deg) rotateZ(0deg) scale(1);
+  filter: drop-shadow(0 22px 50px rgba(235, 28, 36, 0.36));
 }
 
-.splash__particle:nth-child(3n) {
-  width: 2px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* --- Corner markers (cinematic framing) --- */
-.splash__corner {
+.splash__mark > svg,
+.splash__mark-shadow {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border-color: rgba(232, 48, 42, 0.2);
-  border-style: solid;
-  border-width: 0;
-  opacity: 0;
-  animation: fadeIn 0.5s ease-out 2.8s forwards;
+  inset: 0;
 }
 
-.splash__corner--tl { top: 40px; left: 40px; border-top-width: 1px; border-left-width: 1px; }
-.splash__corner--tr { top: 40px; right: 40px; border-top-width: 1px; border-right-width: 1px; }
-.splash__corner--bl { bottom: 40px; left: 40px; border-bottom-width: 1px; border-left-width: 1px; }
-.splash__corner--br { bottom: 40px; right: 40px; border-bottom-width: 1px; border-right-width: 1px; }
+.splash__mark-shadow {
+  opacity: 0;
+  transform: translate3d(0, 0, -20px);
+}
+
+.splash--form .splash__mark-shadow--one {
+  animation: logoGhostOne 1700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash--form .splash__mark-shadow--two {
+  animation: logoGhostTwo 1700ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards;
+}
+
+.adobe-logo--animated .adobe-logo__path {
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  animation: logoDraw 1500ms cubic-bezier(0.16, 1, 0.3, 1) 680ms forwards, logoFill 450ms ease 1900ms forwards;
+}
+
+.adobe-logo--animated .adobe-logo__path--right { animation-delay: 820ms, 2000ms; }
+.adobe-logo--animated .adobe-logo__path--center { animation-delay: 980ms, 2100ms; }
+
+.splash__word {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms ease 1650ms, transform 700ms ease 1650ms;
+}
+
+.splash--form .splash__word,
+.splash--open .splash__word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.splash__word span {
+  font-size: clamp(2.4rem, 10vw, 6.4rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.splash__word small {
+  max-width: 90vw;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: clamp(0.62rem, 1.4vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.splash__counter {
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  bottom: 1.5rem;
+  z-index: 7;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  transition: opacity 500ms ease;
+}
+
+.splash--open .splash__counter {
+  opacity: 0;
+}
+
+@keyframes splashScan {
+  to { transform: translateY(120vh); }
+}
+
+@keyframes ringTurn {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes logoFill {
+  to { fill: #eb1c24; }
+}
+
+@keyframes logoGhostOne {
+  0% { opacity: 0; transform: translate3d(-60px, 38px, -90px) rotateZ(-18deg); }
+  55% { opacity: 0.3; }
+  100% { opacity: 0; transform: translate3d(0, 0, -10px) rotateZ(0deg); }
+}
+
+@keyframes logoGhostTwo {
+  0% { opacity: 0; transform: translate3d(58px, -32px, -70px) rotateZ(16deg); }
+  55% { opacity: 0.18; }
+  100% { opacity: 0; transform: translate3d(0, 0, -10px) rotateZ(0deg); }
+}
+
+@media (max-width: 640px) {
+  .splash__mark {
+    width: 112px;
+    height: 112px;
+  }
+
+  .splash__mark svg {
+    width: 112px;
+    height: 112px;
+  }
+
+  .splash__counter {
+    left: 1.25rem;
+    right: 1.25rem;
+  }
+}

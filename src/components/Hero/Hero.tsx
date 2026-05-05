@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdobeLogo from '../AdobeLogo/AdobeLogo';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import './Hero.css';
@@ -7,90 +7,95 @@ interface HeroProps {
   contentReady?: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ contentReady = true }) => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.15 });
-  const show = contentReady || isVisible;
+const TEAMS = ['AEM', 'Workfront', 'Data', 'UI', 'DACOE'];
+
+const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const [animatedIn, setAnimatedIn] = useState(false);
+
+  useEffect(() => {
+    if (!contentReady) return;
+    const timer = window.setTimeout(() => setAnimatedIn(true), 160);
+    return () => window.clearTimeout(timer);
+  }, [contentReady]);
+
+  const show = animatedIn || isVisible;
+
+  const scrollTo = (selector: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section className="hero" id="hero" ref={ref}>
-      {/* Background layers */}
-      <div className="hero__grid" />
-      <div className="hero__center-line" />
+      <div className="hero__image" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/hero-bg.png)` }} />
+      <div className="hero__shade" />
+      <div className="hero__beam hero__beam--one" />
+      <div className="hero__beam hero__beam--two" />
+      <div className="hero__grain" />
 
-      {/* Floating orbs */}
-      <div className="hero__orb hero__orb--1" />
-      <div className="hero__orb hero__orb--2" />
-      <div className="hero__orb hero__orb--3" />
-
-      {/* Watermark logo */}
-      <div className="hero__watermark">
-        <AdobeLogo size={700} color="var(--text-primary)" />
+      <div className="hero__orbit" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <AdobeLogo size={210} color="rgba(255,255,255,0.12)" />
       </div>
 
-      {/* Editorial side text */}
-      <span className="hero__side-text hero__side-text--left">Adobe Experience Cloud</span>
-      <span className="hero__side-text hero__side-text--right">Summer 2026</span>
-
-      {/* Main Content */}
-      <div className="hero__content">
-        {/* Label pill */}
-        <div className={`hero__label ${show ? 'hero__label--visible' : ''}`}>
-          <span className="hero__label-dot" />
-          Summer Internship Program
-        </div>
-
-        {/* Title */}
-        <h1 className="hero__title">
-          <span
-            className={`hero__title-line ${show ? 'hero__title-line--visible' : ''}`}
-          >
-            ACS{' '}
-            <span className="hero__title-outline">Interns</span>
-          </span>
-          <span
-            className={`hero__title-line ${show ? 'hero__title-line--visible' : ''}`}
-            style={{ animationDelay: '0.15s' }}
-          >
-            <span className="hero__title-accent">2026</span>
-          </span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className={`hero__subtitle ${show ? 'hero__subtitle--visible' : ''}`}>
-          Where innovation meets opportunity. Building the future of
-          Adobe Experience Cloud — one breakthrough at a time.
+      <div className={`hero__content ${show ? 'is-visible' : ''}`}>
+        <p className="hero__eyebrow">
+          <span />
+          Adobe Cloud Services
         </p>
 
-        {/* CTA Row */}
-        <div className={`hero__cta-row ${show ? 'hero__cta-row--visible' : ''}`}>
-          <a
-            href="#teams"
-            className="hero__cta"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#teams')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Explore Teams
-            <span className="hero__cta-arrow">→</span>
+        <h1 className="hero__title">
+          Interns building the next wave of digital experience.
+        </h1>
+
+        <p className="hero__copy">
+          A cinematic home for the ACS 2026 cohort: teams, projects, stories,
+          galleries, profiles, mentor notes, and every milestone from onboarding
+          to showcase day.
+        </p>
+
+        <div className="hero__actions">
+          <a className="hero__button hero__button--primary" href="#teams" onClick={scrollTo('#teams')}>
+            Explore teams
+            <span aria-hidden="true">-&gt;</span>
           </a>
-          <a
-            href="#values"
-            className="hero__cta hero__cta--ghost"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#values')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Our Values
+          <a className="hero__button hero__button--secondary" href="#projects" onClick={scrollTo('#projects')}>
+            View projects
           </a>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="hero__scroll">
-        <span className="hero__scroll-text">Scroll</span>
-        <div className="hero__scroll-line" />
+      <aside className={`hero__dashboard ${show ? 'is-visible' : ''}`} aria-label="Internship overview">
+        <div className="hero__dashboard-top">
+          <span>Portal build</span>
+          <strong>Phase 01</strong>
+        </div>
+
+        <div className="hero__metric">
+          <strong>30+</strong>
+          <span>Intern profiles planned</span>
+        </div>
+
+        <div className="hero__team-strip">
+          {TEAMS.map((team) => (
+            <span key={team}>{team}</span>
+          ))}
+        </div>
+
+        <div className="hero__timeline">
+          <span className="is-live" />
+          <span />
+          <span />
+          <span />
+        </div>
+      </aside>
+
+      <div className="hero__footerline">
+        <span>Home / Gallery / Projects / Teams / FAQs</span>
+        <span>Summer internship 2026</span>
       </div>
     </section>
   );

@@ -1,108 +1,50 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 const STATS = [
-  { value: 30, suffix: '+', label: 'Interns', sublabel: 'Building the future' },
-  { value: 5, suffix: '', label: 'Teams', sublabel: 'Cross-functional squads' },
-  { value: 15, suffix: '+', label: 'Projects', sublabel: 'Shipped this summer' },
-  { value: 1, suffix: '', label: 'Vision', sublabel: 'One unified mission' },
+  { value: 30, suffix: '+', label: 'Interns', sub: 'Profiles, teams, and stories' },
+  { value: 5, suffix: '', label: 'Squads', sub: 'AEM, Workfront, Data, UI, DACOE' },
+  { value: 15, suffix: '+', label: 'Builds', sub: 'Projects and prototypes' },
+  { value: 1, suffix: '', label: 'Portal', sub: 'One home for the cohort' },
 ];
 
-const AnimatedNumber: React.FC<{ target: number; isVisible: boolean; suffix: string }> = ({
-  target, isVisible, suffix,
-}) => {
-  const [current, setCurrent] = useState(0);
-  const hasAnimated = useRef(false);
+const AnimNum: React.FC<{ target: number; vis: boolean; suffix: string }> = ({ target, vis, suffix }) => {
+  const [cur, setCur] = useState(0);
+  const done = useRef(false);
 
   useEffect(() => {
-    if (!isVisible || hasAnimated.current) return;
-    hasAnimated.current = true;
-    const duration = 1800;
-    const steps = Math.max(target * 3, 30);
-    const increment = target / steps;
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      setCurrent(Math.min(Math.round(increment * step), target));
-      if (step >= steps) clearInterval(timer);
-    }, duration / steps);
-    return () => clearInterval(timer);
-  }, [isVisible, target]);
+    if (!vis || done.current) return undefined;
 
-  return <span style={{ fontVariantNumeric: 'tabular-nums' }}>{current}{suffix}</span>;
+    done.current = true;
+    const steps = Math.max(target * 3, 28);
+    const inc = target / steps;
+    let step = 0;
+    const timer = window.setInterval(() => {
+      step += 1;
+      setCur(Math.min(Math.round(inc * step), target));
+      if (step >= steps) window.clearInterval(timer);
+    }, 1500 / steps);
+
+    return () => window.clearInterval(timer);
+  }, [vis, target]);
+
+  return <>{cur}{suffix}</>;
 };
 
 const Stats: React.FC = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.2 });
 
   return (
-    <section ref={ref} style={{
-      padding: '6rem 2rem',
-      background: 'var(--bg-secondary)',
-      position: 'relative',
-      overflow: 'hidden',
-      transition: 'background 0.5s ease',
-      borderTop: '1px solid var(--border-color)',
-      borderBottom: '1px solid var(--border-color)',
-    }}>
-      {/* Radial glow */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '700px',
-        height: '700px',
-        background: 'radial-gradient(circle, rgba(232,48,42,0.05) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        maxWidth: '1000px',
-        margin: '0 auto',
-        position: 'relative',
-        zIndex: 2,
-      }}>
-        {STATS.map((stat, index) => (
-          <div key={stat.label} style={{
-            textAlign: 'center' as const,
-            padding: '2.5rem 2rem',
-            borderRight: index < STATS.length - 1 ? '1px solid var(--border-color)' : 'none',
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-            transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.12}s`,
-          }}>
-            <div style={{
-              fontSize: 'clamp(3rem, 8vw, 5rem)',
-              fontWeight: 800,
-              color: '#E8302A',
-              letterSpacing: '-0.04em',
-              lineHeight: 1,
-              marginBottom: '0.5rem',
-            }}>
-              <AnimatedNumber target={stat.value} isVisible={isVisible} suffix={stat.suffix} />
+    <section ref={ref} className="home-section home-section--dark">
+      <div className="home-wrap stats-cinema">
+        {STATS.map((stat) => (
+          <article className="stats-cinema__item reveal is-visible" key={stat.label}>
+            <div className="stats-cinema__value">
+              <AnimNum target={stat.value} vis={isVisible} suffix={stat.suffix} />
             </div>
-            <div style={{
-              fontSize: '0.85rem',
-              fontWeight: 600,
-              color: 'var(--text-primary)',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase' as const,
-              marginBottom: '0.35rem',
-            }}>
-              {stat.label}
-            </div>
-            <div style={{
-              fontSize: '0.7rem',
-              fontWeight: 300,
-              color: 'var(--text-muted)',
-              letterSpacing: '0.03em',
-            }}>
-              {stat.sublabel}
-            </div>
-          </div>
+            <div className="stats-cinema__label">{stat.label}</div>
+            <div className="stats-cinema__sub">{stat.sub}</div>
+          </article>
         ))}
       </div>
     </section>

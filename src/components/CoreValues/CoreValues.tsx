@@ -4,54 +4,46 @@ import './CoreValues.css';
 
 const VALUES = [
   {
-    icon: '💡',
-    title: 'Innovation',
-    description: 'Pushing boundaries and exploring new frontiers in technology to shape tomorrow\'s digital experiences.',
+    title: 'Create',
+    description: 'Move from idea to prototype quickly, with craft and curiosity in every iteration.',
   },
   {
-    icon: '🤝',
-    title: 'Collaboration',
-    description: 'Working across teams, sharing knowledge, and building on each other\'s strengths to create something greater.',
+    title: 'Collaborate',
+    description: 'Share context openly across AEM, Workfront, Data, UI, DACOE, mentors, and peers.',
   },
   {
-    icon: '🎯',
-    title: 'Excellence',
-    description: 'Striving for the highest quality in everything we create — from code architecture to pixel-perfect design.',
+    title: 'Own',
+    description: 'Treat every project as real work, with clear decisions, polish, testing, and follow-through.',
   },
   {
-    icon: '🌍',
-    title: 'Impact',
-    description: 'Creating meaningful solutions that make a real difference for millions of users across the globe.',
+    title: 'Elevate',
+    description: 'Make the cohort better through documentation, demos, feedback, and everyday generosity.',
   },
 ];
 
 const CoreValues: React.FC = () => {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
+  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.12 });
 
   return (
-    <section className="values" id="values" ref={ref}>
-      <div className="values__header">
-        <span className="values__label">What Drives Us</span>
-        <h2 className="values__title">Core Values</h2>
-        <p className="values__subtitle">
-          The principles that guide every line of code, every design decision,
-          and every collaboration at ACS.
-        </p>
-      </div>
+    <section className="home-section home-section--dark" id="values" ref={ref}>
+      <div className="home-wrap values-cinema">
+        <aside className={`values-cinema__statement reveal ${isVisible ? 'is-visible' : ''}`}>
+          <span>Core values</span>
+          <strong>Make it matter</strong>
+        </aside>
 
-      <div className="values__grid">
-        {VALUES.map((value, index) => (
-          <div
-            key={value.title}
-            className={`values__card ${isVisible ? 'values__card--visible' : ''}`}
-            style={{ animationDelay: `${index * 0.12}s` }}
-          >
-            <span className="values__card-num">0{index + 1}</span>
-            <span className="values__card-icon">{value.icon}</span>
-            <h3 className="values__card-title">{value.title}</h3>
-            <p className="values__card-desc">{value.description}</p>
-          </div>
-        ))}
+        <div className={`values-cinema__grid reveal ${isVisible ? 'is-visible' : ''}`}>
+          {VALUES.map((value, index) => (
+            <article className="value-tile" key={value.title}>
+              <div className="value-tile__top">
+                <span>0{index + 1}</span>
+                <span>ACS</span>
+              </div>
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

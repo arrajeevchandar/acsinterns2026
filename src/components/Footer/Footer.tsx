@@ -4,7 +4,7 @@ import './Footer.css';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer" id="footer">
+    <footer className="footer" id="faqs">
       <div className="footer__accent" />
       <div className="footer__grid-bg" />
       <div className="footer__watermark">ACS INTERNS 2026</div>
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
       {/* Bottom Bar */}
       <div className="footer__bottom">
         <p className="footer__copyright">
-          © 2026 Adobe. All rights reserved.
+          Copyright 2026 Adobe. All rights reserved.
         </p>
         <div className="footer__bottom-links">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
