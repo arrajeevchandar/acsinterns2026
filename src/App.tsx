@@ -6,7 +6,6 @@ import Marquee from './components/Marquee/Marquee';
 import About from './components/About/About';
 import Process from './components/Process/Process';
 import CoreValues from './components/CoreValues/CoreValues';
-import Showcase from './components/Showcase/Showcase';
 import Stats from './components/Stats/Stats';
 import TeamsPreview from './components/TeamsPreview/TeamsPreview';
 import Footer from './components/Footer/Footer';
@@ -30,7 +29,6 @@ function App() {
         <About />
         <Process />
         <CoreValues />
-        <Showcase />
         <Stats />
         <TeamsPreview />
       </main>

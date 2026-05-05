@@ -7,7 +7,6 @@ import './Navbar.css';
 const NAV_LINKS = [
   { label: 'Home', href: '#hero' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Projects', href: '#projects' },
   { label: 'Teams', href: '#teams' },
   { label: 'FAQs', href: '#faqs' },
 ];

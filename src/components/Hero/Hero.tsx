@@ -48,13 +48,11 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
         </p>
 
         <h1 className="hero__title">
-          Interns building the next wave of digital experience.
+          ACS Interns 2026
         </h1>
 
         <p className="hero__copy">
-          A cinematic home for the ACS 2026 cohort: teams, projects, stories,
-          galleries, profiles, mentor notes, and every milestone from onboarding
-          to showcase day.
+          People. Teams. Moments. One portal.
         </p>
 
         <div className="hero__actions">
@@ -62,8 +60,8 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
             Explore teams
             <span aria-hidden="true">-&gt;</span>
           </a>
-          <a className="hero__button hero__button--secondary" href="#projects" onClick={scrollTo('#projects')}>
-            View projects
+          <a className="hero__button hero__button--secondary" href="#gallery" onClick={scrollTo('#gallery')}>
+            View moments
           </a>
         </div>
       </div>
@@ -94,7 +92,7 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
       </aside>
 
       <div className="hero__footerline">
-        <span>Home / Gallery / Projects / Teams / FAQs</span>
+        <span>Home / Gallery / Teams / FAQs</span>
         <span>Summer internship 2026</span>
       </div>
     </section>
