@@ -1,0 +1,205 @@
+/* ============================================================
+   NAVBAR STYLES
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+
+.navbar--scrolled {
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 2rem;
+}
+
+/* --- Brand --- */
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.navbar__brand-logo {
+  transition: transform 0.3s ease;
+}
+
+.navbar__brand:hover .navbar__brand-logo {
+  transform: scale(1.1);
+}
+
+/* --- Nav Links --- */
+.navbar__links {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .navbar__links {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.navbar__link {
+  position: relative;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+  padding: 4px 0;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--text-primary);
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #E8302A;
+  transition: width 0.3s ease;
+}
+
+.navbar__link:hover::after,
+.navbar__link--active::after {
+  width: 100%;
+}
+
+/* --- Right side: Theme Toggle + Hamburger --- */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* --- Theme Toggle --- */
+.navbar__theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.navbar__theme-toggle:hover {
+  border-color: #E8302A;
+  color: #E8302A;
+  transform: rotate(30deg);
+}
+
+/* --- Hamburger --- */
+.navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+
+@media (min-width: 768px) {
+  .navbar__hamburger {
+    display: none;
+  }
+}
+
+.navbar__hamburger-line {
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.navbar__hamburger--open .navbar__hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translateY(5px) translateX(5px);
+}
+
+.navbar__hamburger--open .navbar__hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__hamburger--open .navbar__hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translateY(-5px) translateX(5px);
+}
+
+/* --- Mobile Menu Overlay --- */
+.navbar__mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-primary);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar__mobile-menu--open {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.navbar__mobile-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.navbar__mobile-menu--open .navbar__mobile-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar__mobile-menu--open .navbar__mobile-link:nth-child(1) { transition-delay: 0.1s; }
+.navbar__mobile-menu--open .navbar__mobile-link:nth-child(2) { transition-delay: 0.2s; }
+.navbar__mobile-menu--open .navbar__mobile-link:nth-child(3) { transition-delay: 0.3s; }
+.navbar__mobile-menu--open .navbar__mobile-link:nth-child(4) { transition-delay: 0.4s; }
+.navbar__mobile-menu--open .navbar__mobile-link:nth-child(5) { transition-delay: 0.5s; }
+
+.navbar__mobile-link:hover {
+  color: #E8302A;
+}
