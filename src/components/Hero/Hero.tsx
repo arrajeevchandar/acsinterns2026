@@ -64,31 +64,6 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
         </div>
       </div>
 
-      <aside className={`hero__dashboard ${show ? 'is-visible' : ''}`} aria-label="Internship overview">
-        <div className="hero__dashboard-top">
-          <span>Internship pulse</span>
-          <strong>Week 01</strong>
-        </div>
-
-        <div className="hero__metric">
-          <strong>30+</strong>
-          <span>interns across ACS</span>
-        </div>
-
-        <div className="hero__team-strip">
-          {['Onboarding', 'Teams', 'Mentors', 'Moments'].map((team) => (
-            <span key={team}>{team}</span>
-          ))}
-        </div>
-
-        <div className="hero__timeline">
-          <span className="is-live" />
-          <span />
-          <span />
-          <span />
-        </div>
-      </aside>
-
       <div className="hero__footerline">
         <span>Home / Gallery / Teams / FAQs</span>
         <span>Summer internship 2026</span>

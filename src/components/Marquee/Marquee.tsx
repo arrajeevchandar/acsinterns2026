@@ -1,6 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-
-const FILTERS = ['All', 'Onboarding', 'Food', 'Runathon', 'Team', 'Demo'];
+import React, { useEffect, useRef, useState } from 'react';
 
 const MOMENTS = [
   { title: 'Day One', tag: 'Onboarding', img: 'team-collab.png' },
@@ -12,18 +10,13 @@ const MOMENTS = [
 ];
 
 const Marquee: React.FC = () => {
-  const [filter, setFilter] = useState('All');
   const [offset, setOffset] = useState(0);
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState(0);
+  const [sectionHeight, setSectionHeight] = useState('220vh');
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
-
-  const moments = useMemo(
-    () => MOMENTS.filter((moment) => filter === 'All' || moment.tag === filter),
-    [filter],
-  );
 
   useEffect(() => {
     const update = () => {
@@ -37,10 +30,12 @@ const Marquee: React.FC = () => {
       const current = Math.min(Math.max(-rect.top, 0), travel);
       const nextProgress = current / travel;
       const maxOffset = Math.max(0, strip.scrollWidth - viewport.clientWidth);
+      const desiredHeight = window.innerHeight + maxOffset + 160;
 
       setProgress(nextProgress);
       setOffset(maxOffset * nextProgress);
-      setActive(Math.min(moments.length - 1, Math.round(nextProgress * (moments.length - 1))));
+      setSectionHeight(`${Math.max(window.innerHeight * 1.75, desiredHeight)}px`);
+      setActive(Math.min(MOMENTS.length - 1, Math.round(nextProgress * (MOMENTS.length - 1))));
     };
 
     update();
@@ -50,14 +45,14 @@ const Marquee: React.FC = () => {
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, [moments.length]);
+  }, []);
 
   return (
     <section
       id="gallery"
       ref={sectionRef}
       className="moments moments--scroll"
-      style={{ height: `${Math.max(360, moments.length * 88)}vh` }}
+      style={{ height: sectionHeight }}
     >
       <div className="moments__sticky">
         <div className="moments__top">
@@ -71,26 +66,13 @@ const Marquee: React.FC = () => {
           </div>
         </div>
 
-        <div className="moments__filters" role="tablist" aria-label="Moment filters">
-          {FILTERS.map((item) => (
-            <button
-              type="button"
-              key={item}
-              className={filter === item ? 'is-active' : ''}
-              onClick={() => setFilter(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
         <div className="moments__viewport" ref={viewportRef}>
           <div
             className="moments__strip"
             ref={stripRef}
             style={{ transform: `translate3d(${-offset}px, 0, 0)` }}
           >
-            {moments.map((moment, index) => (
+            {MOMENTS.map((moment, index) => (
               <article
                 className={`moment-card ${active === index ? 'is-active' : ''}`}
                 key={`${moment.tag}-${moment.title}`}

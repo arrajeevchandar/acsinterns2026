@@ -7,13 +7,14 @@ interface SplashScreenProps {
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'boot' | 'form' | 'open'>('boot');
+  const [phase, setPhase] = useState<'boot' | 'form' | 'flip' | 'open'>('boot');
 
   useEffect(() => {
     const timers = [
       window.setTimeout(() => setPhase('form'), 420),
-      window.setTimeout(() => setPhase('open'), 3000),
-      window.setTimeout(onComplete, 4300),
+      window.setTimeout(() => setPhase('flip'), 2200),
+      window.setTimeout(() => setPhase('open'), 3300),
+      window.setTimeout(onComplete, 4600),
     ];
 
     return () => timers.forEach(window.clearTimeout);
