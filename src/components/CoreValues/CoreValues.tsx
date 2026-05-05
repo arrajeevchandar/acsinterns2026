@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import './CoreValues.css';
 
 const VALUES = [
@@ -13,7 +13,6 @@ const VALUES = [
 const CoreValues: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const update = () => {
@@ -25,7 +24,6 @@ const CoreValues: React.FC = () => {
       const current = Math.min(Math.max(-rect.top, 0), travel);
       const nextProgress = current / travel;
 
-      setProgress(nextProgress);
       setActive(Math.min(VALUES.length - 1, Math.floor(nextProgress * VALUES.length)));
     };
 
@@ -52,13 +50,17 @@ const CoreValues: React.FC = () => {
         </div>
 
         <div className="values-scroll__stage">
-          <div className="values-scroll__orb" style={{ transform: `rotate(${progress * 180}deg)` }}>
-            <span>{active + 1}</span>
+          <div
+            className="values-scroll__orb"
+            style={{ '--value-progress': `${((active + 1) / VALUES.length) * 100}%` } as CSSProperties}
+          >
+            <i aria-hidden="true" />
+            <span key={active}>0{active + 1}</span>
           </div>
 
           <div className="values-scroll__word">
             <span>{VALUES[active].cue}</span>
-            <strong>{VALUES[active].title}</strong>
+            <strong key={VALUES[active].title}>{VALUES[active].title}</strong>
           </div>
 
           <div className="values-scroll__stack">

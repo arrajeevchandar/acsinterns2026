@@ -124,7 +124,7 @@
   height: 148px;
   display: grid;
   place-items: center;
-  transform: rotateY(0deg) rotateX(18deg) scale(0.72);
+  transform: rotateZ(0deg) rotateX(18deg) scale(0.72);
   opacity: 0;
   filter: drop-shadow(0 0 0 rgba(235, 28, 36, 0));
   transition:
@@ -141,16 +141,16 @@
 }
 
 .splash--form .splash__mark {
-  transform: rotateY(0deg) rotateX(0deg) scale(1);
+  transform: rotateZ(0deg) rotateX(0deg) scale(1);
 }
 
 .splash--flip .splash__mark {
-  transform: rotateY(180deg) rotateX(0deg) scale(1.04);
+  transform: rotateZ(180deg) rotateX(0deg) scale(1.04);
   transition-duration: 900ms;
 }
 
 .splash--open .splash__mark {
-  transform: rotateY(180deg) rotateX(0deg) scale(1.04);
+  transform: rotateZ(180deg) rotateX(0deg) scale(1.04);
 }
 
 .splash__mark > svg,

@@ -13,46 +13,51 @@ const Marquee: React.FC = () => {
   const [offset, setOffset] = useState(0);
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState(0);
-  const [sectionHeight, setSectionHeight] = useState('220vh');
-  const sectionRef = useRef<HTMLElement>(null);
+  const [maxOffset, setMaxOffset] = useState(0);
   const viewportRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const update = () => {
-      const section = sectionRef.current;
+    const measure = () => {
       const viewport = viewportRef.current;
       const strip = stripRef.current;
-      if (!section || !viewport || !strip) return;
-
-      const rect = section.getBoundingClientRect();
-      const travel = Math.max(1, section.offsetHeight - window.innerHeight);
-      const current = Math.min(Math.max(-rect.top, 0), travel);
-      const nextProgress = current / travel;
-      const maxOffset = Math.max(0, strip.scrollWidth - viewport.clientWidth);
-      const desiredHeight = window.innerHeight + maxOffset + 160;
-
-      setProgress(nextProgress);
-      setOffset(maxOffset * nextProgress);
-      setSectionHeight(`${Math.max(window.innerHeight * 1.75, desiredHeight)}px`);
-      setActive(Math.min(MOMENTS.length - 1, Math.round(nextProgress * (MOMENTS.length - 1))));
+      if (!viewport || !strip) return;
+      const nextMax = Math.max(0, strip.scrollWidth - viewport.clientWidth);
+      setMaxOffset(nextMax);
+      setOffset((current) => Math.min(current, nextMax));
     };
 
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    measure();
+    window.addEventListener('resize', measure);
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      window.removeEventListener('resize', measure);
     };
   }, []);
+
+  useEffect(() => {
+    const nextProgress = maxOffset > 0 ? offset / maxOffset : 0;
+    setProgress(nextProgress);
+    setActive(Math.min(MOMENTS.length - 1, Math.round(nextProgress * (MOMENTS.length - 1))));
+  }, [offset, maxOffset]);
+
+  const handleWheel = (event: React.WheelEvent<HTMLElement>) => {
+    if (maxOffset <= 0) return;
+
+    const direction = event.deltaY;
+    const atStart = offset <= 0;
+    const atEnd = offset >= maxOffset;
+
+    if ((direction < 0 && atStart) || (direction > 0 && atEnd)) return;
+
+    event.preventDefault();
+    setOffset((current) => Math.min(maxOffset, Math.max(0, current + direction)));
+  };
 
   return (
     <section
       id="gallery"
-      ref={sectionRef}
       className="moments moments--scroll"
-      style={{ height: sectionHeight }}
+      onWheel={handleWheel}
     >
       <div className="moments__sticky">
         <div className="moments__top">
