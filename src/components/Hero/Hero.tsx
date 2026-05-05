@@ -7,8 +7,6 @@ interface HeroProps {
   contentReady?: boolean;
 }
 
-const TEAMS = ['AEM', 'Workfront', 'Data', 'UI', 'DACOE'];
-
 const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });
   const [animatedIn, setAnimatedIn] = useState(false);
@@ -68,17 +66,17 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
 
       <aside className={`hero__dashboard ${show ? 'is-visible' : ''}`} aria-label="Internship overview">
         <div className="hero__dashboard-top">
-          <span>Portal build</span>
-          <strong>Phase 01</strong>
+          <span>Internship pulse</span>
+          <strong>Week 01</strong>
         </div>
 
         <div className="hero__metric">
           <strong>30+</strong>
-          <span>Intern profiles planned</span>
+          <span>interns across ACS</span>
         </div>
 
         <div className="hero__team-strip">
-          {TEAMS.map((team) => (
+          {['Onboarding', 'Teams', 'Mentors', 'Moments'].map((team) => (
             <span key={team}>{team}</span>
           ))}
         </div>

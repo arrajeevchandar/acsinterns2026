@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 const MODES = [
-  { title: 'People', meta: '30+ interns', cue: 'profiles' },
-  { title: 'Teams', meta: '5 squads', cue: 'directory' },
-  { title: 'Moments', meta: 'gallery', cue: 'filters' },
-  { title: 'FAQs', meta: 'quick help', cue: 'answers' },
+  { title: 'People', meta: 'cohort', cue: 'profiles' },
+  { title: 'Teams', meta: 'ACS', cue: 'squads' },
+  { title: 'Mentors', meta: 'guides', cue: 'support' },
+  { title: 'Moments', meta: 'summer', cue: 'gallery' },
 ];
 
 const About: React.FC = () => {
@@ -17,8 +17,8 @@ const About: React.FC = () => {
     <section id="about" ref={ref} className="home-section home-section--soft">
       <div className="home-wrap hub">
         <div className={`hub__intro reveal ${isVisible ? 'is-visible' : ''}`}>
-          <span className="section-kicker">Portal</span>
-          <h2 className="section-heading">Less text. More motion.</h2>
+          <span className="section-kicker">Cohort Hub</span>
+          <h2 className="section-heading">Find your people.</h2>
         </div>
 
         <div className={`hub__stage reveal ${isVisible ? 'is-visible' : ''}`}>
