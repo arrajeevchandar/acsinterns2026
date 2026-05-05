@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.eyebrow {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+}
+
+.display-xl {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  font-size: clamp(3rem, 8vw, 7rem);
+}
+
+.display-l {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  font-size: clamp(2.25rem, 5.5vw, 5rem);
+}
+
+.num-mega {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+.marquee-track-fast {
+  animation-duration: 24s;
+}
+
+/* Reveal-on-scroll primitives (set via IntersectionObserver in JS) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    transform 600ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Underline link animation */
+.ulink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ulink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left center;
+  transform: scaleX(1);
+  transition: transform 320ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.ulink:hover::after {
+  transform-origin: right center;
+  transform: scaleX(0);
+}
+
+/* Custom scrollbar quietened */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+/* Grayscale portraits */
+.portrait-img {
+  filter: grayscale(1) contrast(1.02);
+  transition: filter 500ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    transform 700ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.group:hover .portrait-img {
+  filter: grayscale(0);
+  transform: scale(1.03);
+}
+
+/* Name underline on member card */
+.name-underline {
+  background-image: linear-gradient(#fa0f00, #fa0f00);
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  background-size: 0% 1px;
+  transition: background-size 380ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  padding-bottom: 2px;
+}
+.group:hover .name-underline {
+  background-size: 100% 1px;
+}
+
+/* Team card — glassmorphism base */
+.team-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 320ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    color 320ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    border-color 320ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    box-shadow 320ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.team-card:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(250, 15, 0, 0.72) 0%,
+    rgba(250, 15, 0, 0.45) 100%
+  );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: rgba(250, 15, 0, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(250, 15, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+.team-card .num-mega,
+.team-card .team-arrow {
+  transition: transform 380ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    color 320ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.team-card:hover .num-mega {
+  transform: scale(1.06);
+}
+.team-card:hover .team-arrow {
+  transform: translate(4px, -4px);
+}
+.team-card:hover .muted-on-card {
+  color: rgba(255, 255, 255, 0.85);
+}
+.team-card:hover .divider-on-card {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Modal animation */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.modal-in {
+  animation: modalIn 220ms cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.backdrop-in {
+  animation: backdropIn 220ms ease-out;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Glassmorphism panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.glass-panel-subtle {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+/* Selection */
+::selection {
+  background: #fa0f00;
+  color: #ffffff;
+}
+
+/* Cursor follow dot (header CTA-ish) */
+.dot::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #fa0f00;
+  margin-right: 10px;
+  transform: translateY(-2px);
+}
+
+/* Hide scroll on body when modal open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Adobe wordmark */
+.wordmark {
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
