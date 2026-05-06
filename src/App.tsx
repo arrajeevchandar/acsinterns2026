@@ -10,6 +10,8 @@ import Stats from './components/Stats/Stats';
 import TeamsPreview from './components/TeamsPreview/TeamsPreview';
 import Footer from './components/Footer/Footer';
 import ScrollProgress from './components/ScrollProgress/ScrollProgress';
+import { ZenithProvider } from './context/ZenithContext';
+import { ZenithChat } from './components/Zenith/ZenithChat';
 import './components/HomeSections.css';
 
 function App() {
@@ -22,22 +24,27 @@ function App() {
   }, []);
 
   return (
-    <div className="app-shell">
-      <Navbar />
-      <ScrollProgress />
-      <main>
-        <Hero contentReady={contentReady} />
-        <Marquee />
-        <CoreValues />
-        <About />
-        <Process />
-        <Stats />
-        <TeamsPreview />
-      </main>
-      <Footer />
+    <ZenithProvider>
+      <div className="app-shell">
+        <Navbar />
+        <ScrollProgress />
+        <main>
+          <Hero contentReady={contentReady} />
+          <Marquee />
+          <CoreValues />
+          <About />
+          <Process />
+          <Stats />
+          <TeamsPreview />
+        </main>
+        <Footer />
 
-      {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
-    </div>
+        {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+
+        {/* Zenith AI Chat Overlay */}
+        <ZenithChat />
+      </div>
+    </ZenithProvider>
   );
 }
 

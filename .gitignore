@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Vite
+/dist
+migrate_to_vite.js
+fix_env.js
+
