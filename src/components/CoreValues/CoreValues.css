@@ -25,9 +25,9 @@
 .values-scroll__intro h2 {
   margin: 0;
   color: #111;
-  font-size: clamp(2.7rem, 7vw, 6.4rem);
+  font-size: clamp(2rem, 4.5vw, 4rem);
   font-weight: 900;
-  line-height: 0.86;
+  line-height: 0.92;
   letter-spacing: -0.08em;
 }
 
@@ -43,7 +43,7 @@
 
 .values-scroll__orb {
   position: relative;
-  width: min(45vw, 360px);
+  width: min(32vw, 260px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -93,14 +93,14 @@
   z-index: 1;
   display: block;
   color: #111;
-  font-size: clamp(4rem, 10vw, 9rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 900;
-  letter-spacing: -0.1em;
+  letter-spacing: -0.08em;
   animation: valueNumberPop 520ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .values-scroll__word {
-  min-height: 250px;
+  min-height: 0;
   display: grid;
   align-content: center;
   gap: 0.6rem;
@@ -116,10 +116,10 @@
 
 .values-scroll__word strong {
   color: #111;
-  font-size: clamp(4rem, 12vw, 10rem);
+  font-size: clamp(1.8rem, 4vw, 3.6rem);
   font-weight: 900;
-  line-height: 0.8;
-  letter-spacing: -0.1em;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
   animation: valueWordIn 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 

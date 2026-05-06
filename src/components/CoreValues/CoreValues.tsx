@@ -2,12 +2,10 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import './CoreValues.css';
 
 const VALUES = [
-  { title: 'Create', cue: 'Ideas into craft' },
-  { title: 'Collaborate', cue: 'Across squads' },
-  { title: 'Learn', cue: 'Every sprint' },
-  { title: 'Include', cue: 'Everyone in' },
-  { title: 'Own', cue: 'Real outcomes' },
-  { title: 'Elevate', cue: 'Raise the bar' },
+  { title: 'Create the future.', cue: "Build what's next" },
+  { title: 'Own the outcome.', cue: 'Real accountability' },
+  { title: 'Raise the bar.', cue: 'Always higher' },
+  { title: 'Be genuine.', cue: 'Authenticity first' },
 ];
 
 const CoreValues: React.FC = () => {
