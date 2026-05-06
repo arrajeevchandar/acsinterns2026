@@ -5,27 +5,50 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import MemberModal from './MemberModal';
 import './TeamDetail.css';
 
-function MemberCard({ member, team, index, onOpen }) {
+function MemberCard({ member, index, hoveredId, onHover, onLeave, onOpen }) {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.08 });
+  const isHovered = hoveredId === member.id;
+  const isDimmed = hoveredId !== null && !isHovered;
+  const num = String(index + 1).padStart(2, '0');
+
   return (
     <button
       ref={ref}
-      className={`team-detail__member-card glass reveal ${isVisible ? 'is-visible' : ''}`}
+      className={`member-card glass reveal ${isVisible ? 'is-visible' : ''} ${isHovered ? 'is-hovered' : ''} ${isDimmed ? 'is-dimmed' : ''}`}
       style={{ '--reveal-index': index }}
       onClick={() => onOpen(member)}
+      onMouseEnter={() => onHover(member.id)}
+      onMouseLeave={onLeave}
       aria-label={`View ${member.name}'s profile`}
     >
-      <div className="team-detail__member-portrait-wrap">
-        <img
-          src={portraitUrl(member.avatar)}
-          alt={member.name}
-          className="team-detail__member-portrait"
-        />
+      <div className="member-card__redbar" aria-hidden="true" />
+      <div className="member-card__shine" aria-hidden="true" />
+
+      <div className="member-card__top">
+        <div className="member-card__portrait-wrap">
+          <img
+            src={portraitUrl(member.avatar)}
+            alt={member.name}
+            className="member-card__portrait"
+          />
+        </div>
+        <span className="member-card__num" aria-hidden="true">{num}</span>
       </div>
-      <div className="team-detail__member-info">
-        <p className="team-detail__member-name">{member.name}</p>
-        <p className="team-detail__member-role">{member.role}</p>
-        <p className="team-detail__member-uni">{member.university}</p>
+
+      <div className="member-card__info">
+        <p className="member-card__name">{member.name}</p>
+        <p className="member-card__role">{member.role}</p>
+      </div>
+
+      <div className="member-card__skills">
+        {(member.stack || []).slice(0, 2).map((s) => (
+          <span key={s} className="member-card__chip">{s}</span>
+        ))}
+      </div>
+
+      <div className="member-card__foot">
+        <span className="member-card__uni">{member.university}</span>
+        <span className="member-card__arrow" aria-hidden="true">→</span>
       </div>
     </button>
   );
@@ -34,6 +57,7 @@ function MemberCard({ member, team, index, onOpen }) {
 export default function TeamDetail() {
   const { slug } = useParams();
   const [selectedMember, setSelectedMember] = useState(null);
+  const [hoveredMemberId, setHoveredMemberId] = useState(null);
 
   const teamIndex = TEAMS.findIndex((t) => t.slug === slug);
   const team = TEAMS[teamIndex];
@@ -76,13 +100,15 @@ export default function TeamDetail() {
             <span className="section-kicker__dot" />
             The people
           </p>
-          <div className="team-detail__grid">
+          <div className="team-detail__grid" onMouseLeave={() => setHoveredMemberId(null)}>
             {team.members.map((member, i) => (
               <MemberCard
                 key={member.id}
                 member={member}
-                team={team}
                 index={i}
+                hoveredId={hoveredMemberId}
+                onHover={setHoveredMemberId}
+                onLeave={() => setHoveredMemberId(null)}
                 onOpen={setSelectedMember}
               />
             ))}

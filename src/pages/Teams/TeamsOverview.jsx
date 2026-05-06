@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { TEAMS, totalMembers, universityBreakdown } from './data';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
@@ -7,23 +7,109 @@ import './TeamsOverview.css';
 const allMembers = TEAMS.flatMap((t) => t.members);
 const uniCount = universityBreakdown(allMembers).length;
 
-function TeamCard({ team, index }) {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.08 });
+function TeamCard({ team, index, hoveredId, onHover, onLeave }) {
+  const cardRef = useRef(null);
+  const { ref: revealRef, isVisible } = useIntersectionObserver({ threshold: 0.08 });
+
+  const setRefs = (node) => {
+    cardRef.current = node;
+    revealRef.current = node;
+  };
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty('--rx', `${y * -4}deg`);
+      el.style.setProperty('--ry', `${x * 4}deg`);
+      el.style.setProperty('--gx', `${(x + 0.5) * 100}%`);
+      el.style.setProperty('--gy', `${(y + 0.5) * 100}%`);
+    };
+    const onML = () => {
+      el.style.setProperty('--rx', '0deg');
+      el.style.setProperty('--ry', '0deg');
+    };
+
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onML);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onML);
+    };
+  }, []);
+
+  const isHovered = hoveredId === team.slug;
+  const isDimmed = hoveredId !== null && !isHovered;
+  const code = team.slug.toUpperCase().slice(0, 2);
+
+  const stackChips = useMemo(() => {
+    const counts = {};
+    team.members.forEach((m) => (m.stack || []).forEach((s) => { counts[s] = (counts[s] || 0) + 1; }));
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([s]) => s);
+  }, [team.members]);
+
   return (
     <Link
       to={`/teams/${team.slug}`}
-      ref={ref}
-      className={`teams-overview__card glass reveal ${isVisible ? 'is-visible' : ''}`}
+      ref={setRefs}
+      className={`team-card glass reveal ${isVisible ? 'is-visible' : ''} ${isHovered ? 'is-hovered' : ''} ${isDimmed ? 'is-dimmed' : ''}`}
       style={{ '--reveal-index': index }}
+      onMouseEnter={() => onHover(team.slug)}
+      onMouseLeave={onLeave}
     >
-      <div className="teams-overview__card-head">
-        <span className="teams-overview__card-num">{team.number}</span>
-        <span className="teams-overview__card-count">{team.members.length} members</span>
+      <div className="team-card__redwash" aria-hidden="true" />
+      <div className="team-card__shine" aria-hidden="true" />
+      <div className="team-card__noise" aria-hidden="true" />
+
+      <div className="team-card__top">
+        <span className="team-card__num">{team.number}</span>
+        <span className="team-card__code">{code}</span>
       </div>
-      <h2 className="teams-overview__card-name">{team.name}</h2>
-      <p className="teams-overview__card-tagline">{team.tagline}</p>
-      <span className="teams-overview__card-cta">
-        View team <span aria-hidden="true">→</span>
+
+      <span className="team-card__bignum" aria-hidden="true">{team.number}</span>
+
+      <div className="team-card__glyph" aria-hidden="true">
+        <span className="team-card__glyph-square" />
+        <span className="team-card__glyph-line" />
+        <span className="team-card__glyph-dot" />
+      </div>
+
+      <div className="team-card__body">
+        <h2 className="team-card__name">{team.name}</h2>
+        <p className="team-card__tagline">{team.tagline}</p>
+      </div>
+
+      <div className="team-card__foot">
+        <div className="team-card__stack">
+          {stackChips.map((s) => (
+            <span key={s} className="team-card__chip">{s}</span>
+          ))}
+        </div>
+        <div className="team-card__meta">
+          <div className="team-card__avatars">
+            {team.members.slice(0, 4).map((m, j) => {
+              const initials = m.name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+              return (
+                <span key={m.id} className="team-card__mini-avatar" style={{ zIndex: 4 - j }}>
+                  {initials}
+                </span>
+              );
+            })}
+          </div>
+          <span className="team-card__count">{team.members.length} members</span>
+        </div>
+      </div>
+
+      <span className="team-card__cta" aria-hidden="true">
+        <span>Meet the team</span>
+        <svg width="16" height="16" viewBox="0 0 22 22" fill="none">
+          <path d="M5 11h12M12 6l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square" />
+        </svg>
       </span>
     </Link>
   );
@@ -52,6 +138,7 @@ export default function TeamsOverview() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  const [hoveredId, setHoveredId] = useState(null);
   const teamNames = TEAMS.map((t) => t.name);
 
   return (
@@ -82,9 +169,16 @@ export default function TeamsOverview() {
       {/* Team cards grid */}
       <section className="home-section teams-overview__grid-section">
         <div className="home-wrap">
-          <div className="teams-overview__grid">
+          <div className="teams-overview__grid" onMouseLeave={() => setHoveredId(null)}>
             {TEAMS.map((team, i) => (
-              <TeamCard key={team.slug} team={team} index={i} />
+              <TeamCard
+                key={team.slug}
+                team={team}
+                index={i}
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+                onLeave={() => setHoveredId(null)}
+              />
             ))}
           </div>
         </div>
