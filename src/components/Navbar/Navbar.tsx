@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '#hero' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Teams', href: '#teams' },
-  { label: 'FAQs', href: '#faqs' },
+  { label: 'Projects', href: '/projects/projectspage' },
 ];
 
 const Navbar: React.FC = () => {
