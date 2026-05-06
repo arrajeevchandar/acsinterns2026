@@ -38,3 +38,6 @@
 .navbar__mobile-menu--open .navbar__mobile-link:nth-child(5){transition-delay:.25s}
 .navbar__mobile-link:hover{color:var(--red)}
 .navbar__mobile-link-num{font-size:0.55rem;font-weight:400;color:var(--red);margin-right:8px;vertical-align:super}
+.navbar__link--zenith{display:inline-flex;align-items:center;gap:6px}
+.navbar__link-dot{width:5px;height:5px;border-radius:50%;background:#EB1C24;box-shadow:0 0 8px rgba(235,28,36,0.6),0 0 16px rgba(235,28,36,0.3);animation:navDotPulse 2s ease-in-out infinite}
+@keyframes navDotPulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(235,28,36,0.6)}50%{opacity:0.6;box-shadow:0 0 14px rgba(235,28,36,0.8)}}
