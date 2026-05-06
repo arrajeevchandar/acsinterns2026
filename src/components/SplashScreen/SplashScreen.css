@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/baj0wbd.css");
+
 .splash {
   position: fixed;
   inset: 0;
@@ -124,7 +126,7 @@
   height: 148px;
   display: grid;
   place-items: center;
-  transform: rotateZ(0deg) rotateX(18deg) scale(0.72);
+  transform: scale(0.6);
   opacity: 0;
   filter: drop-shadow(0 0 0 rgba(235, 28, 36, 0));
   transition:
@@ -141,16 +143,16 @@
 }
 
 .splash--form .splash__mark {
-  transform: rotateZ(0deg) rotateX(0deg) scale(1);
+  transform: scale(1);
 }
 
 .splash--flip .splash__mark {
-  transform: rotateZ(180deg) rotateX(0deg) scale(1.04);
+  transform: scale(1.12);
   transition-duration: 900ms;
 }
 
 .splash--open .splash__mark {
-  transform: rotateZ(180deg) rotateX(0deg) scale(1.04);
+  transform: scale(1.12);
 }
 
 .splash__mark > svg,
@@ -198,11 +200,12 @@
 }
 
 .splash__word span {
+  font-family: 'adobe-clean', 'Adobe Clean', 'Inter', sans-serif;
   font-size: clamp(2.4rem, 10vw, 6.4rem);
-  font-weight: 800;
-  line-height: 0.82;
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: none;
 }
 
 .splash__word small {
