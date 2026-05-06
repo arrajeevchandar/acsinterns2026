@@ -45,7 +45,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
 
         <div className="splash__word">
           <span>Adobe</span>
-          <small>Adobe Consultancy Services Internship Portal</small>
+          <small>Adobe Customer Solutions Internship Portal</small>
         </div>
       </div>
 
