@@ -32,17 +32,10 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
       <div className="hero__beam hero__beam--two" />
       <div className="hero__grain" />
 
-      <div className="hero__orbit" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-        <AdobeLogo size={210} color="rgba(255,255,255,0.12)" />
-      </div>
-
       <div className={`hero__content ${show ? 'is-visible' : ''}`}>
         <p className="hero__eyebrow">
           <span />
-          Adobe Cloud Services
+          Adobe Consultancy Services
         </p>
 
         <h1 className="hero__title">
