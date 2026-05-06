@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AdobeLogo from '../AdobeLogo/AdobeLogo';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import './Hero.css';
@@ -54,10 +55,10 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
         </p>
 
         <div className="hero__actions">
-          <a className="hero__button hero__button--primary" href="#teams" onClick={scrollTo('#teams')}>
+          <Link className="hero__button hero__button--primary" to="/teams">
             Explore teams
-            <span aria-hidden="true">-&gt;</span>
-          </a>
+            <span aria-hidden="true">→</span>
+          </Link>
           <a className="hero__button hero__button--secondary" href="#gallery" onClick={scrollTo('#gallery')}>
             View moments
           </a>

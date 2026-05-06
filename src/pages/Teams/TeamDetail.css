@@ -1,0 +1,196 @@
+.team-detail__back-row {
+  padding-top: clamp(5.5rem, 10vw, 7rem);
+  padding-bottom: 0;
+}
+
+.team-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.team-detail__back:hover { color: var(--red); }
+
+/* Header */
+.team-detail__header { padding-bottom: 2rem; }
+
+.team-detail__number {
+  margin: 0 0 0.5rem;
+  font-size: clamp(4rem, 14vw, 10rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--red);
+  opacity: 0.18;
+  user-select: none;
+}
+
+.team-detail__name {
+  margin: -1.5rem 0 0.4rem;
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  color: var(--text-1);
+}
+
+.team-detail__tagline {
+  margin: 0.75rem 0 0;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 600;
+  color: var(--red);
+}
+
+.team-detail__mission {
+  margin: 0.75rem 0 1.5rem;
+  max-width: 640px;
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.team-detail__count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.team-detail__count span {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-1);
+  letter-spacing: -0.03em;
+}
+
+/* Members grid */
+.team-detail__grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.team-detail__member-card {
+  all: unset;
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s,
+    border-color 0.25s;
+  transition-delay: calc(var(--reveal-index, 0) * 70ms);
+}
+.team-detail__member-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.team-detail__member-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 1px var(--red), 0 20px 60px rgba(235, 28, 36, 0.18);
+}
+
+.team-detail__member-portrait-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.team-detail__member-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(25%);
+  transition: filter 0.4s, transform 0.4s;
+}
+.team-detail__member-card:hover .team-detail__member-portrait {
+  filter: grayscale(0%);
+  transform: scale(1.04);
+}
+
+.team-detail__member-info {
+  padding: 0.9rem 1rem;
+}
+
+.team-detail__member-name {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+}
+
+.team-detail__member-role {
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--red);
+}
+
+.team-detail__member-uni {
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pager */
+.team-detail__pager-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.team-detail__pager-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transition: color 0.2s;
+}
+.team-detail__pager-link--right { text-align: right; }
+
+.team-detail__pager-dir {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  transition: color 0.2s;
+}
+.team-detail__pager-name {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--text-1);
+  transition: color 0.2s;
+}
+.team-detail__pager-link:hover .team-detail__pager-dir,
+.team-detail__pager-link:hover .team-detail__pager-name {
+  color: var(--red);
+}
+
+@media (max-width: 480px) {
+  .team-detail__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

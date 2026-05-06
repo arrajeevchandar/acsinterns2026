@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AdobeLogo from '../AdobeLogo/AdobeLogo';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useTheme } from '../../hooks/useTheme';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#hero' },
+  { label: 'Home',    href: '#hero' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Teams', href: '#teams' },
-  { label: 'FAQs', href: '#faqs' },
+  { label: 'Teams',   href: '#teams' },
+  { label: 'FAQs',    href: '#faqs' },
 ];
 
 const Navbar: React.FC = () => {
@@ -16,23 +17,52 @@ const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isScrolled = scrollY > 30;
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
     setIsMobileMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+
+    if (href === '#hero') {
+      if (location.pathname === '/') {
+        document.querySelector('#hero')?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate('/');
+      }
+      return;
+    }
+
+    if (href === '#teams') {
+      if (location.pathname === '/') {
+        document.querySelector('#teams')?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate('/teams');
+      }
+      return;
+    }
+
+    // gallery / faqs — anchor scroll only (exist on home page)
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <>
       <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} id="navbar">
-        <a href="#hero" className="navbar__brand" onClick={(event) => handleNavClick(event, '#hero')}>
+        <Link to="/" className="navbar__brand">
           <span className="navbar__brand-logo">
             <AdobeLogo size={28} color="#eb1c24" />
           </span>
           <span className="navbar__brand-sep" />
           <span>ACS Interns 2026</span>
-        </a>
+        </Link>
 
         <ul className="navbar__links">
           {NAV_LINKS.map((link) => (
