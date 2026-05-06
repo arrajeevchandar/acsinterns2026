@@ -1,43 +1,20 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import AdobeLogo from '../AdobeLogo/AdobeLogo';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleAnchorLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    if (href === '#teams') {
-      if (location.pathname === '/') {
-        document.querySelector('#teams')?.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        navigate('/teams');
-      }
-      return;
-    }
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }), 120);
-    } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <footer className="footer" id="faqs">
+    <footer className="footer">
       <div className="footer__mark">
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none', color: 'inherit' }}>
-          <AdobeLogo size={30} color="#EB1C24" />
+        <Link to="/teams" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none', color: 'inherit' }}>
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M58.3 7H93v86L58.3 7ZM41.7 7H7v86L41.7 7ZM50 52.5 66.3 93H50.1l-4.9-13H33.6L50 52.5Z" fill="#eb1c24"/>
+          </svg>
           <span>ACS Interns 2026</span>
         </Link>
       </div>
       <div className="footer__links">
-        <a href="#hero" onClick={(e) => handleAnchorLink(e, '#hero')}>Home</a>
-        <a href="#gallery" onClick={(e) => handleAnchorLink(e, '#gallery')}>Gallery</a>
-        <a href="#teams" onClick={(e) => handleAnchorLink(e, '#teams')}>Teams</a>
-        <a href="#faqs" onClick={(e) => handleAnchorLink(e, '#faqs')}>FAQs</a>
+        <Link to="/teams">Teams</Link>
       </div>
     </footer>
   );
