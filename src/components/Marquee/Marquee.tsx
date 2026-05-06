@@ -154,7 +154,7 @@ const Marquee: React.FC = () => {
                 className={`moment-card ${active === index ? 'is-active' : ''}`}
                 key={`${moment.tag}-${moment.title}`}
               >
-                <img src={`/images/${moment.img}`} alt={moment.title} />
+                <img src={`${process.env.PUBLIC_URL}/images/${moment.img}`} alt={moment.title} />
                 <div>
                   <span>{moment.tag}</span>
                   <strong>{moment.title}</strong>
