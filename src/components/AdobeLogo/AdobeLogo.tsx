@@ -6,47 +6,41 @@ interface AdobeLogoProps {
   className?: string;
   animated?: boolean;
   showWordmark?: boolean;
+  ghost?: boolean;
 }
 
 const AdobeLogo: React.FC<AdobeLogoProps> = ({
   size = 48,
-  color = 'currentColor',
   className = '',
   animated = false,
   showWordmark = false,
+  ghost = false,
 }) => {
-  const mark = (
+  const mark = ghost ? (
+    // Ghost/watermark usage in Hero orbit — keep as faint outline
     <svg
       width={size}
       height={size}
-      viewBox="0 0 240 234"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`adobe-logo ${animated ? 'adobe-logo--animated' : ''} ${className}`}
-      aria-label="Adobe ACS mark"
+      className={`adobe-logo ${className}`}
+      aria-hidden="true"
     >
-      <path
-        d="M0 233.4V0L93.6 233.4H0Z"
-        fill={animated ? 'none' : color}
-        stroke={animated ? color : 'none'}
-        strokeWidth={animated ? 3 : 0}
-        className={animated ? 'adobe-logo__path adobe-logo__path--left' : ''}
-      />
-      <path
-        d="M240 233.4V0L146.4 233.4H240Z"
-        fill={animated ? 'none' : color}
-        stroke={animated ? color : 'none'}
-        strokeWidth={animated ? 3 : 0}
-        className={animated ? 'adobe-logo__path adobe-logo__path--right' : ''}
-      />
-      <path
-        d="M120 47L163.2 153.6H141.6L128.4 120H97.2L120 47Z"
-        fill={animated ? 'none' : color}
-        stroke={animated ? color : 'none'}
-        strokeWidth={animated ? 3 : 0}
-        className={animated ? 'adobe-logo__path adobe-logo__path--center' : ''}
-      />
+      <rect width="100" height="100" fill="rgba(255,255,255,0.06)" rx="6" />
+      <polygon points="0,0 40,0 0,100" fill="rgba(255,255,255,0.08)" />
+      <polygon points="60,0 100,0 100,100" fill="rgba(255,255,255,0.08)" />
+      <polygon points="50,18 62,48 38,48" fill="rgba(255,255,255,0.08)" />
     </svg>
+  ) : (
+    <img
+      src={`${process.env.PUBLIC_URL}/images/adobe-logo.png`}
+      alt="Adobe"
+      width={size}
+      height={size}
+      className={`adobe-logo ${animated ? 'adobe-logo--animated' : ''} ${className}`}
+      style={{ objectFit: 'contain', display: 'block' }}
+    />
   );
 
   if (!showWordmark) return mark;
