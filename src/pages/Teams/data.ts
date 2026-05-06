@@ -1,6 +1,33 @@
-// Static team and member data for the ACS Interns 2026 portal.
+export interface Project {
+  title: string;
+  summary: string;
+  url: string;
+}
 
-export const TEAMS = [
+export interface Member {
+  id: string;
+  name: string;
+  role: string;
+  university: string;
+  program: string;
+  avatar: number;
+  github: string;
+  linkedin: string;
+  bio: string;
+  project: Project;
+  stack: string[];
+}
+
+export interface Team {
+  slug: string;
+  number: string;
+  name: string;
+  tagline: string;
+  mission: string;
+  members: Member[];
+}
+
+export const TEAMS: Team[] = [
   {
     slug: 'ui',
     number: '01',
@@ -490,12 +517,12 @@ export const TEAMS = [
 
 export const totalMembers = TEAMS.reduce((acc, t) => acc + t.members.length, 0);
 
-export const universityBreakdown = (members) => {
-  const counts = {};
+export const universityBreakdown = (members: Member[]): [string, number][] => {
+  const counts: Record<string, number> = {};
   members.forEach((m) => {
     counts[m.university] = (counts[m.university] || 0) + 1;
   });
   return Object.entries(counts).sort((a, b) => b[1] - a[1]);
 };
 
-export const portraitUrl = (n) => `https://i.pravatar.cc/600?img=${n}`;
+export const portraitUrl = (n: number): string => `https://i.pravatar.cc/600?img=${n}`;

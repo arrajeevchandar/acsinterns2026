@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { TEAMS, portraitUrl } from './data';
+import { TEAMS, portraitUrl, type Member, type Team } from './data';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import MemberModal from './MemberModal';
 import './TeamDetail.css';
 
-function MemberCard({ member, index, hoveredId, onHover, onLeave, onOpen }) {
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.08 });
+interface MemberCardProps {
+  member: Member;
+  index: number;
+  hoveredId: string | null;
+  onHover: (id: string) => void;
+  onLeave: () => void;
+  onOpen: (member: Member) => void;
+}
+
+function MemberCard({ member, index, hoveredId, onHover, onLeave, onOpen }: MemberCardProps) {
+  const { ref, isVisible } = useIntersectionObserver<HTMLButtonElement>({ threshold: 0.08 });
   const isHovered = hoveredId === member.id;
   const isDimmed = hoveredId !== null && !isHovered;
   const num = String(index + 1).padStart(2, '0');
@@ -15,7 +24,7 @@ function MemberCard({ member, index, hoveredId, onHover, onLeave, onOpen }) {
     <button
       ref={ref}
       className={`member-card glass reveal ${isVisible ? 'is-visible' : ''} ${isHovered ? 'is-hovered' : ''} ${isDimmed ? 'is-dimmed' : ''}`}
-      style={{ '--reveal-index': index }}
+      style={{ '--reveal-index': index } as React.CSSProperties}
       onClick={() => onOpen(member)}
       onMouseEnter={() => onHover(member.id)}
       onMouseLeave={onLeave}
@@ -41,7 +50,7 @@ function MemberCard({ member, index, hoveredId, onHover, onLeave, onOpen }) {
       </div>
 
       <div className="member-card__skills">
-        {(member.stack || []).slice(0, 2).map((s) => (
+        {member.stack.slice(0, 2).map((s) => (
           <span key={s} className="member-card__chip">{s}</span>
         ))}
       </div>
@@ -55,15 +64,15 @@ function MemberCard({ member, index, hoveredId, onHover, onLeave, onOpen }) {
 }
 
 export default function TeamDetail() {
-  const { slug } = useParams();
-  const [selectedMember, setSelectedMember] = useState(null);
-  const [hoveredMemberId, setHoveredMemberId] = useState(null);
+  const { slug } = useParams<{ slug: string }>();
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [hoveredMemberId, setHoveredMemberId] = useState<string | null>(null);
 
   const teamIndex = TEAMS.findIndex((t) => t.slug === slug);
-  const team = TEAMS[teamIndex];
+  const team: Team | undefined = TEAMS[teamIndex];
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, [slug]);
 
   if (!team) return <Navigate to="/teams" replace />;

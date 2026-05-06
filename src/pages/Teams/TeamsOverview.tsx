@@ -1,19 +1,27 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { TEAMS, totalMembers, universityBreakdown } from './data';
+import { TEAMS, totalMembers, universityBreakdown, type Team } from './data';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import './TeamsOverview.css';
 
 const allMembers = TEAMS.flatMap((t) => t.members);
 const uniCount = universityBreakdown(allMembers).length;
 
-function TeamCard({ team, index, hoveredId, onHover, onLeave }) {
-  const cardRef = useRef(null);
-  const { ref: revealRef, isVisible } = useIntersectionObserver({ threshold: 0.08 });
+interface TeamCardProps {
+  team: Team;
+  index: number;
+  hoveredId: string | null;
+  onHover: (slug: string) => void;
+  onLeave: () => void;
+}
 
-  const setRefs = (node) => {
+function TeamCard({ team, index, hoveredId, onHover, onLeave }: TeamCardProps) {
+  const cardRef = useRef<HTMLAnchorElement | null>(null);
+  const { ref: revealRef, isVisible } = useIntersectionObserver<HTMLAnchorElement>({ threshold: 0.08 });
+
+  const setRefs = (node: HTMLAnchorElement | null) => {
     cardRef.current = node;
-    revealRef.current = node;
+    (revealRef as React.MutableRefObject<HTMLAnchorElement | null>).current = node;
   };
 
   useEffect(() => {
@@ -21,7 +29,7 @@ function TeamCard({ team, index, hoveredId, onHover, onLeave }) {
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const onMove = (e) => {
+    const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
       const y = (e.clientY - r.top) / r.height - 0.5;
@@ -48,8 +56,8 @@ function TeamCard({ team, index, hoveredId, onHover, onLeave }) {
   const code = team.slug.toUpperCase().slice(0, 2);
 
   const stackChips = useMemo(() => {
-    const counts = {};
-    team.members.forEach((m) => (m.stack || []).forEach((s) => { counts[s] = (counts[s] || 0) + 1; }));
+    const counts: Record<string, number> = {};
+    team.members.forEach((m) => m.stack.forEach((s) => { counts[s] = (counts[s] || 0) + 1; }));
     return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([s]) => s);
   }, [team.members]);
 
@@ -58,7 +66,7 @@ function TeamCard({ team, index, hoveredId, onHover, onLeave }) {
       to={`/teams/${team.slug}`}
       ref={setRefs}
       className={`team-card glass reveal ${isVisible ? 'is-visible' : ''} ${isHovered ? 'is-hovered' : ''} ${isDimmed ? 'is-dimmed' : ''}`}
-      style={{ '--reveal-index': index }}
+      style={{ '--reveal-index': index } as React.CSSProperties}
       onMouseEnter={() => onHover(team.slug)}
       onMouseLeave={onLeave}
     >
@@ -124,7 +132,7 @@ function StatsStrip() {
         { value: TEAMS.length, label: 'Teams' },
         { value: uniCount, label: 'Universities' },
       ].map(({ value, label }, i) => (
-        <div key={label} className="teams-overview__stat" style={{ '--reveal-index': i }}>
+        <div key={label} className="teams-overview__stat" style={{ '--reveal-index': i } as React.CSSProperties}>
           <span className="teams-overview__stat-value">{value}</span>
           <span className="teams-overview__stat-label">{label}</span>
         </div>
@@ -135,10 +143,10 @@ function StatsStrip() {
 
 export default function TeamsOverview() {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
-  const [hoveredId, setHoveredId] = useState(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const teamNames = TEAMS.map((t) => t.name);
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { portraitUrl } from './data';
+import { portraitUrl, type Member, type Team } from './data';
 import './MemberModal.css';
 
 const IconGitHub = () => (
@@ -23,10 +23,16 @@ const IconExternal = () => (
   </svg>
 );
 
-export default function MemberModal({ member, team, onClose }) {
+interface MemberModalProps {
+  member: Member;
+  team: Team;
+  onClose: () => void;
+}
+
+export default function MemberModal({ member, team, onClose }: MemberModalProps) {
   useEffect(() => {
     document.body.classList.add('modal-open');
-    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handleKey);
     return () => {
       document.body.classList.remove('modal-open');
@@ -53,7 +59,6 @@ export default function MemberModal({ member, team, onClose }) {
             </div>
             <p className="member-modal__team-badge">Team {team.name}</p>
 
-            {/* Social links */}
             <div className="member-modal__socials">
               {member.github && (
                 <a
@@ -92,7 +97,6 @@ export default function MemberModal({ member, team, onClose }) {
 
             <p className="member-modal__bio">{member.bio}</p>
 
-            {/* Project card */}
             <div className="member-modal__project glass">
               <p className="member-modal__project-label">Project</p>
               <p className="member-modal__project-title">{member.project.title}</p>
@@ -109,7 +113,6 @@ export default function MemberModal({ member, team, onClose }) {
               )}
             </div>
 
-            {/* Stack chips */}
             <div className="member-modal__stack">
               {member.stack.map((s) => (
                 <span key={s} className="member-modal__chip">{s}</span>
