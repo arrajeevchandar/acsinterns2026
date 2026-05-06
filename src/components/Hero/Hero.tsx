@@ -35,7 +35,7 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
       <div className={`hero__content ${show ? 'is-visible' : ''}`}>
         <p className="hero__eyebrow">
           <span />
-          Adobe Consultancy Services
+          Adobe Customer Solutions
         </p>
 
         <h1 className="hero__title">
