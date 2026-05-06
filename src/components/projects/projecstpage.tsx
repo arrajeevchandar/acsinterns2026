@@ -211,10 +211,8 @@ const Modal: FC<ModalProps> = ({
           <div className="modal__meta-grid">
             {(
               [
-                ['Status', project.status],
                 ['Timeline', project.timeline],
                 ['Tech Stack', project.stack],
-                ['Impact', project.impact],
               ] as [string, string][]
             ).map(([label, value]) => (
               <div key={label} className="modal__meta-item">
@@ -230,19 +228,11 @@ const Modal: FC<ModalProps> = ({
           <p className="modal__section-title">Overview</p>
           <p className="modal__desc">{project.desc}</p>
 
-          {/* Tags */}
-          <div className="modal__tags" role="list" aria-label="Tech tags">
-            {project.tags.map((tag) => (
-              <span key={tag} className="modal__tag" role="listitem">
-                {tag}
-              </span>
-            ))}
-          </div>
 
           <div className="modal__divider" />
 
           {/* Author */}
-          <p className="modal__section-title">Author</p>
+          <p className="modal__section-title">Intern</p>
           <div className="modal__author-row">
             <div
               className="modal__avatar"
@@ -331,38 +321,13 @@ const ProjectsPage: FC = () => {
   }, []);
 
   // ── Total project count ──
-  const totalProjects = TEAMS.reduce((acc, t) => acc + t.projects.length, 0);
-  const totalInterns = 48;
+  const totalProjects = 32;
+  const totalInterns = 32;
 
   return (
-    <>
+    <section id="projects">
       {/* Google Fonts — add to <head> in your layout instead if possible */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap');`}</style>
-
-      {/* ── Navbar ── */}
-      <nav className="nav" aria-label="Main navigation">
-        <div className="nav__brand">
-          <div className="nav__logo" aria-hidden="true" />
-          <span className="nav__title">ACS Interns 2026</span>
-        </div>
-        <ul className="nav__links">
-          {['Home', 'Gallery', 'Teams', 'Projects', 'FAQs'].map((item) => (
-            <li key={item}>
-              <a
-                href={item === 'Projects' ? '#' : `/${item.toLowerCase()}`}
-                className={item === 'Projects' ? 'active' : ''}
-                aria-current={item === 'Projects' ? 'page' : undefined}
-              >
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="nav__theme-toggle" role="group" aria-label="Theme">
-          <span>Light</span>
-          <span className="active">Dark</span>
-        </div>
-      </nav>
 
       {/* ── Hero ── */}
       <header className="hero">
@@ -373,7 +338,6 @@ const ProjectsPage: FC = () => {
           <span className="hero__geo-3" />
         </div>
 
-        <p className="hero__eyebrow fade-up">Adobe Cloud Services</p>
         <h1 className="hero__heading fade-up fade-up-1">
           Our<br /><em>Work</em><br />Projects
         </h1>
@@ -447,7 +411,7 @@ const ProjectsPage: FC = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
       />
-    </>
+    </section>
   );
 };
 

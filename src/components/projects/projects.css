@@ -71,7 +71,6 @@ body {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 .nav__links {
@@ -85,7 +84,6 @@ body {
   text-decoration: none;
   font-size: 13px;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   font-weight: 500;
   transition: color 0.2s;
 }
@@ -201,11 +199,12 @@ body {
 .hero__heading {
   position: relative;
   z-index: 1;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: clamp(80px, 12vw, 160px);
   line-height: 0.9;
   letter-spacing: 0.02em;
   color: #fff;
+  font-weight: 850;
   margin-bottom: 24px;
 }
 
@@ -233,10 +232,11 @@ body {
 }
 
 .hero__stat-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: 42px;
   color: var(--red);
   line-height: 1;
+  font-weight: 850;
 }
 
 .hero__stat-label {
@@ -278,7 +278,7 @@ body {
 /* ─── Sticky Team Nav ─── */
 .team-nav-wrapper {
   position: sticky;
-  top: 64px;
+  top: 0px;
   z-index: 80;
   background: rgba(10, 10, 10, 0.96);
   backdrop-filter: blur(16px);
@@ -306,7 +306,6 @@ body {
   font-family: 'Barlow', sans-serif;
   font-size: 13px;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
   font-weight: 600;
   color: var(--muted);
   transition: color 0.2s;
@@ -379,7 +378,6 @@ body {
 .team-card__label {
   font-size: 11px;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--red);
   font-weight: 600;
   margin-bottom: 8px;
@@ -390,12 +388,11 @@ body {
   font-size: 48px;
   font-weight: 900;
   line-height: 1;
-  text-transform: uppercase;
   color: #fff;
 }
 
 .team-card__count {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: 64px;
   color: rgba(255, 255, 255, 0.06);
   line-height: 1;
