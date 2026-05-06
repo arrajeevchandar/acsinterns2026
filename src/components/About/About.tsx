@@ -22,7 +22,7 @@ const About: React.FC = () => {
         </div>
 
         <div className={`hub__stage reveal ${isVisible ? 'is-visible' : ''}`}>
-          <img src={`/images/team-collab.png`} alt="ACS interns collaborating" />
+          <img src={`${process.env.PUBLIC_URL}/images/team-collab.png`} alt="ACS interns collaborating" />
           <div className="hub__glass">
             <span>{selected.meta}</span>
             <strong>{selected.title}</strong>
