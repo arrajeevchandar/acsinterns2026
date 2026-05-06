@@ -26,7 +26,7 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
 
   return (
     <section className="hero" id="hero" ref={ref}>
-      <div className="hero__image" style={{ backgroundImage: `url(/images/hero-bg.png)` }} />
+      <div className="hero__image" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/hero-bg.png)` }} />
       <div className="hero__shade" />
       <div className="hero__beam hero__beam--one" />
       <div className="hero__beam hero__beam--two" />
