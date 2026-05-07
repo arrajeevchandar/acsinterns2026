@@ -7,7 +7,6 @@ import About from './components/About/About';
 import Process from './components/Process/Process';
 import CoreValues from './components/CoreValues/CoreValues';
 import Stats from './components/Stats/Stats';
-import TeamsPreview from './components/TeamsPreview/TeamsPreview';
 import Footer from './components/Footer/Footer';
 import ScrollProgress from './components/ScrollProgress/ScrollProgress';
 import './components/HomeSections.css';
@@ -32,7 +31,6 @@ function App() {
         <About />
         <Process />
         <Stats />
-        <TeamsPreview />
       </main>
       <Footer />
 
