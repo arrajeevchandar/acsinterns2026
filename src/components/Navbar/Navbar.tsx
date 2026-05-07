@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import AdobeLogo from '../AdobeLogo/AdobeLogo';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useTheme } from '../../hooks/useTheme';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#hero' },
+  { label: 'Home', href: '/' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Teams', href: '#teams' },
-  { label: 'Projects', href: '/projects/projectspage' },
+  { label: 'Projects', href: '/projects' },
 ];
 
 const Navbar: React.FC = () => {
@@ -37,9 +38,26 @@ const Navbar: React.FC = () => {
         <ul className="navbar__links">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="navbar__link" onClick={(event) => handleNavClick(event, link.href)}>
-                {link.label}
-              </a>
+              {link.href.startsWith('#') ? (
+                <a
+                  href={link.href}
+                  className="navbar__link"
+                  onClick={(event) => handleNavClick(event, link.href)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  to={link.href}
+                  className="navbar__link"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  {link.label}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -69,17 +87,29 @@ const Navbar: React.FC = () => {
       </nav>
 
       <div className={`navbar__mobile-menu ${isMobileMenuOpen ? 'navbar__mobile-menu--open' : ''}`}>
-        {NAV_LINKS.map((link, i) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="navbar__mobile-link"
-            onClick={(event) => handleNavClick(event, link.href)}
-          >
-            <span className="navbar__mobile-link-num">0{i + 1}</span>
-            {link.label}
-          </a>
-        ))}
+        {NAV_LINKS.map((link, i) =>
+          link.href.startsWith('#') ? (
+            <a
+              key={link.href}
+              href={link.href}
+              className="navbar__mobile-link"
+              onClick={(event) => handleNavClick(event, link.href)}
+            >
+              <span className="navbar__mobile-link-num">0{i + 1}</span>
+              {link.label}
+            </a>
+          ) : (
+            <Link
+              key={link.href}
+              to={link.href}
+              className="navbar__mobile-link"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <span className="navbar__mobile-link-num">0{i + 1}</span>
+              {link.label}
+            </Link>
+          )
+        )}
       </div>
     </>
   );

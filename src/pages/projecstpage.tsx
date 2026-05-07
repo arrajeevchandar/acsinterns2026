@@ -24,8 +24,8 @@ import React, {
   type KeyboardEvent,
 } from 'react';
 import './projects.css';
-import { TEAMS, AVATAR_COLORS } from './data';
-import type { Project, Team } from './types';
+import { TEAMS, AVATAR_COLORS } from '../components/projects/data';
+import type { Project, Team } from '../components/projects/types';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -327,7 +327,9 @@ const ProjectsPage: FC = () => {
   return (
     <section id="projects">
       {/* Google Fonts — add to <head> in your layout instead if possible */}
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap');`}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap');`}
+        
+      </style>
 
       {/* ── Hero ── */}
       <header className="hero">
