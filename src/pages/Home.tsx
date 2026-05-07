@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SplashScreen from '../components/SplashScreen/SplashScreen';
 import Hero from '../components/Hero/Hero';
 import Marquee from '../components/Marquee/Marquee';
@@ -13,8 +12,7 @@ import ScrollProgress from '../components/ScrollProgress/ScrollProgress';
 
 
 function Home() {
-
-    const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone] = useState(false);
   const [contentReady, setContentReady] = useState(false);
 
   const handleSplashComplete = useCallback(() => {
@@ -23,7 +21,7 @@ function Home() {
   }, []);
   return (
     <>
-        <ScrollProgress />
+      <ScrollProgress />
       <main>
         <Hero contentReady={contentReady} />
         <Marquee />
@@ -34,7 +32,7 @@ function Home() {
         <TeamsPreview />
       </main>
       <Footer />
-      
+
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     </>
   );
