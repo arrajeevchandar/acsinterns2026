@@ -275,7 +275,7 @@ body {
 /* ─── Sticky Team Nav ─── */
 .team-nav-wrapper {
   position: sticky;
-  top: 0px;
+  top: 62px;
   z-index: 80;
   background: rgba(10, 10, 10, 0.96);
   backdrop-filter: blur(16px);
