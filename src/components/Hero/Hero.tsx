@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AdobeLogo from '../AdobeLogo/AdobeLogo';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import './Hero.css';
 
