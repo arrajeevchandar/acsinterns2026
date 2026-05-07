@@ -1112,6 +1112,42 @@ html[data-theme="dark"] .week-map button em {
   flex-shrink: 0;
 }
 
+.moments__controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.moments__arrows {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.moments__arrow {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 200ms ease, border-color 200ms ease, opacity 200ms ease;
+}
+
+.moments__arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.moments__arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
 .moments__progress {
   width: min(260px, 28vw);
   height: 8px;
@@ -1395,7 +1431,43 @@ html[data-theme="dark"] .week-map button em {
     min-height: 420px;
   }
 
-  .moments__progress {
+  .moments__controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.moments__arrows {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.moments__arrow {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 200ms ease, border-color 200ms ease, opacity 200ms ease;
+}
+
+.moments__arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.moments__arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.moments__progress {
     width: 150px;
   }
 }
@@ -1411,7 +1483,43 @@ html[data-theme="dark"] .week-map button em {
     flex-direction: column;
   }
 
-  .moments__progress {
+  .moments__controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.moments__arrows {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.moments__arrow {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 200ms ease, border-color 200ms ease, opacity 200ms ease;
+}
+
+.moments__arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.moments__arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.moments__progress {
     width: 100%;
   }
 

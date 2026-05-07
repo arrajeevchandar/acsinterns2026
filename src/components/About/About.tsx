@@ -4,7 +4,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 const MODES = [
   { title: 'People', meta: 'cohort', cue: 'profiles' },
   { title: 'Teams', meta: 'ACS', cue: 'squads' },
-  { title: 'Mentors', meta: 'guides', cue: 'support' },
+  { title: 'Projects', meta: 'work', cue: 'initiatives' },
   { title: 'Moments', meta: 'summer', cue: 'gallery' },
 ];
 
@@ -18,7 +18,7 @@ const About: React.FC = () => {
       <div className="home-wrap hub">
         <div className={`hub__intro reveal ${isVisible ? 'is-visible' : ''}`}>
           <span className="section-kicker">Cohort Hub</span>
-          <h2 className="section-heading">Find your people.</h2>
+          <h2 className="section-heading">Explore the cohort.</h2>
         </div>
 
         <div className={`hub__stage reveal ${isVisible ? 'is-visible' : ''}`}>
