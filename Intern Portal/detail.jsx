@@ -1,0 +1,160 @@
+// Team Detail page — matching ACS design system
+
+const { useState: useStateD, useMemo: useMemoD, useEffect: useEffectD } = React;
+
+function TeamDetail({ teamId, onBack, onSelectMember }) {
+  const team = TEAMS.find((t) => t.id === teamId);
+  const members = MEMBERS_BY_TEAM[teamId];
+  const teamIndex = TEAMS.findIndex((t) => t.id === teamId);
+  const [query, setQuery] = useStateD('');
+  const [visible, setVisible] = useStateD(false);
+  useEffectD(() => { setTimeout(() => setVisible(true), 60); }, []);
+
+  const filtered = useMemoD(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return members;
+    return members.filter(
+      (m) =>
+        m.name.toLowerCase().includes(q) ||
+        m.role.toLowerCase().includes(q) ||
+        m.skills.some((s) => s.toLowerCase().includes(q)) ||
+        m.university.toLowerCase().includes(q)
+    );
+  }, [query, members]);
+
+  return (
+    <div className="detail-page">
+      <button className="detail-back" onClick={onBack}>
+        <span className="detail-back__arrow">←</span>
+        <span>All teams</span>
+      </button>
+
+      <header className={`detail-hero reveal ${visible ? 'is-visible' : ''}`}>
+        <div className="detail-hero__mesh" />
+        <div className="detail-hero__top">
+          <span className="section-kicker">
+            Team · 0{teamIndex + 1}
+          </span>
+        </div>
+
+        <div className="detail-hero__main">
+          <div className="detail-hero__text">
+            <h1 className="detail-hero__title">{team.name}</h1>
+            <p className="detail-hero__tagline">{team.tagline}</p>
+            <p className="detail-hero__desc">{team.description}</p>
+          </div>
+
+          <div className="detail-hero__meta liquid-glass-card">
+            <div className="detail-meta-row">
+              <span className="detail-meta-label">Lead</span>
+              <span className="detail-meta-value">{team.lead}</span>
+            </div>
+            <div className="detail-meta-row">
+              <span className="detail-meta-label">Members</span>
+              <span className="detail-meta-value">{String(members.length).padStart(2, '0')}</span>
+            </div>
+            <div className="detail-meta-row">
+              <span className="detail-meta-label">Stack</span>
+              <span className="detail-meta-value">{team.stack.join(' · ')}</span>
+            </div>
+            <div className="detail-meta-row">
+              <span className="detail-meta-label">Cohort</span>
+              <span className="detail-meta-value">Summer 2026</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Toolbar */}
+      <div className="roster-bar">
+        <div className="roster-bar__left">
+          <span className="section-kicker">Roster</span>
+          <span className="roster-bar__count">{filtered.length}</span>
+          {filtered.length !== members.length && (
+            <span className="roster-bar__of">/ {members.length}</span>
+          )}
+        </div>
+        <div className="roster-search liquid-glass-card">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
+            <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search name, role, skill…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {query && (
+            <button className="roster-search__clear" onClick={() => setQuery('')}>×</button>
+          )}
+        </div>
+      </div>
+
+      {/* Member grid */}
+      <div className="members-grid">
+        {filtered.map((m, i) => (
+          <MemberCard key={m.id} member={m} index={i} teamIndex={teamIndex} onClick={() => onSelectMember(m)} visible={visible} />
+        ))}
+        {filtered.length === 0 && (
+          <div className="no-results">
+            <p>No matches for "<strong>{query}</strong>"</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function MemberCard({ member, index, teamIndex, onClick, visible }) {
+  const av = AVATAR_COLORS[(teamIndex + index) % AVATAR_COLORS.length];
+  const num = String(index + 1).padStart(2, '0');
+  
+  const parts = member.id ? member.id.split('-') : [];
+  const idNum = parts.length > 1 ? parseInt(parts[1], 10) : 1;
+  const avatarId = (teamIndex * 10) + idNum + 1;
+  const avatarUrl = `https://i.pravatar.cc/600?img=${avatarId}`;
+
+  return (
+    <button
+      className={`member-card reveal ${visible ? 'is-visible' : ''}`}
+      style={{ transitionDelay: `${index * 40}ms` }}
+      onClick={onClick}
+      aria-label={`View ${member.name}'s profile`}
+    >
+      <div className="member-card__redbar" aria-hidden="true" />
+      <div className="member-card__shine" aria-hidden="true" />
+
+      {/* BIG PHOTO AREA */}
+      <div className="member-card__hero">
+        <img 
+          src={avatarUrl} 
+          alt={member.name} 
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+          className="member-card__hero-portrait" 
+        />
+        <span className="member-card__hero-num" style={{ zIndex: 10, background: 'rgba(0,0,0,0.5)', padding: '2px 4px', borderRadius: '4px' }}>{num}</span>
+      </div>
+
+      <div className="member-card__body">
+        <div className="member-card__info">
+          <p className="member-card__name">{member.name}</p>
+          <p className="member-card__role">{member.role}</p>
+        </div>
+
+        <div className="member-card__skills">
+          {member.skills.slice(0, 2).map((s) => (
+            <span key={s} className="member-card__chip">{s}</span>
+          ))}
+        </div>
+
+        <div className="member-card__foot">
+          <span className="member-card__uni">{member.university}</span>
+          <span className="member-card__arrow" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+window.TeamDetail = TeamDetail;

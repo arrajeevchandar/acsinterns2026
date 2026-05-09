@@ -1,0 +1,2839 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teams · ACS Interns 2026</title>
+  <style>
+    /* ACS Interns 2026 — Teams Page (matching design system exactly) */
+
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+    /* ── Theme tokens (exact copy from index.css) ── */
+    :root {
+      --bg: #0A0A0A;
+      --bg-alt: #111111;
+      --bg-card: rgba(255, 255, 255, 0.025);
+      --bg-card-hover: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --text-1: #FFFFFF;
+      --text-2: #9A9A9A;
+      --text-3: #555555;
+      --red: #EB1C24;
+      --red-glow: rgba(235, 28, 36, 0.15);
+      --nav-bg: rgba(10, 10, 10, 0.65);
+      --liquid-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035) 42%, rgba(235, 28, 36, 0.08));
+      --liquid-border: rgba(255, 255, 255, 0.18);
+      --liquid-highlight: rgba(255, 255, 255, 0.46);
+      --liquid-shadow: 0 30px 90px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    [data-theme="light"] {
+      --bg: #FAFAFA;
+      --bg-alt: #FFFFFF;
+      --bg-card: rgba(0, 0, 0, 0.02);
+      --bg-card-hover: rgba(0, 0, 0, 0.04);
+      --border: rgba(0, 0, 0, 0.06);
+      --border-hover: rgba(0, 0, 0, 0.12);
+      --text-1: #111111;
+      --text-2: #666666;
+      --text-3: #AAAAAA;
+      --nav-bg: rgba(250, 250, 250, 0.7);
+      --liquid-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.28) 48%, rgba(235, 28, 36, 0.08));
+      --liquid-border: rgba(255, 255, 255, 0.86);
+      --liquid-highlight: rgba(255, 255, 255, 0.9);
+      --liquid-shadow: 0 28px 80px rgba(20, 20, 20, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    /* ── Base ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.6s ease, color 0.6s ease;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #EB1C24;
+      color: white;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Film grain (matching body::before) */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #EB1C24;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      position: relative;
+      background: linear-gradient(180deg, rgba(235, 28, 36, 0.035), transparent 18rem), var(--bg);
+    }
+
+    /* ── Reveal animation (exact match) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 780ms ease, transform 980ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Kicker & Heading (exact from HomeSections.css) ── */
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+      color: var(--red);
+      font-size: 0.64rem;
+      font-weight: 850;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker::before {
+      content: '';
+      width: 36px;
+      height: 2px;
+      background: currentColor;
+      box-shadow: 0 0 18px rgba(235, 28, 36, 0.55);
+    }
+
+    .section-heading {
+      margin: 0;
+      color: var(--text-1);
+      font-size: clamp(2.4rem, 6.8vw, 6rem);
+      font-weight: 880;
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      margin: 1.3rem 0 0;
+      max-width: 600px;
+      color: var(--text-2);
+      font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+      line-height: 1.8;
+    }
+
+    /* ── Navbar (exact from Navbar.css) ── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.15rem clamp(1.2rem, 4vw, 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media(min-width:768px) {
+      .navbar {
+        padding: 1.25rem 3rem;
+      }
+    }
+
+    .navbar--scrolled {
+      background: var(--liquid-bg);
+      backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      -webkit-backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      border-bottom: 1px solid var(--liquid-border);
+      box-shadow: 0 18px 58px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      padding-top: 0.85rem;
+      padding-bottom: 0.85rem;
+    }
+
+    .navbar__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-1);
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: opacity 0.3s;
+    }
+
+    .navbar:not(.navbar--scrolled) .navbar__brand,
+    .navbar:not(.navbar--scrolled) .navbar__link {
+      color: #fff;
+    }
+
+    .navbar__brand:hover {
+      opacity: 0.7;
+    }
+
+    .navbar__brand-logo {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .navbar__brand:hover .navbar__brand-logo {
+      transform: scale(1.06);
+    }
+
+    .navbar__brand-sep {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+    }
+
+    .navbar__links {
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    @media(min-width:768px) {
+      .navbar__links {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .navbar__link {
+      position: relative;
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+      padding: 8px 14px;
+      text-transform: uppercase;
+    }
+
+    .navbar__link:hover {
+      color: var(--text-1);
+    }
+
+    .navbar__link::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: var(--red);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(-50%);
+    }
+
+    .navbar__link:hover::after {
+      width: 14px;
+    }
+
+    .navbar__link--active {
+      color: var(--text-1);
+    }
+
+    .navbar__link--active::after {
+      width: 14px;
+    }
+
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .navbar__theme-toggle {
+      position: relative;
+      background: var(--liquid-bg);
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      border: 1px solid var(--liquid-border);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      min-width: 92px;
+      height: 34px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      cursor: pointer;
+      color: var(--text-2);
+      font-size: 0.52rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .navbar__theme-toggle::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      left: 3px;
+      width: calc(50% - 3px);
+      border-radius: 999px;
+      background: #EB1C24;
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .navbar__theme-toggle--dark::before {
+      transform: translateX(100%);
+    }
+
+    .navbar__theme-toggle span {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .navbar__theme-toggle--light span:first-child,
+    .navbar__theme-toggle--dark span:last-child {
+      color: #fff;
+    }
+
+    .navbar__theme-toggle:hover {
+      border-color: rgba(235, 28, 36, 0.36);
+      color: var(--red);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.17), rgba(235, 28, 36, 0.09));
+    }
+
+    /* ── Footer (exact from Footer.css) ── */
+    .footer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.2rem clamp(1.25rem, 5vw, 4rem);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(28px) saturate(1.6);
+      -webkit-backdrop-filter: blur(28px) saturate(1.6);
+    }
+
+    .footer__mark {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #111;
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.8rem, 2vw, 1.4rem);
+    }
+
+    .footer__links a {
+      color: rgba(0, 0, 0, 0.58);
+      text-decoration: none;
+      font-size: 0.64rem;
+      font-weight: 850;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 220ms ease;
+    }
+
+    .footer__links a:hover {
+      color: #EB1C24;
+    }
+
+    html[data-theme="dark"] .footer {
+      border-top-color: rgba(255, 255, 255, 0.12);
+      background: rgba(10, 10, 10, 0.78);
+    }
+
+    html[data-theme="dark"] .footer__mark {
+      color: #fff;
+    }
+
+    html[data-theme="dark"] .footer__links a {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    /* ── View stage ── */
+    .view-stage {
+      flex: 1;
+      transition: opacity 320ms ease, transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .view-stage.is-out {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* ══════════════════════════════════════════════════
+   TEAMS HERO
+   ══════════════════════════════════════════════════ */
+    .teams-page {
+      padding-top: 80px;
+    }
+
+    .teams-hero {
+      position: relative;
+      min-height: 86vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: clamp(7rem, 12vh, 9rem) clamp(1.25rem, 5vw, 4rem) 5rem;
+      background: #030303;
+      isolation: isolate;
+    }
+
+    .teams-hero__mesh {
+      position: absolute;
+      inset: 0;
+      z-index: -4;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.76) 43%, rgba(0, 0, 0, 0.28) 100%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 45%, var(--bg) 100%);
+    }
+
+    .teams-hero__grid {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 76px 76px;
+      mask-image: linear-gradient(90deg, #000, transparent 74%);
+    }
+
+    .teams-hero__beam {
+      position: absolute;
+      z-index: -3;
+      width: 54vw;
+      height: 14vh;
+      right: -12vw;
+      background: linear-gradient(90deg, transparent, rgba(235, 28, 36, 0.34), transparent);
+      filter: blur(26px);
+      transform: rotate(-18deg);
+    }
+
+    .teams-hero__beam--one {
+      top: 22%;
+    }
+
+    .teams-hero__beam--two {
+      bottom: 16%;
+      opacity: 0.45;
+      transform: rotate(16deg);
+    }
+
+    .teams-hero__content {
+      max-width: 860px;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 900ms ease, transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .teams-hero__content.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .teams-hero__title {
+      max-width: 980px;
+      margin: 0;
+      color: #fff;
+      font-size: clamp(3rem, 8.4vw, 7.9rem);
+      font-weight: 850;
+      letter-spacing: -0.055em;
+      line-height: 0.88;
+      text-wrap: balance;
+    }
+
+    .teams-hero__copy {
+      max-width: 620px;
+      margin: 1.8rem 0 0;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: clamp(0.95rem, 1.7vw, 1.12rem);
+      line-height: 1.8;
+    }
+
+    .teams-hero__stats {
+      display: flex;
+      gap: 2.8rem;
+      margin-top: 2.6rem;
+    }
+
+    .teams-hero__stat-num {
+      color: var(--red);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.06em;
+    }
+
+    .teams-hero__stat-label {
+      margin-top: 0.45rem;
+      color: rgba(255, 255, 255, 0.44);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════════════
+   TEAMS SECTION & GRID
+   ══════════════════════════════════════════════════ */
+    .teams-section {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 4rem);
+    }
+
+    .teams-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 88px 88px;
+      opacity: 0.28;
+      mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+    }
+
+    .teams-section__header {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, 100%);
+      margin: 0 auto 3rem;
+    }
+
+    .teams-grid {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    /* ── Team Tile (liquid-glass card) ── */
+    .team-tile {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      padding: 1.4rem;
+      text-align: left;
+      border: 1px solid var(--liquid-border);
+      border-radius: 8px;
+      background: var(--liquid-bg);
+      backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      -webkit-backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      box-shadow: var(--liquid-shadow);
+      transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+    }
+
+    .team-tile:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0.055) 42%, rgba(235, 28, 36, 0.12));
+    }
+
+    /* Shimmer highlight (::before) */
+    .team-tile__highlight {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 16% 12%, var(--liquid-highlight), transparent 0.7rem),
+        radial-gradient(circle at 86% 18%, rgba(235, 28, 36, 0.2), transparent 7rem),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.24), transparent 28%, rgba(255, 255, 255, 0.08) 62%, transparent);
+      opacity: 0.58;
+      mix-blend-mode: screen;
+    }
+
+    /* Sweep shine (::after equivalent) */
+    .team-tile__shine {
+      position: absolute;
+      inset: -45%;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.22), transparent 64%);
+      transform: translateX(-45%) rotate(8deg);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .team-tile:hover .team-tile__shine {
+      transform: translateX(42%) rotate(8deg);
+    }
+
+    /* RED SHUTTER — sweeps up from bottom on hover */
+    .team-tile__shutter {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      background: linear-gradient(0deg,
+          rgba(235, 28, 36, 0.95),
+          rgba(235, 28, 36, 0.6) 40%,
+          rgba(235, 28, 36, 0.0) 100%);
+      transform: translateY(101%);
+      transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .team-tile.is-hovered .team-tile__shutter {
+      transform: translateY(60%);
+    }
+
+    .team-tile.is-hovered {
+      border-color: rgba(235, 28, 36, 0.5);
+    }
+
+    .team-tile.is-hovered .team-tile__count {
+      color: #fff;
+    }
+
+    .team-tile.is-hovered .team-tile__chip {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .team-tile__top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .team-tile__kicker {
+      color: var(--red);
+      font-size: 0.64rem;
+      font-weight: 850;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: rgba(235, 28, 36, 0.12);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .team-tile__num {
+      color: var(--text-3);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+    }
+
+    .team-tile__body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      margin-top: 2.2rem;
+    }
+
+    .team-tile__name {
+      margin: 0;
+      color: var(--text-1);
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      font-weight: 880;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .team-tile__tagline {
+      margin: 0.85rem 0 0;
+      color: var(--text-2);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      max-width: 90%;
+    }
+
+    .team-tile__stack {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.6rem;
+    }
+
+    .team-tile__chip {
+      padding: 0.42rem 0.55rem;
+      color: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      font-size: 0.62rem;
+      font-weight: 700;
+    }
+
+    .team-tile__foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .team-tile__count {
+      color: var(--text-3);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 400ms ease;
+    }
+
+    /* Interactive CTA arrow */
+    .team-tile__cta {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-3);
+      transition: all 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .team-tile__cta-text {
+      display: none;
+    }
+
+    .team-tile__cta-icon {
+      display: inline-flex;
+      align-items: center;
+      transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(-4px);
+      opacity: 0;
+    }
+
+    .team-tile.is-hovered .team-tile__cta {
+      color: var(--red);
+    }
+
+    .team-tile.is-hovered .team-tile__cta-icon {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    [data-theme="light"] .team-tile__chip {
+      color: rgba(0, 0, 0, 0.68);
+      border-color: rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    /* ══════════════════════════════════════════════════
+   DETAIL PAGE
+   ══════════════════════════════════════════════════ */
+    .detail-page {
+      padding: 100px clamp(1.25rem, 5vw, 4rem) 4rem;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 1rem 0.55rem 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(20px) saturate(1.55);
+      -webkit-backdrop-filter: blur(20px) saturate(1.55);
+      color: var(--text-2);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, background 220ms ease, color 220ms ease;
+      margin-bottom: 2rem;
+    }
+
+    .detail-back:hover {
+      color: #fff;
+      background: #EB1C24;
+      transform: translateY(-2px);
+    }
+
+    .detail-back__arrow {
+      font-size: 1rem;
+    }
+
+    /* Detail Hero */
+    .detail-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+      border: 1px solid var(--liquid-border);
+      border-radius: 8px;
+      background: var(--liquid-bg);
+      backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      -webkit-backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      box-shadow: var(--liquid-shadow);
+      margin-bottom: 3rem;
+    }
+
+    .detail-hero__mesh {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 12%, var(--liquid-highlight), transparent 0.7rem),
+        radial-gradient(circle at 86% 18%, rgba(235, 28, 36, 0.2), transparent 7rem),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.24), transparent 28%, rgba(255, 255, 255, 0.08) 62%, transparent);
+      opacity: 0.58;
+      mix-blend-mode: screen;
+    }
+
+    .detail-hero__main {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+
+    .detail-hero__title {
+      margin: 0;
+      color: var(--text-1);
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+
+    .detail-hero__tagline {
+      margin: 1rem 0 0;
+      color: var(--red);
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .detail-hero__desc {
+      margin: 1rem 0 0;
+      color: var(--text-2);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+
+    .liquid-glass-card {
+      border: 1px solid var(--liquid-border);
+      border-radius: 8px;
+      background: var(--liquid-bg);
+      backdrop-filter: blur(30px) saturate(1.85);
+      -webkit-backdrop-filter: blur(30px) saturate(1.85);
+      box-shadow: var(--liquid-shadow);
+      padding: 1rem;
+    }
+
+    .glass {
+      background: var(--liquid-bg);
+      backdrop-filter: blur(30px) saturate(1.85) contrast(1.05);
+      -webkit-backdrop-filter: blur(30px) saturate(1.85) contrast(1.05);
+      border: 1px solid var(--liquid-border);
+      box-shadow: var(--liquid-shadow);
+    }
+
+    .detail-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-meta-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-meta-label {
+      color: var(--text-3);
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .detail-meta-value {
+      color: var(--text-1);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: right;
+      max-width: 60%;
+    }
+
+    /* Roster bar */
+    .roster-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .roster-bar__left {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+    }
+
+    .roster-bar__count {
+      color: var(--red);
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 1;
+    }
+
+    .roster-bar__of {
+      color: var(--text-3);
+      font-size: 0.82rem;
+    }
+
+    .roster-search {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 0.85rem;
+      min-width: 280px;
+      color: var(--text-3);
+      transition: border-color 220ms ease;
+    }
+
+    .roster-search:focus-within {
+      border-color: rgba(235, 28, 36, 0.5);
+    }
+
+    .roster-search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font: inherit;
+      font-size: 0.78rem;
+      flex: 1;
+      color: var(--text-1);
+      font-weight: 500;
+    }
+
+    .roster-search input::placeholder {
+      color: var(--text-3);
+    }
+
+    .roster-search__clear {
+      color: var(--text-3);
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0;
+    }
+
+    /* Members grid */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    /* ── Member card ──────────────────────────────────────────── */
+    .member-card {
+      all: unset;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      text-align: left;
+      overflow: hidden;
+      color: var(--text-1);
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        color 280ms ease, filter 0.4s;
+
+      background: var(--liquid-bg);
+      backdrop-filter: blur(32px) saturate(1.85) contrast(1.05);
+      -webkit-backdrop-filter: blur(32px) saturate(1.85) contrast(1.05);
+      border: 1px solid var(--liquid-border);
+      box-shadow: var(--liquid-shadow);
+    }
+
+    .members-grid:hover .member-card:not(:hover) {
+      opacity: 0.4;
+      filter: grayscale(60%);
+    }
+
+    .member-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 16% 12%, var(--liquid-highlight), transparent 0.7rem),
+        radial-gradient(circle at 86% 18%, rgba(235, 28, 36, 0.2), transparent 7rem),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.24), transparent 28%, rgba(255, 255, 255, 0.08) 62%, transparent);
+      opacity: 0.58;
+      mix-blend-mode: screen;
+    }
+
+    .member-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .member-card>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .member-card:hover {
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.22),
+          rgba(255, 255, 255, 0.08) 42%,
+          rgba(235, 28, 36, 0.08));
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    [data-theme="light"] .member-card:hover {
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    /* Red top-bar wipe */
+    .member-card__redbar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 2;
+    }
+
+    .member-card:hover .member-card__redbar {
+      transform: scaleX(1);
+    }
+
+    /* Hover shine */
+    .member-card__shine {
+      position: absolute;
+      inset: -45%;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.22), transparent 64%);
+      transform: translateX(-45%) rotate(8deg);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+    }
+
+    .member-card:hover .member-card__shine {
+      transform: translateX(42%) rotate(8deg);
+    }
+
+    /* Hero big photo area */
+    .member-card__hero {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      overflow: hidden;
+      border: 1px solid var(--liquid-border);
+    }
+
+    .member-card__hero-initials {
+      font-size: 64px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      opacity: 0.9;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .member-card:hover .member-card__hero-initials {
+      transform: scale(1.12);
+      opacity: 1;
+    }
+
+    .member-card__hero-num {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .member-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 4px;
+      flex: 1;
+    }
+
+    /* Identity */
+    .member-card__name {
+      margin: 0 0 3px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text-1);
+    }
+
+    .member-card__role {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    /* Skills chips */
+    .member-card__skills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .member-card__chip {
+      display: inline-block;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--text-2);
+      background: transparent;
+      transition: all 240ms;
+    }
+
+    .member-card:hover .member-card__chip {
+      border-color: var(--border-hover);
+      color: var(--text-1);
+    }
+
+    /* Footer */
+    .member-card__foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      transition: border-color 280ms;
+    }
+
+    .member-card:hover .member-card__foot {
+      border-color: var(--border-hover);
+    }
+
+    .member-card__uni {
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .member-card__arrow {
+      font-size: 17px;
+      color: var(--text-3);
+      transition: all 280ms;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+
+    .member-card:hover .member-card__arrow {
+      color: var(--red);
+      transform: translate(4px, -4px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .member-card,
+      .member-card.is-visible {
+        transform: none !important;
+        transition: opacity 0.3s ease;
+      }
+
+      .member-card__redbar,
+      .member-card__portrait,
+      .member-card__arrow {
+        transition: none;
+      }
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      padding: 4rem 1rem;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 0.92rem;
+    }
+
+    /* ══════════════════════════════════════════════════
+   MODAL
+   ══════════════════════════════════════════════════ */
+    .member-modal__backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: backdropIn 0.2s ease-out;
+    }
+
+    @keyframes backdropIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .member-modal__panel {
+      position: relative;
+      width: min(1060px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 3rem;
+      animation: modalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+      background: var(--liquid-bg);
+      backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      -webkit-backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+      border: 1px solid var(--liquid-border);
+      box-shadow: var(--liquid-shadow);
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .member-modal__close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--border);
+      border: 1px solid var(--border-hover);
+      color: var(--text-2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .member-modal__close:hover {
+      background: rgba(235, 28, 36, 0.15);
+      border-color: rgba(235, 28, 36, 0.4);
+      color: var(--red);
+      box-shadow: 0 4px 16px rgba(235, 28, 36, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .member-modal__body {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+    }
+
+    .member-modal__portrait-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      border: 1px solid var(--border-hover);
+    }
+
+    .member-modal__portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter 0.4s;
+    }
+
+    .member-modal__portrait:hover {
+      filter: grayscale(0%);
+    }
+
+    .member-modal__team-badge {
+      margin-top: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-align: center;
+    }
+
+    /* Social links */
+    .member-modal__socials {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .member-modal__social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-hover);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-2);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .member-modal__social-link:hover {
+      background: rgba(235, 28, 36, 0.15);
+      border-color: rgba(235, 28, 36, 0.35);
+      color: var(--red);
+      box-shadow: 0 4px 16px rgba(235, 28, 36, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .member-modal__social-link--linkedin:hover {
+      background: rgba(235, 28, 36, 0.15);
+      border-color: rgba(235, 28, 36, 0.35);
+      color: var(--red);
+    }
+
+    .member-modal__name {
+      margin: 0 0 0.25rem;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 800;
+      color: var(--text-1);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .member-modal__role {
+      margin: 0 0 0.15rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    .member-modal__university {
+      margin: 0 0 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-2);
+    }
+
+    .member-modal__bio {
+      margin: 0 0 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-2);
+    }
+
+    .member-modal__project {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .member-modal__project-label {
+      margin: 0 0 0.25rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .member-modal__project-title {
+      margin: 0 0 0.35rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-1);
+    }
+
+    .member-modal__project-summary {
+      margin: 0 0 0.9rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--text-2);
+    }
+
+    .member-modal__project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .member-modal__project-link:hover {
+      background: rgba(235, 28, 36, 0.2);
+      color: var(--red);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(235, 28, 36, 0.35);
+    }
+
+    .member-modal__stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .member-modal__chip {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: transparent;
+      border: 1px solid var(--border-hover);
+      color: var(--text-2);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .member-modal__chip:hover {
+      background: rgba(235, 28, 36, 0.15);
+      border-color: rgba(235, 28, 36, 0.35);
+      color: var(--red);
+      box-shadow: 0 4px 14px rgba(235, 28, 36, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll lock */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 600px) {
+      .member-modal__panel {
+        padding: 1.5rem 1.25rem;
+        border-radius: 16px;
+      }
+
+      .member-modal__body {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .member-modal__portrait-wrap {
+        width: 120px;
+        margin: 0 auto;
+      }
+
+      .member-modal__team-badge {
+        text-align: center;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+   LIGHT THEME OVERRIDES
+   ══════════════════════════════════════════════════ */
+    [data-theme="light"] .teams-hero {
+      background: linear-gradient(180deg, #fbfbfb, #ededed);
+    }
+
+    [data-theme="light"] .teams-hero__mesh {
+      background:
+        radial-gradient(circle at 20% 15%, rgba(235, 28, 36, 0.1), transparent 22rem),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.76) 43%, rgba(255, 255, 255, 0.28) 100%);
+    }
+
+    [data-theme="light"] .teams-hero__beam {
+      background: linear-gradient(90deg, transparent, rgba(235, 28, 36, 0.12), transparent);
+    }
+
+    [data-theme="light"] .teams-hero__title {
+      color: #111;
+    }
+
+    [data-theme="light"] .teams-hero__copy {
+      color: rgba(0, 0, 0, 0.58);
+    }
+
+    [data-theme="light"] .teams-hero__stat-label {
+      color: rgba(0, 0, 0, 0.42);
+    }
+
+    [data-theme="light"] .teams-hero__grid {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+    }
+
+    [data-theme="light"] .teams-section::before {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+    }
+
+    [data-theme="light"] .detail-back {
+      border-color: rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.62);
+      color: #111;
+    }
+
+    /* ══════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .teams-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .members-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .detail-hero__main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .teams-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .members-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .teams-hero {
+        min-height: auto;
+        padding-bottom: 3rem;
+      }
+
+      .modal-sheet__links {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-sheet__meta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar__links {
+        display: none;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react">
+
+    // tweaks-panel.jsx
+    // Reusable Tweaks shell + form-control helpers.
+    //
+    // Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+    // posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+    // individual prototypes don't re-roll it. Ships a consistent set of controls so you
+    // don't hand-draw <input type="range">, segmented radios, steppers, etc.
+    //
+    // Usage (in an HTML file that loads React + Babel):
+    //
+    //   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    //     "primaryColor": "#D97757",
+    //     "fontSize": 16,
+    //     "density": "regular",
+    //     "dark": false
+    //   }/*EDITMODE-END*/;
+    //
+    //   function App() {
+    //     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    //     return (
+    //       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+    //         Hello
+    //         <TweaksPanel>
+    //           <TweakSection label="Typography" />
+    //           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+    //                        onChange={(v) => setTweak('fontSize', v)} />
+    //           <TweakRadio  label="Density" value={t.density}
+    //                        options={['compact', 'regular', 'comfy']}
+    //                        onChange={(v) => setTweak('density', v)} />
+    //           <TweakSection label="Theme" />
+    //           <TweakColor  label="Primary" value={t.primaryColor}
+    //                        onChange={(v) => setTweak('primaryColor', v)} />
+    //           <TweakToggle label="Dark mode" value={t.dark}
+    //                        onChange={(v) => setTweak('dark', v)} />
+    //         </TweaksPanel>
+    //       </div>
+    //     );
+    //   }
+    //
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
+
+    // ── useTweaks ───────────────────────────────────────────────────────────────
+    // Single source of truth for tweak values. setTweak persists via the host
+    // (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+    function useTweaks(defaults) {
+      const [values, setValues] = React.useState(defaults);
+      // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+      // useState-style call doesn't write a "[object Object]" key into the persisted
+      // JSON block.
+      const setTweak = React.useCallback((keyOrEdits, val) => {
+        const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+          ? keyOrEdits : { [keyOrEdits]: val };
+        setValues((prev) => ({ ...prev, ...edits }));
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+      }, []);
+      return [values, setTweak];
+    }
+
+    // ── TweaksPanel ─────────────────────────────────────────────────────────────
+    // Floating shell. Registers the protocol listener BEFORE announcing
+    // availability — if the announce ran first, the host's activate could land
+    // before our handler exists and the toolbar toggle would silently no-op.
+    // The close button posts __edit_mode_dismissed so the host's toolbar toggle
+    // flips off in lockstep; the host echoes __deactivate_edit_mode back which
+    // is what actually hides the panel.
+    function TweaksPanel({ title = 'Tweaks', children }) {
+      const [open, setOpen] = React.useState(false);
+      const dragRef = React.useRef(null);
+      const offsetRef = React.useRef({ x: 16, y: 16 });
+      const PAD = 16;
+
+      const clampToViewport = React.useCallback(() => {
+        const panel = dragRef.current;
+        if (!panel) return;
+        const w = panel.offsetWidth, h = panel.offsetHeight;
+        const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+        const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+        offsetRef.current = {
+          x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+          y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+        };
+        panel.style.right = offsetRef.current.x + 'px';
+        panel.style.bottom = offsetRef.current.y + 'px';
+      }, []);
+
+      React.useEffect(() => {
+        if (!open) return;
+        clampToViewport();
+        if (typeof ResizeObserver === 'undefined') {
+          window.addEventListener('resize', clampToViewport);
+          return () => window.removeEventListener('resize', clampToViewport);
+        }
+        const ro = new ResizeObserver(clampToViewport);
+        ro.observe(document.documentElement);
+        return () => ro.disconnect();
+      }, [open, clampToViewport]);
+
+      React.useEffect(() => {
+        const onMsg = (e) => {
+          const t = e?.data?.type;
+          if (t === '__activate_edit_mode') setOpen(true);
+          else if (t === '__deactivate_edit_mode') setOpen(false);
+        };
+        window.addEventListener('message', onMsg);
+        window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+        return () => window.removeEventListener('message', onMsg);
+      }, []);
+
+      const dismiss = () => {
+        setOpen(false);
+        window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+      };
+
+      const onDragStart = (e) => {
+        const panel = dragRef.current;
+        if (!panel) return;
+        const r = panel.getBoundingClientRect();
+        const sx = e.clientX, sy = e.clientY;
+        const startRight = window.innerWidth - r.right;
+        const startBottom = window.innerHeight - r.bottom;
+        const move = (ev) => {
+          offsetRef.current = {
+            x: startRight - (ev.clientX - sx),
+            y: startBottom - (ev.clientY - sy),
+          };
+          clampToViewport();
+        };
+        const up = () => {
+          window.removeEventListener('mousemove', move);
+          window.removeEventListener('mouseup', up);
+        };
+        window.addEventListener('mousemove', move);
+        window.addEventListener('mouseup', up);
+      };
+
+      if (!open) return null;
+      return (
+        <>
+          <style>{__TWEAKS_STYLE}</style>
+          <div ref={dragRef} className="twk-panel" data-noncommentable=""
+            style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+            <div className="twk-hd" onMouseDown={onDragStart}>
+              <b>{title}</b>
+              <button className="twk-x" aria-label="Close tweaks"
+                onMouseDown={(e) => e.stopPropagation()}
+                onClick={dismiss}>✕</button>
+            </div>
+            <div className="twk-body">{children}</div>
+          </div>
+        </>
+      );
+    }
+
+    // ── Layout helpers ──────────────────────────────────────────────────────────
+
+    function TweakSection({ label, children }) {
+      return (
+        <>
+          <div className="twk-sect">{label}</div>
+          {children}
+        </>
+      );
+    }
+
+    function TweakRow({ label, value, children, inline = false }) {
+      return (
+        <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+          <div className="twk-lbl">
+            <span>{label}</span>
+            {value != null && <span className="twk-val">{value}</span>}
+          </div>
+          {children}
+        </div>
+      );
+    }
+
+    // ── Controls ────────────────────────────────────────────────────────────────
+
+    function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+      return (
+        <TweakRow label={label} value={`${value}${unit}`}>
+          <input type="range" className="twk-slider" min={min} max={max} step={step}
+            value={value} onChange={(e) => onChange(Number(e.target.value))} />
+        </TweakRow>
+      );
+    }
+
+    function TweakToggle({ label, value, onChange }) {
+      return (
+        <div className="twk-row twk-row-h">
+          <div className="twk-lbl"><span>{label}</span></div>
+          <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+            role="switch" aria-checked={!!value}
+            onClick={() => onChange(!value)}><i /></button>
+        </div>
+      );
+    }
+
+    function TweakRadio({ label, value, options, onChange }) {
+      const trackRef = React.useRef(null);
+      const [dragging, setDragging] = React.useState(false);
+      const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+      const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+      const n = opts.length;
+
+      // The active value is read by pointer-move handlers attached for the lifetime
+      // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+      const valueRef = React.useRef(value);
+      valueRef.current = value;
+
+      const segAt = (clientX) => {
+        const r = trackRef.current.getBoundingClientRect();
+        const inner = r.width - 4;
+        const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+        return opts[Math.max(0, Math.min(n - 1, i))].value;
+      };
+
+      const onPointerDown = (e) => {
+        setDragging(true);
+        const v0 = segAt(e.clientX);
+        if (v0 !== valueRef.current) onChange(v0);
+        const move = (ev) => {
+          if (!trackRef.current) return;
+          const v = segAt(ev.clientX);
+          if (v !== valueRef.current) onChange(v);
+        };
+        const up = () => {
+          setDragging(false);
+          window.removeEventListener('pointermove', move);
+          window.removeEventListener('pointerup', up);
+        };
+        window.addEventListener('pointermove', move);
+        window.addEventListener('pointerup', up);
+      };
+
+      return (
+        <TweakRow label={label}>
+          <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+            className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+            <div className="twk-seg-thumb"
+              style={{
+                left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                width: `calc((100% - 4px) / ${n})`
+              }} />
+            {opts.map((o) => (
+              <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+                {o.label}
+              </button>
+            ))}
+          </div>
+        </TweakRow>
+      );
+    }
+
+    function TweakSelect({ label, value, options, onChange }) {
+      return (
+        <TweakRow label={label}>
+          <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+            {options.map((o) => {
+              const v = typeof o === 'object' ? o.value : o;
+              const l = typeof o === 'object' ? o.label : o;
+              return <option key={v} value={v}>{l}</option>;
+            })}
+          </select>
+        </TweakRow>
+      );
+    }
+
+    function TweakText({ label, value, placeholder, onChange }) {
+      return (
+        <TweakRow label={label}>
+          <input className="twk-field" type="text" value={value} placeholder={placeholder}
+            onChange={(e) => onChange(e.target.value)} />
+        </TweakRow>
+      );
+    }
+
+    function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+      const clamp = (n) => {
+        if (min != null && n < min) return min;
+        if (max != null && n > max) return max;
+        return n;
+      };
+      const startRef = React.useRef({ x: 0, val: 0 });
+      const onScrubStart = (e) => {
+        e.preventDefault();
+        startRef.current = { x: e.clientX, val: value };
+        const decimals = (String(step).split('.')[1] || '').length;
+        const move = (ev) => {
+          const dx = ev.clientX - startRef.current.x;
+          const raw = startRef.current.val + dx * step;
+          const snapped = Math.round(raw / step) * step;
+          onChange(clamp(Number(snapped.toFixed(decimals))));
+        };
+        const up = () => {
+          window.removeEventListener('pointermove', move);
+          window.removeEventListener('pointerup', up);
+        };
+        window.addEventListener('pointermove', move);
+        window.addEventListener('pointerup', up);
+      };
+      return (
+        <div className="twk-num">
+          <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+          <input type="number" value={value} min={min} max={max} step={step}
+            onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+          {unit && <span className="twk-num-unit">{unit}</span>}
+        </div>
+      );
+    }
+
+    function TweakColor({ label, value, onChange }) {
+      return (
+        <div className="twk-row twk-row-h">
+          <div className="twk-lbl"><span>{label}</span></div>
+          <input type="color" className="twk-swatch" value={value}
+            onChange={(e) => onChange(e.target.value)} />
+        </div>
+      );
+    }
+
+    function TweakButton({ label, onClick, secondary = false }) {
+      return (
+        <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+          onClick={onClick}>{label}</button>
+      );
+    }
+
+    Object.assign(window, {
+      useTweaks, TweaksPanel, TweakSection, TweakRow,
+      TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+      TweakText, TweakNumber, TweakColor, TweakButton,
+    });
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+    // Team & member data for the Intern Portal (v3 — matching ACS codebase)
+
+    const TEAMS = [
+      {
+        id: "ui",
+        code: "UI",
+        name: "UI Engineering",
+        tagline: "Crafting interfaces, motion, and the pixels that shape experience.",
+        description: "The UI team owns the surfaces interns and stakeholders touch every day — design systems, dashboards, and the polish that makes products feel inevitable.",
+        stack: ["React", "TypeScript", "Spectrum", "Framer Motion"],
+        lead: "Priya Anand",
+        memberCount: 8,
+      },
+      {
+        id: "data",
+        code: "DATA",
+        name: "Data",
+        tagline: "From raw signal to executive decision — pipelines that power insight.",
+        description: "Pipelines, warehouses, and the analytics layer that powers every other team. They turn the noisy into the navigable.",
+        stack: ["Snowflake", "Airflow", "dbt", "Python"],
+        lead: "Marcus Liang",
+        memberCount: 8,
+      },
+      {
+        id: "dacoe",
+        code: "DACoE",
+        name: "DACoE",
+        tagline: "Digital Analytics Center of Excellence — measurement that matters.",
+        description: "Instrumentation, measurement strategy, and the governance that keeps every metric trustworthy across the org.",
+        stack: ["Adobe Analytics", "Launch", "SQL", "Tableau"],
+        lead: "Amelia Okafor",
+        memberCount: 8,
+      },
+      {
+        id: "aem",
+        code: "AEM",
+        name: "AEM",
+        tagline: "Experience management at enterprise scale — authoring the web.",
+        description: "Authoring, delivery, and personalization on Adobe Experience Manager — the backbone of brand-facing content.",
+        stack: ["AEM", "Java", "Sling", "HTL"],
+        lead: "Devon Park",
+        memberCount: 8,
+      },
+      {
+        id: "workfront",
+        code: "WF",
+        name: "Workfront",
+        tagline: "Where work meets workflow — operationalizing creative teams.",
+        description: "Operationalizing how teams plan, request, review, and ship — automating the unglamorous so creatives can stay creative.",
+        stack: ["Workfront", "Fusion", "REST APIs", "JavaScript"],
+        lead: "Sana Khalid",
+        memberCount: 8,
+      },
+      {
+        id: "content",
+        code: "CTN",
+        name: "Content",
+        tagline: "Voice, narrative, and the words that ship with every product.",
+        description: "Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.",
+        stack: ["Strategy", "UX Writing", "SEO", "Editorial"],
+        lead: "Jordan Reyes",
+        memberCount: 8,
+      },
+    ];
+
+    const FIRST_NAMES = [
+      "Aarav", "Maya", "Liam", "Zoë", "Kenji", "Aria", "Theo", "Nia",
+      "Rohan", "Eliana", "Felix", "Sana", "Mateo", "Iris", "Kai", "Noor",
+      "Diego", "Anika", "Jonas", "Priya", "Soren", "Lila", "Ezra", "Amara",
+      "Tariq", "Wren", "Cyrus", "Mira", "Idris", "Nova", "Ronan", "Yui",
+      "Adrian", "Hana", "Lucas", "Ines", "Owen", "Saira", "Cole", "Maeve",
+    ];
+    const LAST_NAMES = [
+      "Patel", "Chen", "Okafor", "Singh", "Nakamura", "Rossi", "Park", "Kumar",
+      "Silva", "Khan", "Tanaka", "Müller", "Costa", "Reyes", "Walsh", "Anand",
+      "Liang", "Hassan", "Brooks", "Vargas", "Iyer", "Holm", "Ferrari", "Dubois",
+      "Nguyen", "Abebe", "Sato", "Becker", "Davies", "Romero",
+    ];
+    const UNIVERSITIES = [
+      "Stanford University", "MIT", "Carnegie Mellon", "UC Berkeley", "Georgia Tech",
+      "University of Washington", "BITS Pilani", "IIT Bombay", "ETH Zürich",
+      "University of Toronto", "NYU", "UCLA", "University of Michigan", "NTU Singapore",
+      "Cornell University", "UT Austin",
+    ];
+    const BATCHES = ["Summer 2025", "Fall 2025", "Spring 2026", "Summer 2026"];
+
+    const ROLES_BY_TEAM = {
+      ui: ["Frontend Intern", "Design Engineer Intern", "UX Engineer Intern", "Motion Intern"],
+      data: ["Data Engineer Intern", "Analytics Intern", "ML Intern", "Data Science Intern"],
+      dacoe: ["Analytics Intern", "Measurement Intern", "Insights Intern", "Reporting Intern"],
+      aem: ["AEM Developer Intern", "Backend Intern", "Platform Intern", "Integration Intern"],
+      workfront: ["Workfront Intern", "Automation Intern", "Solutions Intern", "Ops Intern"],
+      content: ["Content Strategy Intern", "UX Writer Intern", "Editorial Intern", "Localization Intern"],
+    };
+    const SKILLS_BY_TEAM = {
+      ui: [["React", "TypeScript", "CSS"], ["Figma", "Storybook", "React"], ["Three.js", "WebGL", "GLSL"], ["Framer", "Lottie", "AE"]],
+      data: [["Python", "Spark", "Airflow"], ["SQL", "dbt", "Snowflake"], ["PyTorch", "MLflow", "Pandas"], ["R", "Tableau", "Python"]],
+      dacoe: [["Adobe Analytics", "SQL"], ["Launch", "JavaScript"], ["Power BI", "DAX"], ["Excel", "Looker"]],
+      aem: [["Java", "Sling", "HTL"], ["AEM", "OSGi", "JCR"], ["Maven", "Jenkins", "AEM"], ["GraphQL", "Java", "AEM"]],
+      workfront: [["Workfront Fusion", "JS"], ["REST APIs", "Node"], ["Workfront", "SQL"], ["Automation", "Zapier"]],
+      content: [["UX Writing", "Figma"], ["SEO", "Strategy"], ["Editorial", "CMS"], ["Localization", "i18n"]],
+    };
+    const PROJECTS_BY_TEAM = {
+      ui: [{ name: "Spectrum Tokens v3", url: "#" }, { name: "Dashboard Redesign", url: "#" }, { name: "Component Migration", url: "#" }, { name: "Marketing Site Refresh", url: "#" }],
+      data: [{ name: "Unified Event Pipeline", url: "#" }, { name: "Cohort Modeling v2", url: "#" }, { name: "Real-time Lakehouse", url: "#" }, { name: "Anomaly Detection", url: "#" }],
+      dacoe: [{ name: "Funnel Instrumentation", url: "#" }, { name: "Attribution Model", url: "#" }, { name: "Executive Reporting", url: "#" }, { name: "Tag Governance", url: "#" }],
+      aem: [{ name: "Headless Migration", url: "#" }, { name: "Personalization Engine", url: "#" }, { name: "Asset Pipeline", url: "#" }, { name: "Multi-site Templates", url: "#" }],
+      workfront: [{ name: "Request Intake Automation", url: "#" }, { name: "Approval Routing v2", url: "#" }, { name: "Capacity Dashboard", url: "#" }, { name: "Fusion Connectors", url: "#" }],
+      content: [{ name: "Voice & Tone Guide", url: "#" }, { name: "Onboarding Copy Audit", url: "#" }, { name: "Help Center Rewrite", url: "#" }, { name: "Localization Playbook", url: "#" }],
+    };
+    const BIOS = [
+      "Spends weekends rebuilding mechanical keyboards and arguing about kerning. Believes good software has good rhythm.",
+      "Came to Adobe through a research project on perceptual color spaces. Currently obsessed with making dashboards readable in three glances or fewer.",
+      "Former architecture student. Treats every component like a load-bearing wall — measured, intentional, hard to break.",
+      "Reads release notes for fun. Writes them better than most people write essays.",
+      "Trail runner, type nerd, and the unofficial team historian. Owns more Pantone books than is reasonable.",
+      "Picked up code through making mods for indie games. Now applies the same patience to enterprise tooling.",
+      "Bilingual product thinker who translates ambiguity into roadmaps. Fluent in spreadsheet.",
+      "Cares deeply about documentation. Has strong, well-formed opinions about empty states.",
+      "Studies jazz piano on the side and applies the same improvisation to debugging at 4pm on Fridays.",
+      "Once shipped a side project that hit the front page of Hacker News. Still gets nervous before standups.",
+      "Comes from a journalism background. Brings the discipline of editing to every PR review.",
+      "Makes ceramics on weekends. Believes in slow craft and tight feedback loops.",
+    ];
+
+    function seededRandom(seed) {
+      let s = seed;
+      return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    }
+    function pick(arr, rnd) { return arr[Math.floor(rnd() * arr.length)]; }
+
+    function generateMembers(teamId, count, seed) {
+      const rnd = seededRandom(seed);
+      const used = new Set();
+      const out = [];
+      let i = 0;
+      while (out.length < count && i < count * 10) {
+        i++;
+        const first = pick(FIRST_NAMES, rnd);
+        const last = pick(LAST_NAMES, rnd);
+        const full = `${first} ${last}`;
+        if (used.has(full)) continue;
+        used.add(full);
+        const handle = `${first.toLowerCase()}${last.toLowerCase()}`;
+        out.push({
+          id: `${teamId}-${out.length}`,
+          name: full,
+          initials: (first[0] + last[0]).toUpperCase(),
+          role: pick(ROLES_BY_TEAM[teamId], rnd),
+          university: pick(UNIVERSITIES, rnd),
+          batch: pick(BATCHES, rnd),
+          skills: pick(SKILLS_BY_TEAM[teamId], rnd),
+          project: pick(PROJECTS_BY_TEAM[teamId], rnd),
+          bio: pick(BIOS, rnd),
+          mentor: pick(FIRST_NAMES, rnd) + " " + pick(LAST_NAMES, rnd),
+          github: `https://github.com/${handle}`,
+          linkedin: `https://linkedin.com/in/${handle}`,
+          avatarHue: Math.floor(rnd() * 360),
+        });
+      }
+      return out;
+    }
+
+    const MEMBERS_BY_TEAM = {
+      ui: generateMembers("ui", 8, 11),
+      data: generateMembers("data", 8, 22),
+      dacoe: generateMembers("dacoe", 8, 33),
+      aem: generateMembers("aem", 8, 44),
+      workfront: generateMembers("workfront", 8, 55),
+      content: generateMembers("content", 8, 66),
+    };
+
+    const AVATAR_COLORS = [
+      { bg: 'rgba(235, 28, 36, 0.15)', color: '#EB1C24' },
+      { bg: 'rgba(59, 130, 246, 0.15)', color: '#3B82F6' },
+      { bg: 'rgba(34, 197, 94, 0.15)', color: '#22C55E' },
+      { bg: 'rgba(168, 85, 247, 0.15)', color: '#A855F7' },
+      { bg: 'rgba(245, 158, 11, 0.15)', color: '#F59E0B' },
+      { bg: 'rgba(236, 72, 153, 0.15)', color: '#EC4899' },
+    ];
+
+    window.TEAMS = TEAMS;
+    window.MEMBERS_BY_TEAM = MEMBERS_BY_TEAM;
+    window.AVATAR_COLORS = AVATAR_COLORS;
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+    // Teams Overview — matching ACS Interns 2026 design system exactly
+
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    function TeamsOverview({ onSelectTeam }) {
+      const [visible, setVisible] = useState(false);
+      useEffect(() => { setTimeout(() => setVisible(true), 100); }, []);
+
+      return (
+        <div className="teams-page">
+          {/* Hero */}
+          <section className="teams-hero">
+            <div className="teams-hero__mesh" />
+            <div className="teams-hero__grid" />
+            <div className="teams-hero__beam teams-hero__beam--one" />
+            <div className="teams-hero__beam teams-hero__beam--two" />
+
+            <div className={`teams-hero__content ${visible ? 'is-visible' : ''}`}>
+              <span className="section-kicker">Teams</span>
+              <h1 className="teams-hero__title">Meet the teams.</h1>
+              <p className="teams-hero__copy">
+                Six squads. Forty-eight interns. One cohort building, measuring, and
+                shipping what matters at Adobe this summer.
+              </p>
+
+              <div className="teams-hero__stats">
+                {[
+                  { num: '48', label: 'Interns' },
+                  { num: '06', label: 'Teams' },
+                  { num: '12', label: 'Weeks' },
+                ].map((s) => (
+                  <div className="teams-hero__stat" key={s.label}>
+                    <span className="teams-hero__stat-num">{s.num}</span>
+                    <span className="teams-hero__stat-label">{s.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Team grid */}
+          <section className="teams-section">
+            <div className="teams-section__header">
+              <span className="section-kicker">All Squads</span>
+              <h2 className="section-heading">Pick your team.</h2>
+              <p className="section-copy">
+                Each team tackles a distinct surface of the Adobe Customer Solutions
+                stack. Click any card to meet the people behind it.
+              </p>
+            </div>
+
+            <div className="teams-grid">
+              {TEAMS.map((team, i) => (
+                <TeamCard
+                  key={team.id}
+                  team={team}
+                  index={i}
+                  members={MEMBERS_BY_TEAM[team.id]}
+                  onClick={() => onSelectTeam(team.id)}
+                  visible={visible}
+                />
+              ))}
+            </div>
+          </section>
+        </div>
+      );
+    }
+
+    function TeamCard({ team, index, members, onClick, visible }) {
+      const num = String(index + 1).padStart(2, '0');
+      const [hovered, setHovered] = useState(false);
+
+      return (
+        <button
+          className={`team-tile reveal ${visible ? 'is-visible' : ''} ${hovered ? 'is-hovered' : ''}`}
+          onClick={onClick}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{ transitionDelay: `${index * 80}ms` }}
+        >
+          {/* glass shimmer layers */}
+          <span className="team-tile__shine" />
+          <span className="team-tile__highlight" />
+          {/* red shutter that sweeps up on hover */}
+          <span className="team-tile__shutter" />
+
+          <div className="team-tile__top">
+            <span className="team-tile__kicker">{team.code}</span>
+          </div>
+
+          <div className="team-tile__body">
+            <h3 className="team-tile__name">{team.name}</h3>
+            <p className="team-tile__tagline">{team.tagline}</p>
+          </div>
+
+          <div className="team-tile__stack">
+            {team.stack.slice(0, 3).map((s) => (
+              <span key={s} className="team-tile__chip">{s}</span>
+            ))}
+          </div>
+
+          <div className="team-tile__foot">
+            <span className="team-tile__count">{members.length} interns</span>
+            <span className="team-tile__cta">
+              <span className="team-tile__cta-icon">
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+                  <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </button>
+      );
+    }
+
+    window.TeamsOverview = TeamsOverview;
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+    // Team Detail page — matching ACS design system
+
+    const { useState: useStateD, useMemo: useMemoD, useEffect: useEffectD } = React;
+
+    function TeamDetail({ teamId, onBack, onSelectMember }) {
+      const team = TEAMS.find((t) => t.id === teamId);
+      const members = MEMBERS_BY_TEAM[teamId];
+      const teamIndex = TEAMS.findIndex((t) => t.id === teamId);
+      const [query, setQuery] = useStateD('');
+      const [visible, setVisible] = useStateD(false);
+      useEffectD(() => { setTimeout(() => setVisible(true), 60); }, []);
+
+      const filtered = useMemoD(() => {
+        const q = query.trim().toLowerCase();
+        if (!q) return members;
+        return members.filter(
+          (m) =>
+            m.name.toLowerCase().includes(q) ||
+            m.role.toLowerCase().includes(q) ||
+            m.skills.some((s) => s.toLowerCase().includes(q)) ||
+            m.university.toLowerCase().includes(q)
+        );
+      }, [query, members]);
+
+      return (
+        <div className="detail-page">
+          <button className="detail-back" onClick={onBack}>
+            <span className="detail-back__arrow">←</span>
+            <span>All teams</span>
+          </button>
+
+          <header className={`detail-hero reveal ${visible ? 'is-visible' : ''}`}>
+            <div className="detail-hero__mesh" />
+            <div className="detail-hero__top">
+              <span className="section-kicker">
+                Team · 0{teamIndex + 1}
+              </span>
+            </div>
+
+            <div className="detail-hero__main">
+              <div className="detail-hero__text">
+                <h1 className="detail-hero__title">{team.name}</h1>
+                <p className="detail-hero__tagline">{team.tagline}</p>
+                <p className="detail-hero__desc">{team.description}</p>
+              </div>
+
+              <div className="detail-hero__meta liquid-glass-card">
+                <div className="detail-meta-row">
+                  <span className="detail-meta-label">Lead</span>
+                  <span className="detail-meta-value">{team.lead}</span>
+                </div>
+                <div className="detail-meta-row">
+                  <span className="detail-meta-label">Members</span>
+                  <span className="detail-meta-value">{String(members.length).padStart(2, '0')}</span>
+                </div>
+                <div className="detail-meta-row">
+                  <span className="detail-meta-label">Stack</span>
+                  <span className="detail-meta-value">{team.stack.join(' · ')}</span>
+                </div>
+                <div className="detail-meta-row">
+                  <span className="detail-meta-label">Cohort</span>
+                  <span className="detail-meta-value">Summer 2026</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          {/* Toolbar */}
+          <div className="roster-bar">
+            <div className="roster-bar__left">
+              <span className="section-kicker">Roster</span>
+              <span className="roster-bar__count">{filtered.length}</span>
+              {filtered.length !== members.length && (
+                <span className="roster-bar__of">/ {members.length}</span>
+              )}
+            </div>
+            <div className="roster-search liquid-glass-card">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search name, role, skill…"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              {query && (
+                <button className="roster-search__clear" onClick={() => setQuery('')}>×</button>
+              )}
+            </div>
+          </div>
+
+          {/* Member grid */}
+          <div className="members-grid">
+            {filtered.map((m, i) => (
+              <MemberCard key={m.id} member={m} index={i} teamIndex={teamIndex} onClick={() => onSelectMember(m)} visible={visible} />
+            ))}
+            {filtered.length === 0 && (
+              <div className="no-results">
+                <p>No matches for "<strong>{query}</strong>"</p>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function MemberCard({ member, index, teamIndex, onClick, visible }) {
+      const av = AVATAR_COLORS[(teamIndex + index) % AVATAR_COLORS.length];
+      const num = String(index + 1).padStart(2, '0');
+
+      const parts = member.id ? member.id.split('-') : [];
+      const idNum = parts.length > 1 ? parseInt(parts[1], 10) : 1;
+      const avatarId = (teamIndex * 10) + idNum + 1;
+      const avatarUrl = `https://i.pravatar.cc/600?img=${avatarId}`;
+
+      return (
+        <button
+          className={`member-card reveal ${visible ? 'is-visible' : ''}`}
+          style={{ transitionDelay: `${index * 40}ms` }}
+          onClick={onClick}
+          aria-label={`View ${member.name}'s profile`}
+        >
+          <div className="member-card__redbar" aria-hidden="true" />
+          <div className="member-card__shine" aria-hidden="true" />
+
+          {/* BIG PHOTO AREA */}
+          <div className="member-card__hero">
+            <img
+              src={avatarUrl}
+              alt={member.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              className="member-card__hero-portrait"
+            />
+            <span className="member-card__hero-num" style={{ zIndex: 10, background: 'rgba(0,0,0,0.5)', padding: '2px 4px', borderRadius: '4px' }}>{num}</span>
+          </div>
+
+          <div className="member-card__body">
+            <div className="member-card__info">
+              <p className="member-card__name">{member.name}</p>
+              <p className="member-card__role">{member.role}</p>
+            </div>
+
+            <div className="member-card__skills">
+              {member.skills.slice(0, 2).map((s) => (
+                <span key={s} className="member-card__chip">{s}</span>
+              ))}
+            </div>
+
+            <div className="member-card__foot">
+              <span className="member-card__uni">{member.university}</span>
+              <span className="member-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </button>
+      );
+    }
+
+    window.TeamDetail = TeamDetail;
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+    // Member Modal — matching ACS design system
+
+    const { useEffect: useEffectM } = React;
+
+    function MemberModal({ member, team, onClose }) {
+      useEffectM(() => {
+        document.body.classList.add('modal-open');
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        window.addEventListener('keydown', onKey);
+        return () => {
+          document.body.classList.remove('modal-open');
+          window.removeEventListener('keydown', onKey);
+        };
+      }, [onClose]);
+
+      if (!member) return null;
+
+      const teamIndexList = Object.keys(window.MEMBERS_BY_TEAM || {});
+      const teamIndex = teamIndexList.indexOf(team.id) !== -1 ? teamIndexList.indexOf(team.id) : 0;
+      const parts = member.id ? member.id.split('-') : [];
+      const idNum = parts.length > 1 ? parseInt(parts[1], 10) : 1;
+      const avatarId = (teamIndex * 10) + idNum + 1;
+      const avatarUrl = `https://i.pravatar.cc/600?img=${avatarId}`;
+
+      const modal = (
+        <div className="member-modal__backdrop" onClick={onClose}>
+          <div className="member-modal__panel glass" onClick={(e) => e.stopPropagation()}>
+            <button className="member-modal__close" onClick={onClose} aria-label="Close">
+              <span aria-hidden="true">✕</span>
+            </button>
+
+            <div className="member-modal__body">
+              {/* Portrait column */}
+              <div className="member-modal__portrait-col">
+                <div className="member-modal__portrait-wrap">
+                  <img
+                    src={avatarUrl}
+                    alt={member.name}
+                    className="member-modal__portrait"
+                  />
+                </div>
+                <p className="member-modal__team-badge">Team {team.name}</p>
+
+                <div className="member-modal__socials">
+                  {member.github && (
+                    <a
+                      href={member.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="member-modal__social-link"
+                      aria-label={`${member.name} on GitHub`}
+                    >
+                      <IconGitHub />
+                      <span>GitHub</span>
+                    </a>
+                  )}
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="member-modal__social-link member-modal__social-link--linkedin"
+                      aria-label={`${member.name} on LinkedIn`}
+                    >
+                      <IconLinkedIn />
+                      <span>LinkedIn</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Info column */}
+              <div className="member-modal__info-col">
+                <h2 className="member-modal__name">{member.name}</h2>
+                <p className="member-modal__role">{member.role}</p>
+                <p className="member-modal__university">
+                  {member.university} &middot; {member.batch || member.program}
+                </p>
+
+                <p className="member-modal__bio">{member.bio}</p>
+
+                {member.project && (
+                  <div className="member-modal__project glass">
+                    <p className="member-modal__project-label">Project</p>
+                    <p className="member-modal__project-title">{member.project.name || member.project.title}</p>
+                    {(member.project.description || member.project.summary) && (
+                      <p className="member-modal__project-summary">{member.project.description || member.project.summary}</p>
+                    )}
+                    {member.project.url && (
+                      <a
+                        href={member.project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="member-modal__project-link"
+                      >
+                        View project <IconExternal />
+                      </a>
+                    )}
+                  </div>
+                )}
+
+                <div className="member-modal__stack">
+                  {(member.skills || member.stack || []).map((s) => (
+                    <span key={s} className="member-modal__chip">{s}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+      return window.ReactDOM && window.ReactDOM.createPortal
+        ? window.ReactDOM.createPortal(modal, document.body)
+        : modal;
+    }
+
+    // Icons
+    function IconLinkedIn() {
+      return (<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>);
+    }
+    function IconGitHub() {
+      return (<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>);
+    }
+    function IconExternal() {
+      return (<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>);
+    }
+
+    window.MemberModal = MemberModal;
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+    // App shell — v3 matching ACS design system
+
+    const { useState: useStateA, useEffect: useEffectA, useCallback: useCallbackA } = React;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "theme": "dark"
+    }/*EDITMODE-END*/;
+
+    function App() {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      const [view, setView] = useStateA({ name: 'overview' });
+      const [modalMember, setModalMember] = useStateA(null);
+      const [transitioning, setTransitioning] = useStateA(false);
+
+      useEffectA(() => {
+        document.documentElement.setAttribute('data-theme', tweaks.theme);
+        document.documentElement.style.colorScheme = tweaks.theme;
+      }, [tweaks.theme]);
+
+      function goToTeam(teamId) {
+        setTransitioning(true);
+        setTimeout(() => {
+          setView({ name: 'detail', teamId });
+          window.scrollTo(0, 0);
+          setTransitioning(false);
+        }, 300);
+      }
+
+      function goBack() {
+        setTransitioning(true);
+        setTimeout(() => {
+          setView({ name: 'overview' });
+          window.scrollTo(0, 0);
+          setTransitioning(false);
+        }, 300);
+      }
+
+      return (
+        <div className="app-shell">
+          <Navbar theme={tweaks.theme} onToggleTheme={() => setTweak('theme', tweaks.theme === 'dark' ? 'light' : 'dark')} />
+
+          <main className={`view-stage ${transitioning ? 'is-out' : ''}`}>
+            {view.name === 'overview' && <TeamsOverview onSelectTeam={goToTeam} />}
+            {view.name === 'detail' && (
+              <TeamDetail
+                teamId={view.teamId}
+                onBack={goBack}
+                onSelectMember={(m) => setModalMember(m)}
+              />
+            )}
+          </main>
+
+          <Footer />
+
+          {modalMember && (
+            <MemberModal
+              member={modalMember}
+              team={TEAMS.find((t) => MEMBERS_BY_TEAM[t.id].some((m) => m.id === modalMember.id))}
+              onClose={() => setModalMember(null)}
+            />
+          )}
+
+          <TweaksPanel title="Tweaks">
+            <TweakSection title="Appearance">
+              <TweakRadio
+                label="Theme"
+                value={tweaks.theme}
+                options={[{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }]}
+                onChange={(v) => setTweak('theme', v)}
+              />
+            </TweakSection>
+          </TweaksPanel>
+        </div>
+      );
+    }
+
+    function Navbar({ theme, onToggleTheme }) {
+      const [scrolled, setScrolled] = useStateA(false);
+      useEffectA(() => {
+        const onScroll = () => setScrolled(window.scrollY > 30);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+      }, []);
+
+      return (
+        <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+          <a className="navbar__brand" href="#">
+            <span className="navbar__brand-logo">
+              <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+                <rect width="100" height="100" fill="rgba(255,255,255,0.06)" rx="6" />
+                <polygon points="8,8 42,8 8,92" fill="#EB1C24" />
+                <polygon points="58,8 92,8 92,92" fill="#EB1C24" />
+                <polygon points="50,28 68,78 50,78 44,62 32,78 50,78" fill="#EB1C24" />
+              </svg>
+            </span>
+            <span className="navbar__brand-sep" />
+            <span>ACS Interns 2026</span>
+          </a>
+
+          <ul className="navbar__links">
+            <li><a className="navbar__link" href="#">Home</a></li>
+            <li><a className="navbar__link" href="#">Gallery</a></li>
+            <li><a className="navbar__link navbar__link--active" href="#">Teams</a></li>
+            <li><a className="navbar__link" href="#">Projects</a></li>
+          </ul>
+
+          <div className="navbar__right">
+            <button
+              className={`navbar__theme-toggle navbar__theme-toggle--${theme}`}
+              onClick={onToggleTheme}
+              role="switch"
+            >
+              <span>Light</span>
+              <span>Dark</span>
+            </button>
+          </div>
+        </nav>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="footer">
+          <div className="footer__mark">
+            <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+              <polygon points="8,8 42,8 8,92" fill="#EB1C24" />
+              <polygon points="58,8 92,8 92,92" fill="#EB1C24" />
+              <polygon points="50,28 68,78 50,78 44,62 32,78 50,78" fill="#EB1C24" />
+            </svg>
+            <span>ACS Interns 2026</span>
+          </div>
+          <div className="footer__links">
+            <a href="#">Home</a>
+            <a href="#">Gallery</a>
+            <a href="#">Teams</a>
+            <a href="#">Projects</a>
+          </div>
+        </footer>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+
+  </script>
+</body>
+
+</html>
