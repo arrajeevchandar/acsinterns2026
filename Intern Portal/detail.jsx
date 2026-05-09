@@ -33,7 +33,7 @@ function TeamDetail({ teamId, onBack, onSelectMember }) {
         <div className="detail-hero__mesh" />
         <div className="detail-hero__top">
           <span className="section-kicker">
-            Team · 0{teamIndex + 1}
+            Team
           </span>
         </div>
 
@@ -133,7 +133,6 @@ function MemberCard({ member, index, teamIndex, onClick, visible }) {
           style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           className="member-card__hero-portrait" 
         />
-        <span className="member-card__hero-num" style={{ zIndex: 10, background: 'rgba(0,0,0,0.5)', padding: '2px 4px', borderRadius: '4px' }}>{num}</span>
       </div>
 
       <div className="member-card__body">
