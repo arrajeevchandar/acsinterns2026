@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
-import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-<<<<<<< HEAD
-=======
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Gallery', href: '#gallery' },
@@ -13,9 +10,18 @@ const NAV_LINKS = [
   { label: 'Projects', href: '/projects' },
 ];
 
->>>>>>> main
 const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      event.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
     <nav className="navbar" id="navbar">
@@ -27,7 +33,33 @@ const Navbar: React.FC = () => {
         <span>ACS Interns 2026</span>
       </Link>
 
-<<<<<<< HEAD
+      <ul className="navbar__links">
+        {NAV_LINKS.map((link) => (
+          <li key={link.href}>
+            {link.href.startsWith('#') ? (
+              <a
+                href={link.href}
+                className="navbar__link"
+                onClick={(event) => handleNavClick(event, link.href)}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                to={link.href}
+                className="navbar__link"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  window.scrollTo(0, 0);
+                }}
+              >
+                {link.label}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+
       <div className="navbar__right">
         <button
           className={`navbar__theme-toggle navbar__theme-toggle--${theme}`}
@@ -39,57 +71,17 @@ const Navbar: React.FC = () => {
           <span>Light</span>
           <span>Dark</span>
         </button>
-=======
-        <ul className="navbar__links">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              {link.href.startsWith('#') ? (
-                <a
-                  href={link.href}
-                  className="navbar__link"
-                  onClick={(event) => handleNavClick(event, link.href)}
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  to={link.href}
-                  className="navbar__link"
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  {link.label}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
 
-        <div className="navbar__right">
-          <button
-            className={`navbar__theme-toggle navbar__theme-toggle--${theme}`}
-            onClick={toggleTheme}
-            role="switch"
-            aria-checked={theme === 'dark'}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          >
-            <span>Light</span>
-            <span>Dark</span>
-          </button>
-
-          <button
-            className={`navbar__hamburger ${isMobileMenuOpen ? 'navbar__hamburger--open' : ''}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className="navbar__hamburger-line" />
-            <span className="navbar__hamburger-line" />
-            <span className="navbar__hamburger-line" />
-          </button>
-        </div>
-      </nav>
+        <button
+          className={`navbar__hamburger ${isMobileMenuOpen ? 'navbar__hamburger--open' : ''}`}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className="navbar__hamburger-line" />
+          <span className="navbar__hamburger-line" />
+          <span className="navbar__hamburger-line" />
+        </button>
+      </div>
 
       <div className={`navbar__mobile-menu ${isMobileMenuOpen ? 'navbar__mobile-menu--open' : ''}`}>
         {NAV_LINKS.map((link, i) =>
@@ -115,7 +107,6 @@ const Navbar: React.FC = () => {
             </Link>
           )
         )}
->>>>>>> main
       </div>
     </nav>
   );
