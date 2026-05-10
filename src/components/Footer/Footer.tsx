@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
       <div className="footer__links">
         <a href="#hero">Home</a>
         <a href="#gallery">Gallery</a>
-        <a href="#teams">Teams</a>
+        <a href="teams">Teams</a>
         <a href="#faqs">FAQs</a>
       </div>
     </footer>

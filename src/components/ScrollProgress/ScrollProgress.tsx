@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './ScrollProgress.css';
 
 const SECTIONS = [
@@ -11,10 +12,14 @@ const SECTIONS = [
 ];
 
 const ScrollProgress: React.FC = () => {
+  const location = useLocation();
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState('hero');
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
+    if (!isHome) return;
+
     const update = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(scrollable > 0 ? window.scrollY / scrollable : 0);
@@ -35,7 +40,9 @@ const ScrollProgress: React.FC = () => {
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, []);
+  }, [isHome]);
+
+  if (!isHome) return null;
 
   const jumpTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
