@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
 import './Navbar.css';
@@ -13,6 +13,14 @@ const NAV_LINKS = [
 const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
@@ -24,7 +32,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="navbar" id="navbar">
+    <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`} id="navbar">
       <Link to="/teams" className="navbar__brand">
         <svg className="navbar__brand-logo" width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M58.3 7H93v86L58.3 7ZM41.7 7H7v86L41.7 7ZM50 52.5 66.3 93H50.1l-4.9-13H33.6L50 52.5Z" fill="#eb1c24"/>
