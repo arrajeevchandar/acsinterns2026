@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import './ZenithChat.css';
 
 export const ZenithChat: React.FC = () => {
-  const { messages, isLoading, isOpen, suggestions, sendMessage, clearChat, closeChat } = useZenith();
+  const { messages, isLoading, isOpen, suggestions, sendMessage, clearChat, closeChat, toggleChat } = useZenith();
   const [input, setInput] = useState('');
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -70,6 +70,22 @@ export const ZenithChat: React.FC = () => {
 
   return (
     <AnimatePresence>
+      {/* Launcher Bubble — visible when chat is closed */}
+      {!isOpen && (
+        <motion.button
+          key="launcher"
+          className="zenith-launcher"
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.6 }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          onClick={() => toggleChat()}
+          title="Ask Zenith"
+          aria-label="Open AI Assistant"
+        >
+          <Sparkles size={22} />
+        </motion.button>
+      )}
       {isOpen && (
         <>
           {/* Backdrop */}
