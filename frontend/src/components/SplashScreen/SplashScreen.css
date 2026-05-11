@@ -1,0 +1,283 @@
+@import url("https://use.typekit.net/baj0wbd.css");
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #020202;
+  color: #fff;
+  isolation: isolate;
+}
+
+.splash::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(235, 28, 36, 0.26), transparent 28%),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.05), transparent 24%),
+    linear-gradient(110deg, transparent 0 44%, rgba(255, 255, 255, 0.08) 48%, transparent 52% 100%);
+  opacity: 0;
+  transform: scale(0.9) rotate(-6deg);
+  transition: opacity 900ms ease, transform 1300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.splash--form::before,
+.splash--flip::before,
+.splash--open::before {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.splash__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50.2%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 18%),
+    #030303;
+  z-index: 4;
+  transition: transform 1150ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.splash__panel--left {
+  top: 0;
+  border-bottom: 1px solid rgba(235, 28, 36, 0.22);
+}
+
+.splash__panel--right {
+  bottom: 0;
+  border-top: 1px solid rgba(235, 28, 36, 0.22);
+  transform: scaleY(-1);
+}
+
+.splash--open .splash__panel--left {
+  transform: translateY(-101%);
+}
+
+.splash--open .splash__panel--right {
+  transform: translateY(101%) scaleY(-1);
+}
+
+.splash__scanline {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  height: 24vh;
+  transform: translateY(-120vh);
+  animation: splashScan 2200ms cubic-bezier(0.65, 0, 0.35, 1) 520ms forwards;
+}
+
+.splash__stage {
+  position: relative;
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  gap: 2rem;
+  perspective: 900px;
+  transition: opacity 600ms ease, transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.splash--open .splash__stage {
+  opacity: 0;
+  transform: scale(1.35) translateY(-16vh);
+}
+
+.splash__rings {
+  position: absolute;
+  width: min(64vw, 520px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 900ms ease, transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.splash--form .splash__rings,
+.splash--flip .splash__rings,
+.splash--open .splash__rings {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.splash__rings span {
+  position: absolute;
+  inset: calc(var(--i, 0) * 12%);
+  border: 1px solid rgba(235, 28, 36, 0.18);
+  border-radius: 50%;
+  animation: ringTurn 5200ms linear infinite;
+}
+
+.splash__rings span:nth-child(1) { --i: 0; }
+.splash__rings span:nth-child(2) { --i: 1; animation-direction: reverse; }
+.splash__rings span:nth-child(3) { --i: 2; animation-duration: 3900ms; }
+
+.splash__mark {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  display: grid;
+  place-items: center;
+  transform: scale(0.6);
+  opacity: 0;
+  filter: drop-shadow(0 0 0 rgba(235, 28, 36, 0));
+  transition:
+    opacity 700ms ease,
+    transform 1700ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1700ms ease;
+}
+
+.splash--form .splash__mark,
+.splash--flip .splash__mark,
+.splash--open .splash__mark {
+  opacity: 1;
+  filter: drop-shadow(0 22px 50px rgba(235, 28, 36, 0.36));
+}
+
+.splash--form .splash__mark {
+  transform: scale(1);
+}
+
+.splash--flip .splash__mark {
+  transform: scale(1.12);
+  transition-duration: 900ms;
+}
+
+.splash--open .splash__mark {
+  transform: scale(1.12);
+}
+
+.splash__mark > svg,
+.splash__mark-shadow {
+  position: absolute;
+  inset: 0;
+}
+
+.splash__mark-shadow {
+  opacity: 0;
+  transform: translate3d(0, 0, -20px);
+}
+
+.splash--form .splash__mark-shadow--one {
+  animation: logoGhostOne 1700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash--form .splash__mark-shadow--two {
+  animation: logoGhostTwo 1700ms cubic-bezier(0.16, 1, 0.3, 1) 80ms forwards;
+}
+
+.adobe-logo--animated .adobe-logo__path {
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  animation: logoDraw 1500ms cubic-bezier(0.16, 1, 0.3, 1) 680ms forwards, logoFill 450ms ease 1900ms forwards;
+}
+
+.adobe-logo--animated .adobe-logo__path--right { animation-delay: 820ms, 2000ms; }
+.adobe-logo--animated .adobe-logo__path--center { animation-delay: 980ms, 2100ms; }
+
+.splash__word {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms ease 1650ms, transform 700ms ease 1650ms;
+}
+
+.splash--form .splash__word,
+.splash--flip .splash__word,
+.splash--open .splash__word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.splash__word span {
+  font-family: 'adobe-clean', 'Adobe Clean', 'Inter', sans-serif;
+  font-size: clamp(2.4rem, 10vw, 6.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.splash__word small {
+  max-width: 90vw;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: clamp(0.62rem, 1.4vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.splash__counter {
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  bottom: 1.5rem;
+  z-index: 7;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  transition: opacity 500ms ease;
+}
+
+.splash--open .splash__counter {
+  opacity: 0;
+}
+
+@keyframes splashScan {
+  to { transform: translateY(120vh); }
+}
+
+@keyframes ringTurn {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes logoFill {
+  to { fill: #eb1c24; }
+}
+
+@keyframes logoGhostOne {
+  0% { opacity: 0; transform: translate3d(-60px, 38px, -90px) rotateZ(-18deg); }
+  55% { opacity: 0.3; }
+  100% { opacity: 0; transform: translate3d(0, 0, -10px) rotateZ(0deg); }
+}
+
+@keyframes logoGhostTwo {
+  0% { opacity: 0; transform: translate3d(58px, -32px, -70px) rotateZ(16deg); }
+  55% { opacity: 0.18; }
+  100% { opacity: 0; transform: translate3d(0, 0, -10px) rotateZ(0deg); }
+}
+
+@media (max-width: 640px) {
+  .splash__mark {
+    width: 112px;
+    height: 112px;
+  }
+
+  .splash__mark svg {
+    width: 112px;
+    height: 112px;
+  }
+
+  .splash__counter {
+    left: 1.25rem;
+    right: 1.25rem;
+  }
+}
