@@ -34,7 +34,7 @@ const AdobeLogo: React.FC<AdobeLogoProps> = ({
     </svg>
   ) : (
     <img
-      src={`${process.env.PUBLIC_URL}/images/adobe-logo.png`}
+      src={`${import.meta.env.BASE_URL}images/adobe-logo.png`}
       alt="Adobe"
       width={size}
       height={size}
