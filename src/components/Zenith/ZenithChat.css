@@ -3,6 +3,47 @@
    Uses the acsinterns2026 design tokens + liquid glass aesthetic
    ═══════════════════════════════════════════════════════════════ */
 
+/* ── Launcher (floating bubble) ─────────────────────────────── */
+.zenith-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9997;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, #EB1C24, #d41920);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 28px rgba(235, 28, 36, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.zenith-launcher:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 12px 36px rgba(235, 28, 36, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+}
+
+.zenith-launcher:active {
+  transform: scale(0.94);
+}
+
+[data-theme="light"] .zenith-launcher {
+  background: linear-gradient(135deg, #EB1C24, #c4161e);
+  box-shadow:
+    0 8px 28px rgba(235, 28, 36, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
 /* ── Backdrop ──────────────────────────────────────────────── */
 .zenith-backdrop {
   position: fixed;
