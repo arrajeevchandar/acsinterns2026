@@ -311,3 +311,102 @@ body::before {
   from { opacity: 0; transform: scale(0.92); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* ============================================================
+   FAQ PAGE
+   ============================================================ */
+.faq-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-hero {
+  position: relative;
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 4rem) 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(235, 28, 36, 0.12), transparent 28rem),
+    var(--bg);
+}
+
+.faq-title {
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--text-1);
+  margin: 0 0 0.8rem;
+  letter-spacing: -0.02em;
+}
+
+.faq-hero .faq-title {
+  background: linear-gradient(135deg, var(--text-1), rgba(235, 28, 36, 0.9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.faq-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-2);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.faq-content {
+  padding: 2rem clamp(1.25rem, 5vw, 4rem) 4rem;
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.faq-info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.faq-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(235, 28, 36, 0.08);
+}
+
+.faq-card-icon {
+  font-size: 2.4rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.faq-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  margin: 0 0 0.6rem;
+}
+
+.faq-card p {
+  font-size: 0.92rem;
+  color: var(--text-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.faq-cta-text {
+  text-align: center;
+  color: var(--text-2);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+  font-weight: 400;
+}
