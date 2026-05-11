@@ -142,7 +142,7 @@ const Marquee: React.FC = () => {
                 key={`card-${index}`}
                 aria-hidden={index < CLONE_COUNT || index >= CLONE_COUNT + MOMENTS.length}
               >
-                <img src={`${process.env.PUBLIC_URL}/images/${moment.img}`} alt={moment.title} />
+                <img src={`${import.meta.env.BASE_URL}images/${moment.img}`} alt={moment.title} />
                 <div>
                   <span>{moment.tag}</span>
                   <strong>{moment.title}</strong>
