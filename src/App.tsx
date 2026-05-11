@@ -1,40 +1,24 @@
-import React, { useCallback, useState } from 'react';
-import SplashScreen from './components/SplashScreen/SplashScreen';
+import React from 'react';
+
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Hero from './components/Hero/Hero';
-import Marquee from './components/Marquee/Marquee';
-import About from './components/About/About';
-import Process from './components/Process/Process';
-import CoreValues from './components/CoreValues/CoreValues';
-import Stats from './components/Stats/Stats';
-import Footer from './components/Footer/Footer';
-import ScrollProgress from './components/ScrollProgress/ScrollProgress';
+import ScrollToTop from './components/ScrollToTop';
+import Home from './pages/Home';
 import './components/HomeSections.css';
+import Projects from './pages/Projects';
+import Teams from './pages/Teams/Teams';
 
 function App() {
-  const [splashDone, setSplashDone] = useState(false);
-  const [contentReady, setContentReady] = useState(false);
-
-  const handleSplashComplete = useCallback(() => {
-    setSplashDone(true);
-    window.setTimeout(() => setContentReady(true), 180);
-  }, []);
-
   return (
     <div className="app-shell">
+      <ScrollToTop />
       <Navbar />
-      <ScrollProgress />
-      <main>
-        <Hero contentReady={contentReady} />
-        <Marquee />
-        <CoreValues />
-        <About />
-        <Process />
-        <Stats />
-      </main>
-      <Footer />
-
-      {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/teams" element={<Teams />} />
+      </Routes>
     </div>
   );
 }
