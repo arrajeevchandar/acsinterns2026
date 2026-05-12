@@ -1,0 +1,98 @@
+[
+  {
+    "id": "evt-01",
+    "name": "Kickoff & Orientation",
+    "date": "2026-01-05T10:00:00",
+    "type": "Social",
+    "description": "Meet your cohort, mentors, and the ACS team. Icebreakers, campus tour, and program overview.",
+    "week": 1
+  },
+  {
+    "id": "evt-02",
+    "name": "Design Thinking Workshop",
+    "date": "2026-01-14T14:00:00",
+    "type": "Workshop",
+    "description": "Hands-on workshop on Adobe's design thinking methodology. Learn to empathize, define, ideate, prototype, and test.",
+    "week": 2
+  },
+  {
+    "id": "evt-03",
+    "name": "Tech Talk: Scaling at Adobe",
+    "date": "2026-01-21T11:00:00",
+    "type": "Talk",
+    "description": "Senior architects share how Adobe handles billions of API calls daily across Experience Cloud products.",
+    "week": 3
+  },
+  {
+    "id": "evt-04",
+    "name": "First Sprint Reviews",
+    "date": "2026-01-28T15:00:00",
+    "type": "Review",
+    "description": "Each team presents their first sprint progress. Feedback from mentors and peer teams.",
+    "week": 4
+  },
+  {
+    "id": "evt-05",
+    "name": "Adobe Alchemy Hackathon",
+    "date": "2026-02-02T09:00:00",
+    "type": "Social",
+    "description": "24-hour hackathon! Cross-team collaboration, wild ideas, pizza at midnight, and prizes for the most creative solutions.",
+    "week": 5
+  },
+  {
+    "id": "evt-06",
+    "name": "Mid-Program Review",
+    "date": "2026-02-09T10:00:00",
+    "type": "Review",
+    "description": "Formal mid-point evaluation. Each intern presents progress, learnings, and plans for the remaining weeks.",
+    "week": 6
+  },
+  {
+    "id": "evt-07",
+    "name": "Leader Connect: CTO Session",
+    "date": "2026-02-18T14:00:00",
+    "type": "Talk",
+    "description": "Intimate Q&A session with Adobe's CTO. Career advice, technology vision, and what it takes to build products at scale.",
+    "week": 7
+  },
+  {
+    "id": "evt-08",
+    "name": "Cross-Team Collaboration Sprint",
+    "date": "2026-02-23T10:00:00",
+    "type": "Workshop",
+    "description": "Interns swap teams for a week-long collaboration sprint. Work with unfamiliar codebases and new teammates.",
+    "week": 8
+  },
+  {
+    "id": "evt-09",
+    "name": "User Research Field Day",
+    "date": "2026-03-02T09:00:00",
+    "type": "Workshop",
+    "description": "Conduct real user interviews and usability tests. Learn research methodologies from Adobe's UX research team.",
+    "week": 9
+  },
+  {
+    "id": "evt-10",
+    "name": "Tech Talk: AI at Adobe",
+    "date": "2026-03-11T11:00:00",
+    "type": "Talk",
+    "description": "Deep dive into Adobe Firefly, Sensei, and the future of AI-powered creative tools.",
+    "week": 10
+  },
+  {
+    "id": "evt-11",
+    "name": "Demo Day",
+    "date": "2026-03-18T10:00:00",
+    "type": "Social",
+    "description": "The grand finale! Each team presents their project to 200+ attendees including VPs and senior leadership. Awards ceremony follows.",
+    "week": 11
+  },
+  {
+    "id": "evt-12",
+    "name": "Farewell & Retrospective",
+    "date": "2026-03-25T16:00:00",
+    "type": "Social",
+    "description": "Celebrating 12 incredible weeks. Photo booth, memory wall, farewell speeches, and the ceremonial passing of the ACS torch.",
+    "week": 12
+  }
+]

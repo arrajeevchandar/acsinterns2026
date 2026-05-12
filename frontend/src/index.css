@@ -311,3 +311,58 @@ body::before {
   from { opacity: 0; transform: scale(0.92); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* ============================================================
+   FAQ PAGE
+   ============================================================ */
+.faq-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-hero {
+  position: relative;
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 4rem) 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(235, 28, 36, 0.12), transparent 28rem),
+    var(--bg);
+}
+
+.faq-title {
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--text-1);
+  margin: 0 0 0.8rem;
+  letter-spacing: -0.02em;
+}
+
+.faq-hero .faq-title {
+  background: linear-gradient(135deg, var(--text-1), rgba(235, 28, 36, 0.9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.faq-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-2);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.faq-content {
+  padding: 2rem clamp(1.25rem, 5vw, 4rem) 4rem;
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+/* ── FAQ Inline Chat Embed ───────────────────────────────── */
+.faq-chat-embed {
+  margin: 0 auto;
+  max-width: min(680px, 100%);
+  width: 100%;
+}
+
