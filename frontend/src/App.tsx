@@ -7,8 +7,6 @@ import './components/HomeSections.css';
 import Projects from './pages/Projects';
 import Teams from './pages/Teams/Teams';
 
-import './components/HomeSections.css';
-
 import { ZenithProvider } from './context/ZenithContext';
 import { ZenithChat } from './components/Zenith/ZenithChat';
 

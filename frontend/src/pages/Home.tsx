@@ -12,10 +12,12 @@ import ScrollProgress from '../components/ScrollProgress/ScrollProgress';
 
 
 function Home() {
-  const [splashDone, setSplashDone] = useState(false);
-  const [contentReady, setContentReady] = useState(false);
+  const hasSeenSplash = sessionStorage.getItem('acs_splash_seen') === 'true';
+  const [splashDone, setSplashDone] = useState(hasSeenSplash);
+  const [contentReady, setContentReady] = useState(hasSeenSplash);
 
   const handleSplashComplete = useCallback(() => {
+    sessionStorage.setItem('acs_splash_seen', 'true');
     setSplashDone(true);
     window.setTimeout(() => setContentReady(true), 180);
   }, []);
