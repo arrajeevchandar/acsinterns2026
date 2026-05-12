@@ -1,0 +1,198 @@
+/* ─── Section ───────────────────────────────────────────────────── */
+.tl-section {
+  padding: clamp(5rem, 10vw, 8rem) 0 0;
+  background: #111;
+  position: relative;
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+.tl-section--visible { opacity: 1; transform: translateY(0); }
+
+/* ─── Header ────────────────────────────────────────────────────── */
+.tl-header {
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  margin-bottom: 1.4rem;
+}
+.tl-kicker {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #EB1C24;
+  margin-bottom: 0.5rem;
+}
+.tl-heading {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0 0 0.4rem;
+}
+.tl-subhead {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.28);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+/* ─── Legend ────────────────────────────────────────────────────── */
+.tl-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  margin-bottom: 0;
+}
+.tl-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+}
+.tl-legend-item i {
+  width: 20px;
+  height: 5px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* ─── Container ─────────────────────────────────────────────────── */
+.tl-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 4rem);
+}
+
+/* ─── Scroll wrap ───────────────────────────────────────────────── */
+.tl-canvas-wrap {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(235,28,36,0.35) transparent;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  user-select: none;
+}
+.tl-canvas-wrap::-webkit-scrollbar { height: 3px; }
+.tl-canvas-wrap::-webkit-scrollbar-thumb { background: rgba(235,28,36,0.4); border-radius: 999px; }
+
+/* ─── Inner container ───────────────────────────────────────────── */
+.tl-inner {
+  position: relative;
+  background: #0f0f0f;
+  overflow: visible;
+}
+
+/* ─── Grid canvas ───────────────────────────────────────────────── */
+.tl-grid-canvas {
+  position: absolute !important;
+  top: 0; left: 0;
+  width: 100% !important;
+  pointer-events: none;
+}
+
+/* ─── Ruler ─────────────────────────────────────────────────────── */
+.tl-ruler {
+  position: absolute;
+  top: 0; left: 0;
+  height: 64px;
+  z-index: 10;
+  background: rgba(10,10,10,0.92);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(8px);
+}
+.tl-ruler-month {
+  position: absolute;
+  top: 7px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.42);
+  white-space: nowrap;
+  padding-left: 4px;
+}
+.tl-ruler-days {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 30px;
+  width: 100%;
+}
+.tl-ruler-day {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 0.56rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}
+.tl-ruler-tick {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 1px;
+  height: 7px;
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-50%);
+}
+.tl-ruler-day--major { color: rgba(255,255,255,0.55); }
+.tl-ruler-day--major .tl-ruler-tick {
+  height: 12px;
+  background: rgba(255,255,255,0.22);
+}
+
+/* ─── Ghost date ────────────────────────────────────────────────── */
+.tl-ghost-date {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.2rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: rgba(255,255,255,0.05);
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+  z-index: 2;
+}
+
+/* ─── SVG path layer ────────────────────────────────────────────── */
+.tl-path-svg {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.tl-path-svg g { pointer-events: all; }
+
+/* ─── Duration text ──────────────────────────────────────────────── */
+.tl-dur {
+  position: absolute;
+  z-index: 15;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+.tl-dur-range {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+.tl-dur-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #EB1C24;
+}

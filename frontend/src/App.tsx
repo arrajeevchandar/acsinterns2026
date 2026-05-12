@@ -1,62 +1,42 @@
-import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import SplashScreen from './components/SplashScreen/SplashScreen';
 import Navbar from './components/Navbar/Navbar';
-import ScrollToTop from './components/ScrollToTop';
-import Home from './pages/Home';
-import FAQ from './pages/FAQ';
+import Hero from './components/Hero/Hero';
+import Marquee from './components/Marquee/Marquee';
+import About from './components/About/About';
+import Process from './components/Process/Process';
+import CoreValues from './components/CoreValues/CoreValues';
+import Stats from './components/Stats/Stats';
+import Footer from './components/Footer/Footer';
+import ScrollProgress from './components/ScrollProgress/ScrollProgress';
 import './components/HomeSections.css';
-import Projects from './pages/Projects';
-import Teams from './pages/Teams/Teams';
-import { ZenithProvider } from './context/ZenithContext';
-import { ZenithChat } from './components/Zenith/ZenithChat';
-
-function AppShell() {
-  const location = useLocation();
-  const isFaQ = location.pathname === '/faqs';
-
-  return (
-    <ZenithProvider>
-      <div className="app-shell">
-        <ScrollToTop />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/faqs" element={<FAQ />} />
-        </Routes>
-      </div>
-      {/* Only show floating chat bubble on non-FAQ pages */}
-      {!isFaQ && <ZenithChat />}
-    </ZenithProvider>
-  );
-}
 
 function App() {
-  return <AppShell />;
-}
+  const hasSeenSplash = sessionStorage.getItem('acs_splash_seen') === 'true';
+  const [splashDone, setSplashDone] = useState(hasSeenSplash);
+  const [contentReady, setContentReady] = useState(hasSeenSplash);
 
+  const handleSplashComplete = useCallback(() => {
+    sessionStorage.setItem('acs_splash_seen', 'true');
+    setSplashDone(true);
+    window.setTimeout(() => setContentReady(true), 180);
+  }, []);
 
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import ScrollToTop from './components/ScrollToTop';
-import Home from './pages/Home';
-import './components/HomeSections.css';
-import Projects from './pages/Projects';
-import Teams from './pages/Teams/Teams';
-
-function App() {
   return (
     <div className="app-shell">
-      <ScrollToTop />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/teams" element={<Teams />} />
-      </Routes>
+      <ScrollProgress />
+      <main>
+        <Hero contentReady={contentReady} />
+        <Marquee />
+        <CoreValues />
+        <About />
+        <Process />
+        <Stats />
+      </main>
+      <Footer />
+
+      {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     </div>
   );
 }
