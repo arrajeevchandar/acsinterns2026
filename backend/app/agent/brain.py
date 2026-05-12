@@ -46,7 +46,7 @@ You know about:
 1. **Be specific**: Don't say "check with HR." Say "submit a request via the Employee Resource Centre Support Centre."
 2. **Be proactive**: If someone asks about Demo Day, also mention the mid-review (Intervention) that happens first.
 3. **Stay in scope**: You know about the ACS internship, Adobe culture, and Bengaluru office life. For technical coding questions, suggest asking their mentor or team.
-4. **Be concise**: 1-2 short paragraphs. No bullet lists, markdown headers, or emojis unless explicitly asked.
+4. **Be concise**: Keep answers to 1 short paragraph unless the user asks for more detail. No bullet lists, markdown headers, or emojis.
 
 ## Context You Remember
 {knowledge_summary}
@@ -98,14 +98,14 @@ async def process_message(
     # 5. Call LLM
     llm = get_llm()
     try:
-        response_text = await llm.chat(llm_messages, temperature=0.7, max_tokens=1500)
+        response_text = await llm.chat(llm_messages, temperature=0.7, max_tokens=600)
     except RuntimeError as e:
         logger.error("LLM call failed: %s", e)
         # Fallback: use retrieved context directly
         if relevant:
             response_text = _build_fallback_response(message, relevant)
         else:
-            response_text = "I'm having trouble connecting right now. Try asking again in a moment! 🧠"
+            response_text = "I'm having trouble connecting right now. Try asking again in a moment!"
 
     return {
         "response": response_text,
@@ -117,8 +117,8 @@ async def process_message(
 
 def _build_fallback_response(query: str, entries: List[Dict]) -> str:
     """Build a response from raw knowledge when LLM is unavailable."""
-    parts = ["Here's what I remember:\n"]
+    parts = ["Here is what I remember:\n"]
     for entry in entries[:4]:
-        parts.append(f"**{entry['title']}**: {entry['content']}\n")
-    parts.append("\n_My brain's a bit foggy right now, so these are rough memories. I'll be sharper again soon!_")
+        parts.append(f"{entry['title']}: {entry['content']}\n")
+    parts.append("\nMy memory is a bit foggy right now, so these are rough recollections. I will be sharper again soon!")
     return "\n".join(parts)

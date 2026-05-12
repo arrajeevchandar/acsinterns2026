@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { Compass, Presentation, Award, Building2, Users } from 'lucide-react';
 
 /* ── Types ────────────────────────────────────────────────── */
@@ -35,12 +35,7 @@ const SUGGESTIONS: Suggestion[] = [
   { label: 'Meet the mentors', query: 'Tell me about the mentors in the ACS program', icon: <Users size={18} /> },
 ];
 
-const WELCOME_MSG: Message = {
-  id: 'welcome',
-  role: 'assistant',
-  content: "I'm Zenith — your ACS intern buddy. Ask me anything about the program, projects, mentors, or Demo Day.",
-  timestamp: Date.now(),
-};
+const WELCOME_CONTENT = "👋 Hi there! I'm **Zenith**, your Adobe ACS Intern companion. I'm here to answer questions about the internship, the portal, events, mentors, or anything else you're curious about. What can I help you with today?";
 
 const ZenithContext = createContext<ZenithCtx | undefined>(undefined);
 
@@ -53,11 +48,20 @@ export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (saved) {
       try { return JSON.parse(saved); } catch { /* ignore */ }
     }
-    return [WELCOME_MSG];
+    return [{
+      id: 'welcome',
+      role: 'assistant' as const,
+      content: WELCOME_CONTENT,
+      timestamp: Date.now(),
+    }];
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  // Ref to track current messages for the sendMessage callback (avoids stale closure)
+  const messagesRef = useRef(messages);
+  useEffect(() => { messagesRef.current = messages; }, [messages]);
 
   // Persist chat history
   useEffect(() => {
@@ -66,11 +70,7 @@ export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   }, [messages]);
 
-  // Lock body scroll when chat is open
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [isOpen]);
+
 
   const sendMessage = useCallback(async (text: string) => {
     const userMsg: Message = {
@@ -82,13 +82,20 @@ export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setMessages(prev => [...prev, userMsg]);
     setIsLoading(true);
 
+    // Build history from the ref (which now includes the just-added user message via a small delay)
+    // We use messagesRef.current which gets updated by the useEffect above
+    const currentHistory = [...messagesRef.current.slice(-19), userMsg].map(m => ({
+      role: m.role,
+      content: m.content,
+    }));
+
     try {
       const res = await fetch(`${API_URL}/api/agent/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          history: messages.slice(-20).map(m => ({ role: m.role, content: m.content })),
+          history: currentHistory,
         }),
       });
 
@@ -112,11 +119,16 @@ export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     } finally {
       setIsLoading(false);
     }
-  }, [messages]);
+  }, []);
 
   const clearChat = useCallback(() => {
     localStorage.removeItem('zenith_history');
-    setMessages([{ ...WELCOME_MSG, id: `welcome-${Date.now()}`, timestamp: Date.now() }]);
+    setMessages([{
+      id: `welcome-${Date.now()}`,
+      role: 'assistant',
+      content: WELCOME_CONTENT,
+      timestamp: Date.now(),
+    }]);
   }, []);
 
   const openChat = useCallback(() => setIsOpen(true), []);

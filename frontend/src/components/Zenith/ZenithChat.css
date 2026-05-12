@@ -479,6 +479,7 @@
 [data-theme="light"] .zenith-msg-assistant .zenith-msg-content {
   background: rgba(0, 0, 0, 0.03);
   border-color: rgba(0, 0, 0, 0.06);
+  color: var(--text-1, #111111);
 }
 [data-theme="light"] .zenith-suggestion-chip {
   background: rgba(0, 0, 0, 0.03);
