@@ -38,6 +38,14 @@ export const ZenithChat: React.FC = () => {
     }
   }, [isOpen]);
 
+  /* ── Lock body scroll when floating modal is open ───────── */
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   /* ── Send handler ──────────────────────────────────────── */
   const handleSend = () => {
     const text = input.trim();
