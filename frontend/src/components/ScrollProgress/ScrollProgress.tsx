@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import './ScrollProgress.css';
 
 const SECTIONS = [
   { id: 'hero', label: 'Intro' },
   { id: 'gallery', label: 'Moments' },
   { id: 'values', label: 'Values' },
-  { id: 'about', label: 'People' },
+  { id: 'about', label: 'Explore' },
   { id: 'timeline', label: 'Journey' },
-  { id: 'teams', label: 'Teams' },
 ];
 
 const ScrollProgress: React.FC = () => {
-  const location = useLocation();
   const [progress, setProgress] = useState(0);
   const [active, setActive] = useState('hero');
-  const isHome = location.pathname === '/';
 
   useEffect(() => {
-    if (!isHome) return;
-
     const update = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(scrollable > 0 ? window.scrollY / scrollable : 0);
@@ -40,12 +34,37 @@ const ScrollProgress: React.FC = () => {
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, [isHome]);
-
-  if (!isHome) return null;
+  }, []);
 
   const jumpTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    const valuesSection = document.getElementById('values');
+
+    // If navigating past the values section, jump instantly past it first
+    // then smooth scroll to destination — avoids getting trapped in sticky scroll
+    if (valuesSection) {
+      const valuesTop = valuesSection.offsetTop;
+      const valuesBottom = valuesTop + valuesSection.offsetHeight;
+      const currentY = window.scrollY;
+      const crossingValues =
+        (currentY < valuesBottom && targetTop > valuesBottom) ||
+        (currentY > valuesBottom && targetTop < valuesTop);
+
+      if (crossingValues) {
+        // Instantly skip past values, then smooth scroll to target
+        const skipTo = targetTop > valuesBottom ? valuesBottom + 1 : valuesTop - 1;
+        window.scrollTo({ top: skipTo, behavior: 'auto' });
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+        return;
+      }
+    }
+
+    target.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (

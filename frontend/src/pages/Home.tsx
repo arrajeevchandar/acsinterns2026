@@ -31,7 +31,7 @@ function Home() {
         <About />
         <Process />
         <Stats />
-        <TeamsPreview />
+        
       </main>
       <Footer />
 
