@@ -265,7 +265,9 @@ const ProjectsPage: FC = () => {
     setActiveTeam(teamId);
     const el = document.getElementById(teamId);
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - (64 + 52 + 20);
+    const stickyOffset = window.matchMedia('(max-width: 700px)').matches ? 60 : 62;
+    const sectionBarOffset = 58;
+    const top = el.getBoundingClientRect().top + window.scrollY - (stickyOffset + sectionBarOffset + 20);
     window.scrollTo({ top, behavior: 'smooth' });
   }, []);
 

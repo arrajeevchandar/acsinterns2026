@@ -9,6 +9,7 @@
 
 /* ─── Dark mode (default) ─── */
 #projects, .project-modal-overlay {
+  --projects-sticky-top: 62px;
   --surface: var(--bg-alt);
   --modal-bg: var(--bg-alt);
   --glass-bg: var(--liquid-bg);
@@ -52,7 +53,7 @@ html[data-theme='light'] #projects, html[data-theme='light'] .project-modal-over
   background: var(--bg);
   color: var(--text);
   font-family: 'Barlow', sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
   transition: background 0.3s, color 0.3s;
 }
@@ -225,12 +226,15 @@ html[data-theme='light'] #projects, html[data-theme='light'] .project-modal-over
 /* ─── Sticky Team Nav ─── */
 #projects .team-nav-wrapper {
   position: sticky;
-  top: 62px;
-  z-index: 80;
-  background: var(--team-nav-bg);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--glass-border);
-  transition: background 0.3s, border-color 0.3s;
+  top: var(--projects-sticky-top);
+  z-index: 950;
+  background: var(--liquid-bg);
+  backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+  -webkit-backdrop-filter: blur(34px) saturate(1.9) contrast(1.06);
+  border-top: 1px solid var(--liquid-border);
+  border-bottom: 1px solid var(--liquid-border);
+  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 #projects .team-nav {
@@ -294,6 +298,7 @@ html[data-theme='light'] #projects, html[data-theme='light'] .project-modal-over
 /* ─── Team Section ─── */
 #projects .team-section {
   margin-bottom: 80px;
+  scroll-margin-top: calc(var(--projects-sticky-top) + 76px);
 }
 
 #projects .team-card {
@@ -875,4 +880,18 @@ body.modal-open { overflow: hidden; }
 
 #projects .hero__scroll-dots span.active {
   animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+@media (max-width: 700px) {
+  #projects {
+    --projects-sticky-top: 60px;
+  }
+
+  #projects .team-nav {
+    padding: 0 18px;
+  }
+
+  #projects .team-nav__btn {
+    padding: 16px 18px;
+  }
 }
