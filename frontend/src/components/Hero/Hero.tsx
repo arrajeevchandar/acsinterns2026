@@ -52,9 +52,9 @@ const Hero: React.FC<HeroProps> = ({ contentReady = false }) => {
             Explore teams
             <span aria-hidden="true">-&gt;</span>
           </Link>
-          <a className="hero__button hero__button--secondary" href="#gallery" onClick={scrollTo('#gallery')}>
+          <Link className="hero__button hero__button--secondary" to="/gallery">
             View moments
-          </a>
+          </Link>
         </div>
       </div>
 
