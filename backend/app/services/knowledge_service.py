@@ -161,9 +161,57 @@ def get_all_knowledge_summary() -> str:
 
     lines = []
     for cat, titles in categories.items():
-        lines.append(f"- {cat}: {', '.join(titles[:5])}{'...' if len(titles) > 5 else ''}")
+        lines.append(
+            f"- {cat}: {', '.join(titles[:5])}{'...' if len(titles) > 5 else ''}")
 
     return "\n".join(lines)
+
+
+def build_prompt_context(entries: List[Dict[str, Any]]) -> str:
+    """Build a prompt-safe context string that avoids exposing personal names."""
+    context_parts = []
+    for entry in entries:
+        prompt_entry = _build_prompt_entry(entry)
+        if prompt_entry:
+            context_parts.append(prompt_entry)
+    return "\n".join(context_parts)
+
+
+def get_prompt_safe_knowledge_summary() -> str:
+    """Return a summary that excludes categories likely to expose personal names."""
+    summary_lines = []
+    for line in get_all_knowledge_summary().splitlines():
+        if "Interns:" in line or "Mentors:" in line:
+            continue
+        summary_lines.append(_sanitize_text(line))
+    return "\n".join(line for line in summary_lines if line)
+
+
+def _build_prompt_entry(entry: Dict[str, Any]) -> str:
+    entry_type = entry.get("type", "entry")
+    title = _sanitize_text(entry.get("title", ""))
+    content = _sanitize_text(entry.get("content", ""))
+
+    if entry_type in {"intern", "mentor"}:
+        if not content:
+            return ""
+        return f"[{entry_type.upper()}] {content}"
+
+    if not title and not content:
+        return ""
+
+    if title and content:
+        return f"[{entry_type.upper()}] {title}: {content}"
+    if title:
+        return f"[{entry_type.upper()}] {title}"
+    return f"[{entry_type.upper()}] {content}"
+
+
+def _sanitize_text(text: str) -> str:
+    cleaned = re.sub(r"\([^)]*\)", "", text)
+    cleaned = re.sub(r"\b[A-Z][a-z]+ [A-Z][a-z]+\b", "", cleaned)
+    cleaned = re.sub(r"\s{2,}", " ", cleaned)
+    return cleaned.strip(" -,:;")
 
 
 # Load on import
