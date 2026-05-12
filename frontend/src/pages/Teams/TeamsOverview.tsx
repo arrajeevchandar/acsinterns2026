@@ -86,7 +86,6 @@ function TeamCard({ team, index, onClick, visible }: TeamCardProps) {
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ transitionDelay: `${index * 80}ms` }}
       type="button"
     >
       <span className="team-tile__shine" />

@@ -159,7 +159,7 @@
   pointer-events: none;
   z-index: 2;
 }
-.member-card.is-hovered .member-card__shine { opacity: 1; }
+.member-card.is-hovered .member-card__shine { opacity: 0; }
 
 /* ── Top row: photo + index number ───────────────────────── */
 .member-card__top {

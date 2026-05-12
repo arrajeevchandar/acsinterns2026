@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import './MemberModal.css';
 import type { Member, Team } from './data';
 
 interface MemberModalProps {

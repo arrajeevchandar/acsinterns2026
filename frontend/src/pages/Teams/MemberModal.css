@@ -13,8 +13,13 @@
 }
 
 @keyframes backdropIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .member-modal__panel {
@@ -28,8 +33,15 @@
 }
 
 @keyframes modalSlideIn {
-  from { opacity: 0; transform: scale(0.95) translateY(12px); }
-  to   { opacity: 1; transform: scale(1)    translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .member-modal__close {
@@ -49,6 +61,7 @@
   font-size: 0.75rem;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .member-modal__close:hover {
   background: rgba(235, 28, 36, 0.15);
   border-color: rgba(235, 28, 36, 0.4);
@@ -78,7 +91,10 @@
   filter: grayscale(20%);
   transition: filter 0.4s;
 }
-.member-modal__portrait:hover { filter: grayscale(0%); }
+
+.member-modal__portrait:hover {
+  filter: grayscale(0%);
+}
 
 .member-modal__team-badge {
   margin-top: 0.75rem;
@@ -112,6 +128,7 @@
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .member-modal__social-link:hover {
   background: rgba(235, 28, 36, 0.15);
   border-color: rgba(235, 28, 36, 0.35);
@@ -119,6 +136,7 @@
   box-shadow: 0 4px 16px rgba(235, 28, 36, 0.25);
   transform: translateY(-2px);
 }
+
 .member-modal__social-link--linkedin:hover {
   background: rgba(235, 28, 36, 0.15);
   border-color: rgba(235, 28, 36, 0.35);
@@ -197,11 +215,13 @@
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .member-modal__project-link:hover {
-  background: rgba(235, 28, 36, 0.2);
+  background: black;
+  border: 1.2px solid red;
   color: var(--red);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(235, 28, 36, 0.35);
+  box-shadow: 0 4px 16px rgba(235, 28, 36, 0.3);
 }
 
 .member-modal__stack {
@@ -221,12 +241,14 @@
   color: var(--text-2);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .member-modal__chip:hover {
   background: rgba(235, 28, 36, 0.15);
   border-color: rgba(235, 28, 36, 0.35);
   color: var(--red);
   box-shadow: 0 4px 14px rgba(235, 28, 36, 0.25);
   transform: translateY(-2px);
+  cursor: pointer;
 }
 
 /* Mobile */
@@ -235,16 +257,29 @@
     padding: 1.5rem 1.25rem;
     border-radius: 16px;
   }
+
   .member-modal__body {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
   .member-modal__portrait-wrap {
     width: 120px;
     margin: 0 auto;
   }
-  .member-modal__team-badge { text-align: center; }
+
+  .member-modal__team-badge {
+    text-align: center;
+  }
+}
+
+/* Remove hover sweep reflection on modal panel and project card */
+.member-modal__panel.glass::after,
+.member-modal__project.glass::after {
+  display: none !important;
 }
 
 /* Scroll lock */
-body.modal-open { overflow: hidden; }
+body.modal-open {
+  overflow: hidden;
+}

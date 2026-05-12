@@ -89,7 +89,7 @@ export default function TeamDetail({ teamId, onBack, onSelectMember }: TeamDetai
 
       <div className="roster-bar">
         <div className="roster-bar__left">
-          <span className="section-kicker">Roster</span>
+          <span className="section-kicker">Members</span>
           <span className="roster-bar__count">{filtered.length}</span>
           {filtered.length !== members.length ? (
             <span className="roster-bar__of">/ {members.length}</span>
