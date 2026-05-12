@@ -3,6 +3,8 @@
 .navbar--scrolled{background:var(--liquid-bg);backdrop-filter:blur(34px) saturate(1.9) contrast(1.06);-webkit-backdrop-filter:blur(34px) saturate(1.9) contrast(1.06);border-bottom:1px solid var(--liquid-border);box-shadow:0 18px 58px rgba(0,0,0,0.26),inset 0 1px 0 rgba(255,255,255,0.18);padding-top:0.85rem;padding-bottom:0.85rem}
 .navbar__brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text-1);font-weight:800;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:opacity 0.3s}
 .navbar:not(.navbar--scrolled) .navbar__brand,.navbar:not(.navbar--scrolled) .navbar__link{color:#fff}
+html[data-theme="light"] .navbar:not(.navbar--scrolled) .navbar__brand,html[data-theme="light"] .navbar:not(.navbar--scrolled) .navbar__link{color:var(--text-1)}
+html[data-theme="light"] .navbar:not(.navbar--scrolled) .navbar__link:hover{color:var(--red)}
 .navbar__brand:hover{opacity:0.7}
 .navbar__brand-logo{transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .navbar__brand:hover .navbar__brand-logo{transform:scale(1.06)}
@@ -10,6 +12,7 @@
 .navbar__links{display:none;list-style:none;margin:0;padding:0}
 @media(min-width:768px){.navbar__links{display:flex;align-items:center}}
 .navbar__link{position:relative;color:var(--text-3);text-decoration:none;font-size:0.68rem;font-weight:400;letter-spacing:0.06em;transition:color 0.3s;padding:8px 14px;text-transform:uppercase}
+html[data-theme="light"] .navbar__link{color:var(--text-1)}
 .navbar__link:hover{color:var(--text-1)}
 .navbar__link::after{content:'';position:absolute;bottom:4px;left:50%;width:0;height:1px;background:var(--red);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);transform:translateX(-50%)}
 .navbar__link:hover::after{width:14px}
@@ -23,6 +26,7 @@
 .navbar__hamburger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:5px;z-index:1001}
 @media(min-width:768px){.navbar__hamburger{display:none}}
 .navbar__hamburger-line{width:18px;height:1.5px;background:var(--text-1);transition:all 0.4s cubic-bezier(0.16,1,0.3,1);transform-origin:center}
+html[data-theme="light"] .navbar:not(.navbar--scrolled) .navbar__hamburger-line{background:var(--text-1)}
 .navbar__hamburger-line:nth-child(2){width:12px;margin-left:auto}
 .navbar__hamburger--open .navbar__hamburger-line:nth-child(1){transform:rotate(45deg) translateY(4.5px) translateX(4.5px)}
 .navbar__hamburger--open .navbar__hamburger-line:nth-child(2){opacity:0;width:0}
