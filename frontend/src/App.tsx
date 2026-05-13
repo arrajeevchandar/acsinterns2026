@@ -3,6 +3,7 @@ import { Routes, Route ,  useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
+import Gallery from './pages/Gallery/Gallery';
 import './components/HomeSections.css';
 import Projects from './pages/Projects';
 import Teams from './pages/Teams/Teams';
@@ -22,6 +23,7 @@ function AppShell() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/teams" element={<Teams />} />
       </Routes>

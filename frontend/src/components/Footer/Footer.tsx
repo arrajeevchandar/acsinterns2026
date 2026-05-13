@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AdobeLogo from '../AdobeLogo/AdobeLogo';
 import './Footer.css';
 
@@ -11,7 +12,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="footer__links">
         <a href="#hero">Home</a>
-        <a href="#gallery">Gallery</a>
+        <Link to="/gallery">Gallery</Link>
         <a href="teams">Teams</a>
         <a href="#faqs">FAQs</a>
       </div>

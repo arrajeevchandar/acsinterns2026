@@ -1,0 +1,246 @@
+/* ============================================================
+   GALLERY PAGE
+   ============================================================ */
+
+.gallery-page {
+  --g-red:      #E5292B;
+  --g-ink:      #0A0A0A;
+  --g-paper:    #F4F1EC;
+
+  position: relative;
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
+  background: var(--g-paper);
+  color: var(--g-ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[data-theme="dark"] .gallery-page {
+  background: var(--g-ink);
+  color: var(--g-paper);
+}
+
+/* ── section chassis ───────────────────────────────────────── */
+.section { position: relative; width: 100%; }
+
+.section[data-bg="dark"]  { background: var(--g-ink);   color: var(--g-paper); }
+.section[data-bg="red"]   { background: var(--g-red);   color: #fff; }
+.section[data-bg="paper"] { background: var(--g-paper); color: var(--g-ink); }
+
+/* In light theme the 'paper' sections become light; in dark theme they are dark */
+html[data-theme="light"] .section[data-bg="paper"] { background: var(--g-paper); color: var(--g-ink); }
+html[data-theme="dark"] .section[data-bg="paper"] { background: var(--g-ink); color: var(--g-paper); }
+
+/* ── shared heading ────────────────────────────────────────── */
+.heading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+  pointer-events: none;
+  will-change: transform, opacity;
+  padding: 0 24px;
+}
+.heading h2 {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(72px, 14vw, 220px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-align: center;
+  text-wrap: balance;
+}
+.accent { color: var(--g-red); }
+.section[data-bg="red"] .accent { color: var(--g-ink); }
+
+/* ── sticky frame (shared by gallery + wall) ───────────────── */
+/* NOTE: overflow must NOT be set here — overflow on a sticky element
+   breaks sticky behaviour in several browsers. Clipping is handled
+   by the child stage elements instead. */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  width: 100%;
+}
+
+/* ============================================================
+   BURST OVERLAY — fixed positioning to avoid scroll context
+   ============================================================ */
+.burst-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* centered anchor that branches outward during scroll */
+.burst-overlay .burst {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  pointer-events: auto;
+}
+
+.burst-overlay .dot {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background: var(--g-red);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) scale(var(--dot-s, 1));
+  opacity: var(--dot-op, 1);
+  z-index: 10;
+  box-shadow: 0 0 0 6px rgba(229, 41, 43, 0.18);
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* cards start centered and branch out from the dot */
+.burst-overlay .card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--w);
+  height: var(--h);
+  overflow: hidden;
+  background: #1a1a1a;
+  transform: translate(-50%, -50%) translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(var(--cs, 0.2));
+  transform-origin: center center;
+  opacity: var(--op, 0);
+  will-change: transform, opacity;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.burst-overlay .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.burst-overlay .card:hover img {
+  transform: scale(1.03);
+}
+.burst-overlay .card img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   GALLERY HERO — scroll-driven burst animation (legacy, kept for structure)
+   ============================================================ */
+
+/* section height mirrors the reference so the burst has a long hold before
+  the first wall section enters. */
+.gallery { height: 360svh; }
+
+/* stage fills the sticky frame; overflow:hidden clips cards that would
+   extend above/below the visible area during the burst expansion. */
+.gallery-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* centered anchor that branches outward during scroll */
+.burst {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+.dot {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background: var(--g-red);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) scale(var(--dot-s, 1));
+  opacity: var(--dot-op, 1);
+  z-index: 10;
+  box-shadow: 0 0 0 6px rgba(229, 41, 43, 0.18);
+  transition: opacity 0.2s ease;
+}
+
+/* ============================================================
+   WALL SECTIONS — scroll-driven collage
+   ============================================================ */
+/* wall heights mirror the reference spacing so each collage has enough time
+   to assemble before the next section enters. */
+.wall { height: 220svh; }
+
+.wall-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wall-grid {
+  position: relative;
+  width: min(92vw, 1500px);
+  height: min(84vh, 900px);
+  will-change: transform;
+}
+.wall-card {
+  position: absolute;
+  overflow: hidden;
+  background: #1a1a1a;
+  will-change: transform, opacity;
+  opacity: 0;
+}
+.wall-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stripe {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: var(--g-red);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.wall-card:hover {
+  filter: brightness(1.08) saturate(1.06);
+}
+.wall-card:hover img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .wall-grid {
+    width: 94vw;
+    height: 78vh;
+  }
+}
