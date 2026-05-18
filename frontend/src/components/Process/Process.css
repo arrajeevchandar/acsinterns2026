@@ -172,10 +172,10 @@
 .tl-path-svg {
   position: absolute;
   top: 0; left: 0;
-  z-index: 5;
+  z-index: 6;
   pointer-events: none;
+  overflow: visible;
 }
-.tl-path-svg g { pointer-events: all; }
 
 /* ─── Duration text ──────────────────────────────────────────────── */
 .tl-dur {
@@ -195,4 +195,104 @@
   font-size: 0.78rem;
   font-weight: 600;
   color: #EB1C24;
+}
+/* ─── Ruler event day ───────────────────────────────────────────── */
+.tl-ruler-day--event {
+  color: rgba(255,255,255,0.7);
+  font-weight: 700;
+  font-size: 0.6rem;
+}
+.tl-ruler-day--event .tl-ruler-tick {
+  height: 12px;
+  background: #EB1C24;
+  opacity: 0.7;
+}
+
+/* ─── Event panels ──────────────────────────────────────────────── */
+.tl-event-panel {
+  position: absolute;
+  z-index: 20;
+  width: 190px;
+  display: flex;
+  flex-direction: row;
+  background: #252525;
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  user-select: none;
+}
+
+/* Vertical sidebar */
+.tl-event-sidebar {
+  width: 22px;
+  background: #333;
+  border-radius: 4px 0 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.75rem 0;
+}
+.tl-event-sidebar span {
+  font-size: 0.45rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* Body */
+.tl-event-body {
+  flex: 1;
+  padding: 0.7rem 0.8rem;
+  min-width: 0;
+}
+.tl-event-body strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #EB1C24;
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+.tl-event-body em {
+  display: block;
+  font-style: normal;
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.04em;
+}
+.tl-event-divider {
+  height: 1px;
+  background: #EB1C24;
+  margin-bottom: 0.45rem;
+  opacity: 0.6;
+}
+.tl-event-body p {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Arrow pointer */
+.tl-event-arrow {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}
+.tl-event-arrow--down {
+  bottom: -7px;
+  border-top: 7px solid #252525;
+}
+.tl-event-arrow--up {
+  top: -7px;
+  border-bottom: 7px solid #252525;
 }
