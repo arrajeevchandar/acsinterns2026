@@ -1,8 +1,8 @@
 .footer {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 1.2rem clamp(1.25rem, 5vw, 4rem);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
@@ -25,7 +25,38 @@
 .footer__links {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.footer__credit {
+  justify-self: center;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.74);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.footer__teamButton {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #EB1C24;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 850;
+  padding: 0;
+  text-decoration: none;
+  transition: color 220ms ease, text-shadow 220ms ease;
+}
+
+.footer__teamButton:hover,
+.footer__teamButton:focus-visible {
+  color: #b51218;
+  outline: none;
+  text-shadow: 0 0 18px rgba(235, 28, 36, 0.34);
 }
 
 .footer__links a {
@@ -51,17 +82,233 @@ html[data-theme="dark"] .footer__mark {
   color: #fff;
 }
 
+html[data-theme="dark"] .footer__credit {
+  color: rgba(255, 255, 255, 0.82);
+}
+
 html[data-theme="dark"] .footer__links a {
   color: rgba(255, 255, 255, 0.62);
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
+.footer-team-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1600;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(235, 28, 36, 0.2), transparent 32%),
+    rgba(6, 6, 6, 0.58);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+}
+
+.footer-team-modal__panel {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: min(86vh, 820px);
+  overflow: auto;
+  border: 1px solid var(--liquid-border);
+  border-radius: 8px;
+  background: var(--liquid-bg);
+  box-shadow: var(--liquid-shadow);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  color: var(--text-1);
+}
+
+.footer-team-modal__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--liquid-highlight), transparent 42%);
+  opacity: 0.72;
+}
+
+.footer-team-modal__close {
+  position: absolute;
+  top: clamp(1rem, 3vw, 1.45rem);
+  right: clamp(1rem, 3vw, 1.45rem);
+  z-index: 3;
+  width: 2.45rem;
+  height: 2.45rem;
+  border: 1px solid var(--liquid-border);
+  border-radius: 999px;
+  background: rgba(235, 28, 36, 0.14);
+  color: var(--text-1);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+
+.footer-team-modal__close:hover,
+.footer-team-modal__close:focus-visible {
+  transform: rotate(90deg) scale(1.04);
+  border-color: rgba(235, 28, 36, 0.5);
+  background: rgba(235, 28, 36, 0.24);
+  outline: none;
+}
+
+.footer-team-modal__header {
+  position: relative;
+  z-index: 1;
+  margin: 0 3rem 1.4rem 0;
+}
+
+.footer-team-modal__header span {
+  display: block;
+  color: #EB1C24;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.footer-team-modal__header h2 {
+  margin: 0.22rem 0 0;
+  color: var(--text-1);
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.footer-team-modal__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.2rem);
+}
+
+.footer-team-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid var(--liquid-border);
+  border-radius: 8px;
+  background: var(--liquid-bg);
+  box-shadow: var(--liquid-shadow);
+  padding: 0.72rem;
+  backdrop-filter: blur(32px) saturate(1.85) contrast(1.05);
+  -webkit-backdrop-filter: blur(32px) saturate(1.85) contrast(1.05);
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease, background 260ms ease;
+}
+
+.footer-team-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(235, 28, 36, 0.4);
+  background: var(--bg-card-hover);
+  box-shadow: 0 28px 70px rgba(235, 28, 36, 0.18), var(--liquid-shadow);
+}
+
+.footer-team-card__redbar {
+  position: absolute;
+  inset: 0 auto auto 0;
+  z-index: 2;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #EB1C24, rgba(235, 28, 36, 0));
+  transform: scaleX(0.34);
+  transform-origin: left;
+  transition: transform 280ms ease;
+}
+
+.footer-team-card:hover .footer-team-card__redbar {
+  transform: scaleX(1);
+}
+
+.footer-team-card__shine {
+  position: absolute;
+  inset: -35% auto auto -60%;
+  z-index: 3;
+  width: 55%;
+  height: 170%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: rotate(18deg) translateX(-120%);
+  transition: transform 620ms ease;
+}
+
+.footer-team-card:hover .footer-team-card__shine {
+  transform: rotate(18deg) translateX(420%);
+}
+
+.footer-team-card__imageWrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  aspect-ratio: 1;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.footer-team-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.94) contrast(1.02);
+  transition: transform 420ms ease, filter 420ms ease;
+}
+
+.footer-team-card:hover .footer-team-card__image {
+  transform: scale(1.07);
+  filter: saturate(1.08) contrast(1.05);
+}
+
+.footer-team-card h3 {
+  margin: 0.75rem 0 0.1rem;
+  color: var(--text-1);
+  font-size: clamp(0.82rem, 1.5vw, 0.98rem);
+  font-weight: 850;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+html[data-theme="light"] .footer-team-modal {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(235, 28, 36, 0.16), transparent 32%),
+    rgba(246, 246, 246, 0.62);
+}
+
 @media (max-width: 680px) {
   .footer {
+    grid-template-columns: 1fr;
     align-items: flex-start;
-    flex-direction: column;
+  }
+
+  .footer__credit {
+    justify-self: start;
+    text-align: left;
   }
 
   .footer__links {
+    justify-content: flex-start;
     flex-wrap: wrap;
+  }
+
+  .footer-team-modal {
+    align-items: end;
+    padding: 0.7rem;
+  }
+
+  .footer-team-modal__panel {
+    max-height: 88vh;
+    padding: 1rem;
+  }
+
+  .footer-team-modal__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

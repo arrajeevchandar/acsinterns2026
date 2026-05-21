@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer/Footer';
 import ScrollProgress from '../components/ScrollProgress/ScrollProgress';
 import { ZenithInline } from '../components/Zenith/ZenithInline';
 
@@ -21,7 +20,6 @@ const FAQ: React.FC = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };
