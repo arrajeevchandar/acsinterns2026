@@ -4,6 +4,64 @@ An Adobe ACS internship portal built to showcase interns, teams, projects, event
 
 The frontend is a React + TypeScript + Vite application with a cinematic Adobe-inspired UI, dark/light theme support, glassmorphism cards, routed pages, and interactive sections.
 
+## Git Workflow
+
+Please do not work directly on `main` and do not push directly to `main`. Create a separate branch for every feature, fix, or page update, then open a pull request on GitHub when the work is ready.
+
+After cloning the repo, follow this workflow:
+
+### 1. Create a new branch for your work
+
+```bash
+git branch branchname
+git checkout branchname
+```
+
+You can also do both steps together:
+
+```bash
+git checkout -b branchname
+```
+
+### 2. Keep your branch updated with `main`
+
+If someone else has updated `main` while you are working, first get the latest `main`:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+Then bring those latest changes into your branch:
+
+```bash
+git checkout branchname
+git merge main
+```
+
+Resolve any merge conflicts if Git asks you to, then continue working.
+
+### 3. Before finishing your feature
+
+Before pushing your completed work, repeat the update steps above:
+
+```bash
+git checkout main
+git pull origin main
+git checkout branchname
+git merge main
+```
+
+Then commit and push your branch:
+
+```bash
+git add .
+git commit -m "your commit message"
+git push origin branchname
+```
+
+Finally, go to GitHub and open a pull request from your branch into `main`.
+
 ## Project Structure
 
 ```text
