@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import Footer from '../../components/Footer/Footer';
 import './Gallery.css';
 
 // ─── helpers ────────────────────────────────────────────────────────────────
@@ -375,7 +374,6 @@ const Gallery: React.FC = () => {
           </section>
         ))}
       </main>
-      <Footer />
     </>
   );
 };

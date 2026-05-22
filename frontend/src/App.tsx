@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route ,  useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery/Gallery';
@@ -27,7 +28,7 @@ function AppShell() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/teams" element={<Teams />} />
       </Routes>
-      
+        <Footer />
       </div>
       {/* Only show floating chat bubble on non-FAQ pages */}
       {!isFaQ && <ZenithChat />}
