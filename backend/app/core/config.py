@@ -12,6 +12,14 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
 
 
+def _csv_env(name: str, default: str = "") -> list[str]:
+    return [
+        value.strip()
+        for value in os.getenv(name, default).split(",")
+        if value.strip()
+    ]
+
+
 class Settings:
     """Simple settings class backed by environment variables."""
 
@@ -23,6 +31,11 @@ class Settings:
     # Service
     PORT: int = int(os.getenv("PORT", "8000"))
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "info")
+    CORS_ORIGINS: list[str] = _csv_env(
+        "CORS_ORIGINS",
+        "http://localhost:3000,http://127.0.0.1:3000",
+    )
+    ADMIN_TOKEN: str = os.getenv("ADMIN_TOKEN", "")
 
     # RAG / Vector Store
     EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
