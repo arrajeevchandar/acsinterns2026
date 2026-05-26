@@ -39,7 +39,7 @@ const WELCOME_CONTENT = "👋 Hi there! I'm **Zenith**, your Adobe ACS Intern co
 
 const ZenithContext = createContext<ZenithCtx | undefined>(undefined);
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://localhost:8001';
 
 /* ── Provider ─────────────────────────────────────────────── */
 export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

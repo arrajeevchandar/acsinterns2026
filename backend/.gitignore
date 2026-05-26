@@ -16,3 +16,10 @@ yarn-debug.log*
 # OS artifacts
 .DS_Store
 Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+
+# Vector store (ChromaDB persistence)
+vector_db/

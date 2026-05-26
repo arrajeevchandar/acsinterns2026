@@ -1,25 +1,42 @@
 """
-Zenith Knowledge Service — Semantic search across all data sources.
+Zenith Knowledge Service — Data loading, chunking, and vector-store ingestion.
 
-Loads all JSON data files at startup and provides a fuzzy search
-that matches user queries against the entire knowledge base.
+Loads all JSON data files, chunks large entries, and feeds them into
+the ChromaDB vector store for semantic retrieval.
 """
 import json
-import os
+import hashlib
+import logging
 import re
 from pathlib import Path
 from typing import List, Dict, Any
 
+from app.services.vector_store import (
+    ingest_documents,
+    is_indexed,
+    clear_collection,
+    semantic_search,
+    get_categories,
+)
+
+logger = logging.getLogger("zenith.knowledge")
+
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
 
-# ── In-memory knowledge store ──────────────────────────────────
-_knowledge: List[Dict[str, Any]] = []
+# Maximum characters per chunk (~300 tokens ≈ 1200 chars), with overlap
+_CHUNK_SIZE = 1200
+_CHUNK_OVERLAP = 200
+
+# ── In-memory raw entries (for summary / fallback) ────────────
+_raw_entries: List[Dict[str, Any]] = []
 
 
-def _load_all_data():
+# ── Data loading ──────────────────────────────────────────────
+
+def _load_all_data() -> List[Dict[str, Any]]:
     """Load and normalize all JSON data files into a flat list of knowledge entries."""
-    global _knowledge
-    entries = []
+    global _raw_entries
+    entries: List[Dict[str, Any]] = []
 
     # 1. Tips
     tips_path = DATA_DIR / "tips.json"
@@ -31,7 +48,6 @@ def _load_all_data():
                 "title": tip.get("title", ""),
                 "content": tip.get("description", ""),
                 "category": tip.get("category", ""),
-                "searchable": f"{tip.get('title', '')} {tip.get('description', '')} {tip.get('category', '')} {tip.get('attribution', '')}".lower(),
             })
 
     # 2. Projects
@@ -44,7 +60,6 @@ def _load_all_data():
                 "title": proj.get("name", ""),
                 "content": f"{proj.get('pitch', '')} Stack: {', '.join(proj.get('stack', []))}. {proj.get('learnings', '')}",
                 "category": proj.get("domain", ""),
-                "searchable": f"{proj.get('name', '')} {proj.get('pitch', '')} {proj.get('description', '')} {proj.get('learnings', '')} {' '.join(proj.get('stack', []))} {proj.get('domain', '')} {proj.get('status', '')}".lower(),
             })
 
     # 3. Mentors
@@ -57,7 +72,6 @@ def _load_all_data():
                 "title": m.get("name", ""),
                 "content": f"{m.get('name', '')} is a {m.get('title', '')} on the {m.get('team', '')} team.",
                 "category": "Mentors",
-                "searchable": f"{m.get('name', '')} {m.get('title', '')} {m.get('team', '')} mentor".lower(),
             })
 
     # 4. Events
@@ -70,7 +84,6 @@ def _load_all_data():
                 "title": ev.get("name", ""),
                 "content": f"{ev.get('description', '')} (Week {ev.get('week', '?')}, {ev.get('type', '')})",
                 "category": "Timeline",
-                "searchable": f"{ev.get('name', '')} {ev.get('description', '')} {ev.get('type', '')} week {ev.get('week', '')}".lower(),
             })
 
     # 5. Interns
@@ -81,9 +94,12 @@ def _load_all_data():
                 "type": "intern",
                 "source": f"Intern: {intern.get('name', '')}",
                 "title": intern.get("name", ""),
-                "content": f"{intern.get('name', '')} ({intern.get('role', '')}, {intern.get('team', '')} team). {intern.get('bio', '')}. Skills: {', '.join(intern.get('skills', []))}. Unforgettable moment: {intern.get('unforgettableMoment', '')}",
+                "content": (
+                    f"{intern.get('name', '')} ({intern.get('role', '')}, {intern.get('team', '')} team). "
+                    f"{intern.get('bio', '')}. Skills: {', '.join(intern.get('skills', []))}. "
+                    f"Unforgettable moment: {intern.get('unforgettableMoment', '')}"
+                ),
                 "category": "Interns",
-                "searchable": f"{intern.get('name', '')} {intern.get('role', '')} {intern.get('team', '')} {intern.get('bio', '')} {' '.join(intern.get('skills', []))}".lower(),
             })
 
     # 6. Internal manual knowledge
@@ -96,7 +112,6 @@ def _load_all_data():
                 "title": item.get("topic", ""),
                 "content": item.get("content", ""),
                 "category": item.get("category", ""),
-                "searchable": f"{item.get('topic', '')} {item.get('content', '')} {item.get('category', '')}".lower(),
             })
 
     # 7. Scraped knowledge
@@ -109,66 +124,145 @@ def _load_all_data():
                 "title": item.get("category", ""),
                 "content": item.get("content", ""),
                 "category": item.get("category", ""),
-                "searchable": f"{item.get('content', '')} {item.get('category', '')}".lower(),
             })
 
-    _knowledge = entries
-    return len(entries)
+    # 8. Gallery
+    gallery_path = DATA_DIR / "gallery.json"
+    if gallery_path.exists():
+        for item in json.loads(gallery_path.read_text(encoding="utf-8")):
+            entries.append({
+                "type": "gallery",
+                "source": "Gallery",
+                "title": item.get("title", item.get("caption", "")),
+                "content": item.get("caption", item.get("description", "")),
+                "category": "Gallery",
+            })
+
+    # 9. Kudos
+    kudos_path = DATA_DIR / "kudos.json"
+    if kudos_path.exists():
+        for item in json.loads(kudos_path.read_text(encoding="utf-8")):
+            entries.append({
+                "type": "kudos",
+                "source": "Kudos",
+                "title": item.get("from", ""),
+                "content": item.get("message", item.get("content", "")),
+                "category": "Kudos",
+            })
+
+    _raw_entries = entries
+    logger.info("Loaded %d raw knowledge entries from %s", len(entries), DATA_DIR)
+    return entries
 
 
-def search_knowledge(query: str, top_k: int = 8) -> List[Dict[str, Any]]:
+# ── Chunking ──────────────────────────────────────────────────
+
+def _make_id(text: str) -> str:
+    """Deterministic short ID from content."""
+    return hashlib.md5(text.encode()).hexdigest()[:12]
+
+
+def _chunk_text(text: str, chunk_size: int = _CHUNK_SIZE, overlap: int = _CHUNK_OVERLAP) -> List[str]:
+    """Split text into overlapping chunks."""
+    if len(text) <= chunk_size:
+        return [text]
+
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        chunks.append(chunk)
+        start += chunk_size - overlap
+
+    return chunks
+
+
+def _chunk_entries(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Chunk entries with long content into smaller pieces for better retrieval."""
+    chunked = []
+    for entry in entries:
+        content = entry.get("content", "")
+        if not content or not content.strip():
+            continue
+
+        chunks = _chunk_text(content)
+        for i, chunk in enumerate(chunks):
+            doc_id = _make_id(f"{entry.get('title', '')}-{entry.get('type', '')}-{i}")
+            chunked.append({
+                "id": doc_id,
+                "type": entry.get("type", ""),
+                "source": entry.get("source", ""),
+                "title": entry.get("title", ""),
+                "content": chunk,
+                "category": entry.get("category", ""),
+            })
+
+    logger.info("Chunked %d entries into %d documents.", len(entries), len(chunked))
+    return chunked
+
+
+# ── Public API ────────────────────────────────────────────────
+
+def index_knowledge(force: bool = False) -> int:
     """
-    Fuzzy keyword search across all knowledge entries.
-    Scores each entry by how many query words appear in its searchable text.
+    Load all data, chunk it, and ingest into the vector store.
+    Skips if already indexed unless force=True.
+    Returns the number of documents indexed.
     """
-    if not _knowledge:
+    if not force and is_indexed():
+        logger.info("Vector store already populated — skipping indexing.")
+        return 0
+
+    if force:
+        logger.info("Force re-index requested — clearing vector store.")
+        clear_collection()
+
+    entries = _load_all_data()
+    chunked = _chunk_entries(entries)
+    count = ingest_documents(chunked)
+    logger.info("Indexing complete: %d documents.", count)
+    return count
+
+
+def search_knowledge(query: str, top_k: int = 5, category: str = None) -> List[Dict[str, Any]]:
+    """Semantic search over the knowledge base. Returns list of result dicts."""
+    return semantic_search(query=query, top_k=top_k, category=category)
+
+
+def list_knowledge_categories() -> List[str]:
+    """Return all distinct categories in the knowledge base."""
+    return get_categories()
+
+
+def get_prompt_safe_knowledge_summary() -> str:
+    """Return a summary that excludes categories likely to expose personal names."""
+    if not _raw_entries:
         _load_all_data()
 
-    query_lower = query.lower()
-    words = [w for w in re.split(r'\W+', query_lower) if len(w) > 2]
-
-    if not words:
-        return _knowledge[:top_k]
-
-    scored = []
-    for entry in _knowledge:
-        score = 0
-        text = entry["searchable"]
-        for word in words:
-            if word in text:
-                score += 1
-                # Bonus for title match
-                if word in entry.get("title", "").lower():
-                    score += 2
-        if score > 0:
-            scored.append((score, entry))
-
-    scored.sort(key=lambda x: x[0], reverse=True)
-    return [entry for _, entry in scored[:top_k]]
-
-
-def get_all_knowledge_summary() -> str:
-    """Returns a condensed summary of all knowledge for the system prompt."""
-    if not _knowledge:
-        _load_all_data()
-
-    categories = {}
-    for entry in _knowledge:
+    categories: Dict[str, List[str]] = {}
+    for entry in _raw_entries:
         cat = entry.get("category", "Other")
         if cat not in categories:
             categories[cat] = []
-        categories[cat].append(entry["title"])
+        title = entry.get("title", "")
+        if title:
+            categories[cat].append(title)
 
     lines = []
     for cat, titles in categories.items():
-        lines.append(
-            f"- {cat}: {', '.join(titles[:5])}{'...' if len(titles) > 5 else ''}")
+        if cat in ("Interns", "Mentors"):
+            continue
+        sanitized_titles = [_sanitize_text(t) for t in titles[:5] if _sanitize_text(t)]
+        if sanitized_titles:
+            suffix = "..." if len(titles) > 5 else ""
+            lines.append(f"- {cat}: {', '.join(sanitized_titles)}{suffix}")
 
     return "\n".join(lines)
 
 
 def build_prompt_context(entries: List[Dict[str, Any]]) -> str:
-    """Build a prompt-safe context string that avoids exposing personal names."""
+    """Build a prompt-safe context string from search results."""
     context_parts = []
     for entry in entries:
         prompt_entry = _build_prompt_entry(entry)
@@ -177,19 +271,11 @@ def build_prompt_context(entries: List[Dict[str, Any]]) -> str:
     return "\n".join(context_parts)
 
 
-def get_prompt_safe_knowledge_summary() -> str:
-    """Return a summary that excludes categories likely to expose personal names."""
-    summary_lines = []
-    for line in get_all_knowledge_summary().splitlines():
-        if "Interns:" in line or "Mentors:" in line:
-            continue
-        summary_lines.append(_sanitize_text(line))
-    return "\n".join(line for line in summary_lines if line)
-
-
 def _build_prompt_entry(entry: Dict[str, Any]) -> str:
-    entry_type = entry.get("type", "entry")
-    title = _sanitize_text(entry.get("title", ""))
+    entry_type = entry.get("type", entry.get("metadata", {}).get("type", "entry"))
+    title = _sanitize_text(
+        entry.get("title", entry.get("metadata", {}).get("title", ""))
+    )
     content = _sanitize_text(entry.get("content", ""))
 
     if entry_type in {"intern", "mentor"}:
@@ -212,7 +298,3 @@ def _sanitize_text(text: str) -> str:
     cleaned = re.sub(r"\b[A-Z][a-z]+ [A-Z][a-z]+\b", "", cleaned)
     cleaned = re.sub(r"\s{2,}", " ", cleaned)
     return cleaned.strip(" -,:;")
-
-
-# Load on import
-_load_all_data()
