@@ -1,9 +1,10 @@
 """
-Zenith AI Engine — FastAPI Backend v1.0
-The brain of the Intern Portal Companion.
+Zenith AI Engine — FastAPI Backend v2.0
+The brain of the Intern Portal Companion (Agentic RAG).
 
 Endpoints:
   POST /api/agent/chat    Primary chat endpoint
+  POST /api/admin/reindex Re-index the knowledge base
   GET  /health            Health check
 """
 import time
@@ -19,6 +20,7 @@ from typing import List, Dict, Optional
 
 from app.core.config import get_settings
 from app.services.llm_client import get_llm
+from app.services.knowledge_service import index_knowledge
 from app.agent.brain import process_message
 
 # ── Logging ──────────────────────────────────────────────────
@@ -35,7 +37,19 @@ logger = logging.getLogger("zenith.api")
 async def lifespan(app: FastAPI):
     settings = get_settings()
     logger.info("Zenith Engine started | model=%s | port=%s", settings.GROQ_MODEL, settings.PORT)
+
+    # Index knowledge base on startup (skips if already indexed)
+    try:
+        count = index_knowledge(force=False)
+        if count:
+            logger.info("Indexed %d documents on startup.", count)
+        else:
+            logger.info("Vector store already populated — skipped indexing.")
+    except Exception as exc:
+        logger.error("Knowledge indexing failed on startup: %s", exc)
+
     yield
+
     llm = get_llm()
     await llm.close()
     logger.info("Zenith Engine shut down.")
@@ -44,8 +58,8 @@ async def lifespan(app: FastAPI):
 # ── App ──────────────────────────────────────────────────────
 app = FastAPI(
     title="Zenith AI Engine",
-    description="Stateful mentor agent for Adobe ACS Interns.",
-    version="1.0.0",
+    description="Agentic RAG mentor agent for Adobe ACS Interns.",
+    version="2.0.0",
     lifespan=lifespan,
 )
 
@@ -85,19 +99,34 @@ async def health():
     return {
         "status": "online",
         "agent": "Zenith",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "model": s.GROQ_MODEL,
+        "embedding_model": s.EMBEDDING_MODEL,
     }
 
 
 @app.post("/api/agent/chat")
 async def chat(req: ChatRequest):
-    """Primary chat endpoint. Processes message through the agent pipeline."""
+    """Primary chat endpoint. Processes message through the agentic RAG pipeline."""
     result = await process_message(
         message=req.message,
         history=req.history or [],
     )
     return result
+
+
+@app.post("/api/admin/reindex")
+async def reindex():
+    """Force re-index of the knowledge base."""
+    try:
+        count = index_knowledge(force=True)
+        return {"status": "ok", "documents_indexed": count}
+    except Exception as exc:
+        logger.error("Re-index failed: %s", exc)
+        return JSONResponse(
+            status_code=500,
+            content={"error": "reindex_failed", "detail": str(exc)},
+        )
 
 
 # ── Exception Handlers ───────────────────────────────────────
