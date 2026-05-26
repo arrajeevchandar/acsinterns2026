@@ -39,7 +39,7 @@ const WELCOME_CONTENT = "👋 Hi there! I'm **Zenith**, your Adobe ACS Intern co
 
 const ZenithContext = createContext<ZenithCtx | undefined>(undefined);
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/$/, '');
 
 /* ── Provider ─────────────────────────────────────────────── */
 export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -109,11 +109,12 @@ export const ZenithProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         timestamp: Date.now(),
       };
       setMessages(prev => [...prev, assistantMsg]);
-    } catch {
+    } catch (error) {
+      const detail = error instanceof Error ? ` (${error.message})` : '';
       setMessages(prev => [...prev, {
         id: `err-${Date.now()}`,
         role: 'assistant',
-        content: "Hmm, I'm having trouble connecting right now. Make sure the backend is running on `localhost:8000` and try again!",
+        content: `Hmm, I'm having trouble connecting right now. I tried the backend at \`${API_URL}\`${detail}.`,
         timestamp: Date.now(),
       }]);
     } finally {
