@@ -19,6 +19,7 @@ Thumbs.db
 
 # Python
 __pycache__/
+*.py[cod]
 *.pyc
 
 # Vector store (ChromaDB persistence)
