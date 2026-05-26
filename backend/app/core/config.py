@@ -4,6 +4,7 @@ Uses python-dotenv for .env loading (no Rust/MSVC dependency).
 """
 import os
 from functools import lru_cache
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -22,6 +23,15 @@ class Settings:
     # Service
     PORT: int = int(os.getenv("PORT", "8000"))
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "info")
+
+    # RAG / Vector Store
+    EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+    VECTOR_DB_PATH: str = os.getenv(
+        "VECTOR_DB_PATH",
+        str(Path(__file__).resolve().parent.parent.parent / "vector_db"),
+    )
+    AGENT_MAX_ITERATIONS: int = int(os.getenv("AGENT_MAX_ITERATIONS", "3"))
+    RETRIEVAL_TOP_K: int = int(os.getenv("RETRIEVAL_TOP_K", "5"))
 
     # Convenience: auto-populated from env file
     def __init__(self):
