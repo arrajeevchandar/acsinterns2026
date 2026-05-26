@@ -14,7 +14,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
 
 def _csv_env(name: str, default: str = "") -> list[str]:
     return [
-        value.strip()
+        value.strip().rstrip("/")
         for value in os.getenv(name, default).split(",")
         if value.strip()
     ]
@@ -34,6 +34,10 @@ class Settings:
     CORS_ORIGINS: list[str] = _csv_env(
         "CORS_ORIGINS",
         "http://localhost:3000,http://127.0.0.1:3000",
+    )
+    CORS_ORIGIN_REGEX: str = os.getenv(
+        "CORS_ORIGIN_REGEX",
+        r"https://.*\.vercel\.app",
     )
     ADMIN_TOKEN: str = os.getenv("ADMIN_TOKEN", "")
 
