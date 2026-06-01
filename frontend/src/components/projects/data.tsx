@@ -56,7 +56,7 @@ export const TEAMS: Team[] = [
     projects: [
       {
         id: 'data-1',
-        name: 'AEP Utility Tool',
+        name: 'AEP QueryGen',
         author: 'Anamaya Saraogi, Kanika Jain',
         role: 'Technical Consultant Intern',
         tag: 'Visualization',
@@ -64,7 +64,7 @@ export const TEAMS: Team[] = [
         timeline: 'Apr – Jun 2026',
         stack: 'Python FastAPI, React',
         impact: 'High',
-        desc: 'Worked with internal and external APIs to build and integrate scalable features. Developed a utility to enhance segment validation on Adobe Experience Platform.',
+        desc: 'Built a utility tool leveraging LLM and RAG to automate segment validation on Adobe Experience Platform, significantly reducing manual effort.',
         tags: [],
       },
     ],
