@@ -146,7 +146,7 @@ function MemberCard({ member, index, teamIndex, onClick, visible }: MemberCardPr
   const parts = member.id.split('-');
   const idNum = Number.parseInt(parts[1] ?? '1', 10);
   const avatarId = teamIndex * 10 + idNum + 1;
-  const avatarUrl = `https://i.pravatar.cc/600?img=${avatarId}`;
+  const avatarUrl = member.photo ?? `https://i.pravatar.cc/600?img=${avatarId}`;
 
   return (
     <button
@@ -168,6 +168,7 @@ function MemberCard({ member, index, teamIndex, onClick, visible }: MemberCardPr
           src={avatarUrl}
           alt={member.name}
           className="member-card__hero-portrait"
+          style={{ objectPosition: member.photoPosition ?? 'center' }}
         />
       </div>
 

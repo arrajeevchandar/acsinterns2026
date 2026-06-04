@@ -28,7 +28,7 @@ export default function MemberModal({ member, team, onClose }: MemberModalProps)
   const parts = member.id.split('-');
   const idNum = Number.parseInt(parts[1] ?? '1', 10);
   const avatarId = teamIndex * 10 + idNum + 1;
-  const avatarUrl = `https://i.pravatar.cc/600?img=${avatarId}`;
+  const avatarUrl = member.photo ?? `https://i.pravatar.cc/600?img=${avatarId}`;
 
   const modal = (
     <div className="member-modal__backdrop" onClick={onClose}>
@@ -44,6 +44,7 @@ export default function MemberModal({ member, team, onClose }: MemberModalProps)
                 src={avatarUrl}
                 alt={member.name}
                 className="member-modal__portrait"
+                style={{ objectPosition: member.photoPosition ?? 'center' }}
               />
             </div>
             <p className="member-modal__team-badge">Team {team.name}</p>
@@ -84,14 +85,23 @@ export default function MemberModal({ member, team, onClose }: MemberModalProps)
             <div className="member-modal__project glass">
               <p className="member-modal__project-label">Project</p>
               <p className="member-modal__project-title">{member.project.name}</p>
-              <a
-                href={member.project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="member-modal__project-link"
-              >
-                View project <IconExternal />
-              </a>
+              {member.project.description ? (
+                <p className="member-modal__project-summary">{member.project.description}</p>
+              ) : null}
+              {member.project.url ? (
+                <a
+                  href={member.project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="member-modal__project-link"
+                >
+                  View project <IconExternal />
+                </a>
+              ) : (
+                <span className="member-modal__project-link" aria-disabled="true">
+                  View project
+                </span>
+              )}
             </div>
 
             <div className="member-modal__stack">
