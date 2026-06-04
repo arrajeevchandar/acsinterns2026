@@ -77,15 +77,15 @@ export const TEAMS: Team[] = [
     projects: [
       {
         id: 'wf-1',
-        name: 'Smart Audit Request Management System',
+        name: 'Audit Automation',
         author: 'Namratha R',
         role: 'Technical Consultant Intern',
         tag: 'Automation',
         status: 'Completed',
         timeline: 'Apr – Jun 2026',
-        stack: '--',
+        stack: 'Workfront Core, Workfront Fusion, Claude (LLM), Webhooks, JSON Processing, Prompt Engineering, Reporting and Canvas Dashobard',
         impact: 'Critical',
-        desc: 'A rule-based automation engine for Workfront that allows project managers to define conditional workflow triggers, reducing manual task assignment by an estimated 60%.',
+        desc: 'Developed an AI-powered Audit Automation solution to automate audit assessments, gap identification, risk analysis, escalation tracking, action item generation, and project RAG reporting. The platform transforms audit conversations into structured deliverables, findings, recommendations, and executive dashboard insights for governance and portfolio visibility. ',
         tags: [],
       },
       {
