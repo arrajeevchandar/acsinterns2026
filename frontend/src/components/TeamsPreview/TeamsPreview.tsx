@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
-const TEAMS = ['AEM', 'Workfront', 'Data', 'UI', 'DACOE'];
+const TEAMS = ['CJM', 'Workfront', 'Data', 'UI', 'DACOE'];
 
 const TeamsPreview: React.FC = () => {
   const { ref, isVisible } = useIntersectionObserver({ threshold: 0.1 });

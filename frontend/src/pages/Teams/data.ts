@@ -50,7 +50,7 @@ export const TEAMS: Team[] = [
       'The UI team owns the surfaces interns and stakeholders touch every day - design systems, dashboards, and the polish that makes products feel inevitable.',
     stack: ['React', 'TypeScript', 'Spectrum', 'Framer Motion'],
     lead: 'Priya Anand',
-    memberCount: 8,
+    memberCount: 3,
   },
   {
     id: 'data',
@@ -61,7 +61,7 @@ export const TEAMS: Team[] = [
       'Pipelines, warehouses, and the analytics layer that powers every other team. They turn the noisy into the navigable.',
     stack: ['Snowflake', 'Airflow', 'dbt', 'Python'],
     lead: 'Marcus Liang',
-    memberCount: 8,
+    memberCount: 2,
   },
   {
     id: 'dacoe',
@@ -72,12 +72,12 @@ export const TEAMS: Team[] = [
       'Instrumentation, measurement strategy, and the governance that keeps every metric trustworthy across the org.',
     stack: ['Adobe Analytics', 'Launch', 'SQL', 'Tableau'],
     lead: 'Amelia Okafor',
-    memberCount: 8,
+    memberCount: 2,
   },
   {
     id: 'aem',
-    code: 'AEM',
-    name: 'AEM',
+    code: 'CJM',
+    name: 'CJM',
     tagline: 'Experience management at enterprise scale - authoring the web.',
     description:
       'Authoring, delivery, and personalization on Adobe Experience Manager - the backbone of brand-facing content.',
@@ -94,7 +94,7 @@ export const TEAMS: Team[] = [
       'Operationalizing how teams plan, request, review, and ship - automating the unglamorous so creatives can stay creative.',
     stack: ['Workfront', 'Fusion', 'REST APIs', 'JavaScript'],
     lead: 'Sana Khalid',
-    memberCount: 8,
+    memberCount: 2,
   },
   {
     id: 'content',
@@ -105,7 +105,7 @@ export const TEAMS: Team[] = [
       'Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.',
     stack: ['AEM', 'Java', 'Sling', 'HTL'],
     lead: 'Jordan Reyes',
-    memberCount: 8,
+    memberCount: 2,
   },
 ];
 
@@ -572,15 +572,12 @@ function generateMembers(teamId: TeamId, count: number, seed: number): Member[] 
 export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
   ui: [
     ...UI_MEMBERS,
-    ...generateMembers('ui', 5, 11),
   ],
   data: [
     ...DATA_MEMBERS,
-    ...generateMembers('data', 6, 22),
   ],
   dacoe: [
     ...DACOE_MEMBERS,
-    ...generateMembers('dacoe', 6, 33),
   ],
   aem: [
     ...AEM_MEMBERS,
@@ -588,11 +585,9 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
   ],
   workfront: [
     ...WORKFRONT_MEMBERS,
-    ...generateMembers('workfront', 6, 55),
   ],
   content: [
     ...CONTENT_MEMBERS,
-    ...generateMembers('content', 8, 66),
   ],
 };
 
