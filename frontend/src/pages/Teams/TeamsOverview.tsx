@@ -25,15 +25,15 @@ export default function TeamsOverview({ onSelectTeam }: TeamsOverviewProps) {
           <span className="section-kicker">Teams</span>
           <h1 className="teams-hero__title">Meet the teams.</h1>
           <p className="teams-hero__copy">
-            Six squads. Forty-eight interns. One cohort building, measuring, and
+            Six squads. Thirty-two interns. One cohort building, measuring, and
             shipping what matters at Adobe this summer.
           </p>
 
           <div className="teams-hero__stats">
             {[
-              { num: '48', label: 'Interns' },
+              { num: '32', label: 'Interns' },
               { num: '06', label: 'Teams' },
-              { num: '12', label: 'Weeks' },
+              { num: '10', label: 'Weeks' },
             ].map((stat) => (
               <div className="teams-hero__stat" key={stat.label}>
                 <span className="teams-hero__stat-num">{stat.num}</span>

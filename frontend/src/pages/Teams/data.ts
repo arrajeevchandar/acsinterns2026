@@ -13,13 +13,16 @@ export interface Team {
 
 export interface Project {
   name: string;
-  url: string;
+  description?: string;
+  url: string | null;
 }
 
 export interface Member {
   id: string;
   name: string;
   initials: string;
+  photo?: string;
+  photoPosition?: string;
   role: string;
   university: string;
   batch: string;
@@ -217,6 +220,292 @@ const PROJECTS_BY_TEAM: Record<TeamId, Project[]> = {
   ],
 };
 
+const DACOE_MEMBERS: Member[] = [
+  {
+    id: 'dacoe-shambhavi-sinha',
+    name: 'Shambhavi Sinha',
+    bio:
+      'I am a Computer Science postgraduate student at Christ University with a strong interest in AI, software development, and UI/UX design. I enjoy building practical and user-focused solutions, working on innovative research projects, and exploring new ideas in technology and design. Along with academics and development, I also enjoy creative activities like singing, learning musical instruments, and reading, which help me stay curious and balanced outside of work.',
+    photo: '/images/contributors/shambhavi-sinha.jpeg',
+    photoPosition: 'center',
+    project: {
+      name: 'Retail Insight Orchestrator',
+      description:
+        "This project is a retail insight orchestration layer built on top of Customer Journey Analytics (via CJA MCP). It takes a business question in natural language, understands the retail intent, maps it to the right metrics and dimensions, and generates a structured analysis workflow instead of making the user manually figure out what to ask.",
+      url: null,
+    },
+    github: 'https://github.com/sinha4',
+    linkedin: 'https://www.linkedin.com/in/shambhavi-sinha-28509324a',
+    skills: ['Python', 'AEP'],
+    initials: 'SS',
+    role: 'DACoE Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'DACoE Team',
+    avatarHue: 0,
+  },
+  {
+    id: 'dacoe-yanish-rai',
+    name: 'Yanish Rai',
+    bio:
+      'MCA intern at Adobe, Bengaluru, working with Adobe Experience Platform (AEP) and the Adobe Experience Cloud ecosystem. Currently pursuing MCA at CHRIST (Deemed to be University), Bangalore. Passionate about full-stack development, data engineering, and building scalable platforms.',
+    photo: '/images/contributors/yanish-rai.jpg',
+    photoPosition: 'center',
+    project: {
+      name: 'Agent Evaluation Harness',
+      description:
+        'Given (a) an AEP dataset and (b) a set of business use cases, automatically generates a tiered prompt suite for the Data Insights Agent, executes those prompts against the live agent in AEP, computes the ground-truth answer directly from the underlying data, scores the agent\'s responses against ground truth, and produces a reliability report with failure mode analysis.',
+      url: null,
+    },
+    github: 'https://github.com/GeekyYanish',
+    linkedin: 'https://linkedin.com.in/yanish_rai',
+    skills: ['Python', 'React'],
+    initials: 'YR',
+    role: 'DACoE Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'DACoE Team',
+    avatarHue: 0,
+  },
+];
+
+const UI_MEMBERS: Member[] = [
+  {
+    id: 'ui-achindra-sharma',
+    name: 'Achindra Sharma',
+    bio:
+      "My default mode is figuring out how to make things less frustrating to use. I value clean execution, straightforward communication, and good aesthetics. Outside of work, I spend my time going down random rabbit holes.",
+    photo: '/images/contributors/achindra-sharma.jpg',
+    photoPosition: 'center',
+    project: {
+      name: 'Nirmit',
+      description:
+        'Nirmit is a culturally-aware design partner that bridges the gap between expensive professional firms and local contractors for Indian homeowners. By understanding the nuances of Indian domestic life, it transforms a simple conversation into personalized, 3D room visions that users can refine through natural dialogue. The experience provides instant cost clarity and a detailed execution plan, making high-quality, custom home design accessible and achievable.',
+      url: null,
+    },
+    github: 'https://github.com/Achindra2003',
+    linkedin: 'https://www.linkedin.com/in/achindrasharma',
+    skills: ['React', 'Typescript', 'Python', 'Design'],
+    initials: 'AS',
+    role: 'UI Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'UI Team',
+    avatarHue: 0,
+  },
+  {
+    id: 'ui-daniel-paul',
+    name: 'Daniel Paul',
+    bio:
+      "Spends life between Neovim buffers, high-fidelity DACs. Rust is deprecated. Optimized for machine speed; unoptimized for small talk.",
+    photo: '/images/contributors/daniel-paul.jpg',
+    photoPosition: 'center',
+    project: {
+      name: 'FinPath - AI Financial Planner',
+      description:
+        'FinPath is a personal finance app that helps users track their income and expenses, set and allocate financial goals with auto-generated month-by-month plans, simulate debt payoff using avalanche or snowball strategies, visualize cash flow , monitor their financial health with a composite score, explore what-if scenarios, and chat with an AI assistant named Penny for financial insights.',
+      url: null,
+    },
+    github: 'https://github.com/K1NGS1LVER',
+    linkedin: 'https://www.linkedin.com/in/daniel-paul-dev/',
+    skills: ['React', 'Typescript', 'C++', 'C', 'Node.js', 'Express.js'],
+    initials: 'DP',
+    role: 'UI Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'UI Team',
+    avatarHue: 0,
+  },
+  {
+    id: 'ui-shreeya-bajpai',
+    name: 'Shreeya Bajpai',
+    bio:
+      "I am a fast learner who loves converting ideas into reality with all resources at hand. Beyond tech, I'm an avid reader, language enthusiast, and enjoy debates.",
+    photo: '/images/contributors/shreeya-bajpai.jpg',
+    photoPosition: 'center',
+    project: {
+      name: 'Lume Corp',
+      description:
+        'An AI-integrated corporate event planning platform designed for an immersive experience of the planning flow, with 2D setup visualiser.',
+      url: null,
+    },
+    github: 'https://github.com/Shrxxya',
+    linkedin: 'https://in.linkedin.com/in/shreeya-bajpai',
+    skills: ['React', 'Vite', 'Javascript'],
+    initials: 'SB',
+    role: 'UI Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'UI Team',
+    avatarHue: 0,
+  },
+];
+
+const AEM_MEMBERS: Member[] = [];
+
+const CONTENT_MEMBERS: Member[] = [
+  {
+    id: 'content-ar-rajeev-chandar',
+    name: 'A R Rajeev Chandar',
+    bio:
+      'I’m a tech enthusiast who loves building cool web apps, exploring AI, and turning ideas into real projects. I enjoy learning new technologies, solving problems, and collaborating with people who are passionate about innovation.',
+    photo: '/images/contributors/ar-rajeev-chandar.jpg',
+    photoPosition: 'center',
+    project: {
+      name: 'Adokicks',
+      description:
+        'AdoKicks is a modern e-commerce footwear platform built using Adobe Experience Manager and Edge Delivery Services principles to deliver a fast, scalable, and seamless shopping experience.',
+      url: null,
+    },
+    github: 'https://github.com/rajeevc-adobe/AdoKicks',
+    linkedin:
+      'https://www.linkedin.com/in/a-r-rajeev-chandar-442141264?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+    skills: ['EDS', 'HTML', 'CSS', 'JS'],
+    initials: 'AR',
+    role: 'Content Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'Content Team',
+    avatarHue: 0,
+  },
+  {
+    id: 'content-sudeepa-santhanam',
+    name: 'Sudeepa Santhanam',
+    bio:
+      'Heyy, I’m Sudeepa! I enjoy building interactive web projects and exploring new technologies along the way. I’m particularly interested in full stack development, frontend design, and creating user experiences that are both functional and visually engaging. I like experimenting with creative ideas, improving designs, and learning through hands-on projects. Outside of tech, I enjoy reading books, dancing, cooking, and listening to music. I’m someone who enjoys collaborating with people, communicating ideas clearly, and taking initiative whenever needed. I’d describe myself as creative, adaptable, confident, and always curious to learn something new :D',
+    photo: '/images/contributors/sudeepa-santhanam.jpeg',
+    photoPosition: 'center',
+    project: {
+      name: 'Global Translation Pipeline',
+      description:
+        'Automated localization pipeline for Adobe marketing content, supporting 26 languages with human-in-the-loop review for high-sensitivity strings.',
+      url: null,
+    },
+    github: 'https://github.com/sudeeepaa',
+    linkedin: 'https://linkedin.com/in/sudeepasanthanam',
+    skills: ['Frontend', 'React', 'Full Stack', 'Design'],
+    initials: 'SS',
+    role: 'Content Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'Content Team',
+    avatarHue: 0,
+  },
+];
+
+const DATA_MEMBERS: Member[] = [
+  {
+    id: 'data-anamaya-saraogi',
+    name: 'Anamaya Saraogi',
+    bio:
+      'I’m an MCA student passionate about Python, Data Science and AI/ML. I enjoy reading and public speaking. I like turning ideas into practical projects while continuously improving my skills and creativity along the way.',
+    photo: '/images/contributors/anamaya-saraogi.jpg',
+    photoPosition: 'center',
+    project: {
+      name: 'AEP QueryGen',
+      description:
+        'Built a utility tool leveraging LLM and RAG to automate segment validation on Adobe Experience Platform, significantly reducing manual effort.',
+      url: null,
+    },
+    github: 'https://github.com/AnamayaSaraogi',
+    linkedin: 'https://www.linkedin.com/in/anamaya-saraogi-904b0924b/',
+    skills: ['Python', 'Data Science', 'AI/ML', 'React', 'FastAPI'],
+    initials: 'AS',
+    role: 'Data Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'Data Team',
+    avatarHue: 0,
+  },
+  {
+    id: 'data-kanika-jain',
+    name: 'Kanika Jain',
+    bio:
+      'Hi! I am Kanika Jain. I am a passionate learner and like exploring new technologies and domains. I have a strong interest in data analysis and I enjoy working on projects that combine problem-solving, data analysis and intuitive user experiences. Beyond Technology, I like sketching and reading novels that allows me to improve my attention to detail and explore different perspectives.',
+    photo: '/images/contributors/kanika-jain.jpeg',
+    photoPosition: 'center',
+    project: {
+      name: 'AEP QueryGen',
+      description:
+        'Built a utility tool leveraging LLM and RAG to automate segment validation on Adobe Experience Platform, significantly reducing manual effort.',
+      url: null,
+    },
+    github: 'https://github.com/Kanika244/PQL_SQL2',
+    linkedin: 'https://www.linkedin.com/in/kanika-jain-31b916284/',
+    skills: ['React', 'FastAPI', 'Data Analysis', 'Problem Solving'],
+    initials: 'KJ',
+    role: 'Data Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'Data Team',
+    avatarHue: 0,
+  },
+];
+
+const WORKFRONT_MEMBERS: Member[] = [
+  {
+    id: 'workfront-namratha-r',
+    name: 'Namratha R',
+    bio:
+      "I am a passionate and goal-oriented individual with strong leadership, communication, and problem-solving skills. I thrive in challenging environments and focus on achieving shared goals. Skilled in Full-Stack Web Development, I enjoy building responsive and user-friendly web applications. I am also actively involved in volunteering and leading events, which has strengthened my teamwork, organizational, and coordination abilities.",
+    photo: '/images/contributors/namratha-r.jpeg',
+    photoPosition: 'center',
+    project: {
+      name: 'Audit Automation',
+      description:
+        'Developed an AI-powered Audit Automation solution to automate audit assessments, gap identification, risk analysis, escalation tracking, action item generation, and project RAG reporting. The platform transforms audit conversations into structured deliverables, findings, recommendations, and executive dashboard insights for governance and portfolio visibility.',
+      url: null,
+    },
+    github: 'https://github.com/namrathar18',
+    linkedin: 'https://www.linkedin.com/in/namratharp18',
+    skills: [
+      'Workfront Core',
+      'Workfront Fusion',
+      'Claude (LLM)',
+      'Webhooks',
+      'JSON Processing',
+      'Prompt Engineering',
+      'Reporting and Canvas Dashboard',
+    ],
+    initials: 'NR',
+    role: 'Workfront Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'Workfront Team',
+    avatarHue: 0,
+  },
+  {
+    id: 'workfront-sachin-d',
+    name: 'Sachin D',
+    bio:
+      'Hi, I’m Sachin someone who enjoys turning ideas into meaningful experiences through technology. Outside of tech, boxing has taught me discipline, focus, and consistency. From AI-powered applications and scalable web platforms to IoT and cloud-driven solutions, I enjoy building technology with purpose and exploring how innovation, technology, and business come together to create impactful products and real-world value.',
+    photo: '/images/contributors/sachin-d.png',
+    photoPosition: 'center',
+    project: {
+      name: 'IntelliMatch AI',
+      description:
+        'A hybrid agentic system for intelligent project allocation and workforce decisions, that brings decision intelligence to project allocation, enabling structured, explainable, and data-driven staffing decisions.',
+      url: null,
+    },
+    github: 'https://github.com/SachinD-Sketch',
+    linkedin: 'https://www.linkedin.com/in/sachin-dev-152624269',
+    skills: [
+      'Ollama',
+      'Mistral',
+      'SBERT',
+      'Python FastAPI',
+      'Workfront Core',
+      'Workfront Fusion',
+    ],
+    initials: 'SD',
+    role: 'Workfront Intern',
+    university: 'Christ (Deemed to be University)',
+    batch: 'Summer 2026',
+    mentor: 'Workfront Team',
+    avatarHue: 0,
+  },
+];
+
 const BIOS = [
   'Spends weekends rebuilding mechanical keyboards and arguing about kerning. Believes good software has good rhythm.',
   'Came to Adobe through a research project on perceptual color spaces. Currently obsessed with making dashboards readable in three glances or fewer.',
@@ -281,12 +570,30 @@ function generateMembers(teamId: TeamId, count: number, seed: number): Member[] 
 }
 
 export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
-  ui: generateMembers('ui', 8, 11),
-  data: generateMembers('data', 8, 22),
-  dacoe: generateMembers('dacoe', 8, 33),
-  aem: generateMembers('aem', 8, 44),
-  workfront: generateMembers('workfront', 8, 55),
-  content: generateMembers('content', 8, 66),
+  ui: [
+    ...UI_MEMBERS,
+    ...generateMembers('ui', 5, 11),
+  ],
+  data: [
+    ...DATA_MEMBERS,
+    ...generateMembers('data', 6, 22),
+  ],
+  dacoe: [
+    ...DACOE_MEMBERS,
+    ...generateMembers('dacoe', 6, 33),
+  ],
+  aem: [
+    ...AEM_MEMBERS,
+    ...generateMembers('aem', 6, 44),
+  ],
+  workfront: [
+    ...WORKFRONT_MEMBERS,
+    ...generateMembers('workfront', 6, 55),
+  ],
+  content: [
+    ...CONTENT_MEMBERS,
+    ...generateMembers('content', 8, 66),
+  ],
 };
 
 export const AVATAR_COLORS: AvatarColor[] = [
