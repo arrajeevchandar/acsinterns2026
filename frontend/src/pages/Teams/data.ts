@@ -70,8 +70,8 @@ export const TEAMS: Team[] = [
     tagline: 'Digital Analytics Center of Excellence - measurement that matters.',
     description:
       'Instrumentation, measurement strategy, and the governance that keeps every metric trustworthy across the org.',
-    stack: ['Adobe Analytics', 'Launch', 'SQL', 'Tableau'],
-    lead: 'Amelia Okafor',
+    stack: ['Python', 'Streamlit', 'SQLite', 'Anthropic Sonnet 4.5'],
+    lead: 'Narendra Gorla',
     memberCount: 2,
   },
   {
@@ -92,8 +92,8 @@ export const TEAMS: Team[] = [
     tagline: 'Where work meets workflow - operationalizing creative teams.',
     description:
       'Operationalizing how teams plan, request, review, and ship - automating the unglamorous so creatives can stay creative.',
-    stack: ['Workfront', 'Fusion', 'REST APIs', 'JavaScript'],
-    lead: 'Sana Khalid',
+    stack: ['Workfront Core', 'Fusion', 'App Builder', 'Frame IO', 'Workfront Planning'],
+    lead: 'Narendra Gorla',
     memberCount: 2,
   },
   {
@@ -104,7 +104,7 @@ export const TEAMS: Team[] = [
     description:
       'Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.',
     stack: ['AEM', 'Java', 'Sling', 'HTL'],
-    lead: 'Jordan Reyes',
+    lead: 'Shirish Halapeth',
     memberCount: 2,
   },
 ];
