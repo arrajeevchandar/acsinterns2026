@@ -103,7 +103,7 @@ export const TEAMS: Team[] = [
     tagline: 'Voice, narrative, and the words that ship with every product.',
     description:
       'Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.',
-    stack: ['Strategy', 'UX Writing', 'SEO', 'Editorial'],
+    stack: ['AEM', 'Java', 'Sling', 'HTL'],
     lead: 'Jordan Reyes',
     memberCount: 8,
   },
