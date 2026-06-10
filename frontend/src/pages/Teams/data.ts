@@ -80,7 +80,7 @@ export const TEAMS: Team[] = [
     name: 'CJM',
     tagline: 'Experience management at enterprise scale - authoring the web.',
     description:
-      'Authoring, delivery, and personalization on Adobe Experience Manager - the backbone of brand-facing content.',
+      "Builds and drives Adobe's cross-channel customer journey and orchestration capabilities across Journey Optimizer, Campaign, and Target",
     stack: [],
     lead: '',
     memberCount: 8,
