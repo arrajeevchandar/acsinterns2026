@@ -49,7 +49,7 @@ export const TEAMS: Team[] = [
     description:
       'The UI team owns the surfaces interns and stakeholders touch every day - design systems, dashboards, and the polish that makes products feel inevitable.',
     stack: ['React', 'TypeScript', 'Spectrum', 'Framer Motion'],
-    lead: 'Priya Anand',
+    lead: 'Arun Rajkumar',
     memberCount: 3,
   },
   {
@@ -60,7 +60,7 @@ export const TEAMS: Team[] = [
     description:
       'Pipelines, warehouses, and the analytics layer that powers every other team. They turn the noisy into the navigable.',
     stack: ['Snowflake', 'Airflow', 'dbt', 'Python'],
-    lead: 'Marcus Liang',
+    lead: 'Suryanarayana Murthy Kothapalli',
     memberCount: 2,
   },
   {
@@ -81,8 +81,8 @@ export const TEAMS: Team[] = [
     tagline: 'Experience management at enterprise scale - authoring the web.',
     description:
       'Authoring, delivery, and personalization on Adobe Experience Manager - the backbone of brand-facing content.',
-    stack: ['AEM', 'Java', 'Sling', 'HTL'],
-    lead: 'Devon Park',
+    stack: [],
+    lead: '',
     memberCount: 8,
   },
   {
