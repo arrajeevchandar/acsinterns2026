@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Gallery.css';
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 function imgSrc(seed: string, w = 800, h = 600) {
   return `https://picsum.photos/seed/${seed}/${w}/${h}`;
 }
+
+type ImageEntry = { name?: string; url: string; srcset?: string[]; aspect?: number };
+type Manifest = Record<string, ImageEntry[]>;
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
 function clamp(v: number, lo = 0, hi = 1) { return Math.max(lo, Math.min(hi, v)); }
 function easeOutCubic(t: number) { return 1 - Math.pow(1 - t, 3); }
@@ -267,6 +270,7 @@ function runScrollDriver(page: HTMLElement, refs: GalleryRefs) {
 
 // ─── component ───────────────────────────────────────────────────────────────
 const Gallery: React.FC = () => {
+  const [manifest, setManifest] = useState<Manifest | null>(null);
   const pageRef = useRef<HTMLElement>(null);
   const refs = useRef<GalleryRefs>({ sections: [], burstCards: [], wallCards: {} });
 
@@ -285,12 +289,27 @@ const Gallery: React.FC = () => {
     return runScrollDriver(pageRef.current!, refs.current);
   }, []);
 
+  useEffect(() => {
+    let mounted = true;
+    fetch('/images/manifest.json')
+      .then(r => { if (!r.ok) throw new Error('manifest fetch failed'); return r.json(); })
+      .then((m: Manifest) => { if (mounted) setManifest(m); })
+      .catch(() => { /* ignore, will fallback to picsum seeds */ });
+    return () => { mounted = false; };
+  }, []);
+
   return (
     <>
       {/* ── Burst overlay (fixed, outside scroll context) ──────── */}
       <div className="burst-overlay" ref={burstOverlayRef}>
         <div className="burst">
-          {BURST_POSITIONS.map((pos, i) => (
+          {BURST_POSITIONS.map((pos, i) => {
+            const galleryArr = manifest?.gallery ?? [];
+            const imgEntry: ImageEntry | null = galleryArr[i] ?? null;
+            const seed = `gal-${i}`;
+            const src = imgEntry ? imgEntry.url : imgSrc(seed, 800, 600);
+            const srcset = imgEntry && imgEntry.srcset ? imgEntry.srcset.join(', ') : undefined;
+            return (
             <div
               key={i}
               className="card"
@@ -304,9 +323,9 @@ const Gallery: React.FC = () => {
               data-fy={pos.y}
               data-batch={pos.batch}
             >
-              <img loading="lazy" src={imgSrc(`gal-${i}`, 800, 600)} alt="" />
+              <img loading="lazy" src={src} srcSet={srcset} alt="" />
             </div>
-          ))}
+         )})}
           <span className="dot" aria-hidden="true" />
         </div>
       </div>
@@ -363,7 +382,17 @@ const Gallery: React.FC = () => {
                         data-offy={offY}
                         data-delay={(i * 0.06).toFixed(3)}
                       >
-                        <img loading="lazy" src={imgSrc(`${wall.seedPrefix}-${i}`, 800, 600)} alt="" />
+                        {
+                          (() => {
+                            const folderKey = wall.id === 'lunch' ? 'lunch' : wall.id; // manifest folders use 'lunch' for team lunch
+                            const arr = manifest?.[folderKey] ?? [];
+                            const entry = arr[i] ?? null;
+                            const seed = `${wall.seedPrefix}-${i}`;
+                            const src = entry ? entry.url : imgSrc(seed, 800, 600);
+                            const srcset = entry && entry.srcset ? entry.srcset.join(', ') : undefined;
+                            return <img loading="lazy" src={src} srcSet={srcset} alt="" />;
+                          })()
+                        }
                         <span className="stripe" />
                       </div>
                     );
