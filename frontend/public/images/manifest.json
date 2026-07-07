@@ -1,6 +1,16 @@
 {
   "gallery": [
     {
+      "name": "C1Y02177.JPG",
+      "url": "/images/gallery/generated/C1Y02177-1200.webp",
+      "srcset": [
+        "/images/gallery/generated/C1Y02177-400.webp 400w",
+        "/images/gallery/generated/C1Y02177-800.webp 800w",
+        "/images/gallery/generated/C1Y02177-1200.webp 1200w"
+      ],
+      "aspect": 0.6666666666666666
+    },
+    {
       "name": "Copy of 0C97642B-E9FD-41E4-9D72-6658BEF0CB6C.JPG",
       "url": "/images/gallery/generated/Copy of 0C97642B-E9FD-41E4-9D72-6658BEF0CB6C-1200.webp",
       "srcset": [
@@ -141,107 +151,127 @@
       "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-0",
-      "url": "https://picsum.photos/seed/gallery-placeholder-0/1200/900",
+      "name": "IMG-20260609-WA0029(1).jpg",
+      "url": "/images/gallery/generated/IMG-20260609-WA0029(1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-0/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-0/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-0/1200/900 1200w"
+        "/images/gallery/generated/IMG-20260609-WA0029(1)-400.webp 400w",
+        "/images/gallery/generated/IMG-20260609-WA0029(1)-800.webp 800w",
+        "/images/gallery/generated/IMG-20260609-WA0029(1)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 0.75
     },
     {
-      "name": "picsum-gallery-placeholder-1",
-      "url": "https://picsum.photos/seed/gallery-placeholder-1/1200/900",
+      "name": "Media (1).jpeg",
+      "url": "/images/gallery/generated/Media (1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-1/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-1/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-1/1200/900 1200w"
+        "/images/gallery/generated/Media (1)-400.webp 400w",
+        "/images/gallery/generated/Media (1)-800.webp 800w",
+        "/images/gallery/generated/Media (1)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-2",
-      "url": "https://picsum.photos/seed/gallery-placeholder-2/1200/900",
+      "name": "Media (22).jpeg",
+      "url": "/images/gallery/generated/Media (22)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-2/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-2/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-2/1200/900 1200w"
+        "/images/gallery/generated/Media (22)-400.webp 400w",
+        "/images/gallery/generated/Media (22)-800.webp 800w",
+        "/images/gallery/generated/Media (22)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-3",
-      "url": "https://picsum.photos/seed/gallery-placeholder-3/1200/900",
+      "name": "Media (25).jpeg",
+      "url": "/images/gallery/generated/Media (25)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-3/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-3/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-3/1200/900 1200w"
+        "/images/gallery/generated/Media (25)-400.webp 400w",
+        "/images/gallery/generated/Media (25)-800.webp 800w",
+        "/images/gallery/generated/Media (25)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-4",
-      "url": "https://picsum.photos/seed/gallery-placeholder-4/1200/900",
+      "name": "Media (27).jpeg",
+      "url": "/images/gallery/generated/Media (27)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-4/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-4/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-4/1200/900 1200w"
+        "/images/gallery/generated/Media (27)-400.webp 400w",
+        "/images/gallery/generated/Media (27)-800.webp 800w",
+        "/images/gallery/generated/Media (27)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 0.7498616491422246
     },
     {
-      "name": "picsum-gallery-placeholder-5",
-      "url": "https://picsum.photos/seed/gallery-placeholder-5/1200/900",
+      "name": "Media (3).jpeg",
+      "url": "/images/gallery/generated/Media (3)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-5/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-5/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-5/1200/900 1200w"
+        "/images/gallery/generated/Media (3)-400.webp 400w",
+        "/images/gallery/generated/Media (3)-800.webp 800w",
+        "/images/gallery/generated/Media (3)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-6",
-      "url": "https://picsum.photos/seed/gallery-placeholder-6/1200/900",
+      "name": "Media (4) (1).jpeg",
+      "url": "/images/gallery/generated/Media (4) (1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-6/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-6/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-6/1200/900 1200w"
+        "/images/gallery/generated/Media (4) (1)-400.webp 400w",
+        "/images/gallery/generated/Media (4) (1)-800.webp 800w",
+        "/images/gallery/generated/Media (4) (1)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-7",
-      "url": "https://picsum.photos/seed/gallery-placeholder-7/1200/900",
+      "name": "Media (4).jpeg",
+      "url": "/images/gallery/generated/Media (4)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-7/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-7/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-7/1200/900 1200w"
+        "/images/gallery/generated/Media (4)-400.webp 400w",
+        "/images/gallery/generated/Media (4)-800.webp 800w",
+        "/images/gallery/generated/Media (4)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-gallery-placeholder-8",
-      "url": "https://picsum.photos/seed/gallery-placeholder-8/1200/900",
+      "name": "Media (5).jpeg",
+      "url": "/images/gallery/generated/Media (5)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-8/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-8/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-8/1200/900 1200w"
+        "/images/gallery/generated/Media (5)-400.webp 400w",
+        "/images/gallery/generated/Media (5)-800.webp 800w",
+        "/images/gallery/generated/Media (5)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
-    },
-    {
-      "name": "picsum-gallery-placeholder-9",
-      "url": "https://picsum.photos/seed/gallery-placeholder-9/1200/900",
-      "srcset": [
-        "https://picsum.photos/seed/gallery-placeholder-9/400/300 400w",
-        "https://picsum.photos/seed/gallery-placeholder-9/800/600 800w",
-        "https://picsum.photos/seed/gallery-placeholder-9/1200/900 1200w"
-      ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     }
   ],
   "events": [
+    {
+      "name": "C1Y03258 (1).JPG",
+      "url": "/images/events/generated/C1Y03258 (1)-1200.webp",
+      "srcset": [
+        "/images/events/generated/C1Y03258 (1)-400.webp 400w",
+        "/images/events/generated/C1Y03258 (1)-800.webp 800w",
+        "/images/events/generated/C1Y03258 (1)-1200.webp 1200w"
+      ],
+      "aspect": 1.5
+    },
+    {
+      "name": "C1Y03310 (1).JPG",
+      "url": "/images/events/generated/C1Y03310 (1)-1200.webp",
+      "srcset": [
+        "/images/events/generated/C1Y03310 (1)-400.webp 400w",
+        "/images/events/generated/C1Y03310 (1)-800.webp 800w",
+        "/images/events/generated/C1Y03310 (1)-1200.webp 1200w"
+      ],
+      "aspect": 1.5
+    },
+    {
+      "name": "C1Y03346.JPG",
+      "url": "/images/events/generated/C1Y03346-1200.webp",
+      "srcset": [
+        "/images/events/generated/C1Y03346-400.webp 400w",
+        "/images/events/generated/C1Y03346-800.webp 800w",
+        "/images/events/generated/C1Y03346-1200.webp 1200w"
+      ],
+      "aspect": 1.5
+    },
     {
       "name": "IMG-20260604-WA0015(1).jpg",
       "url": "/images/events/generated/IMG-20260604-WA0015(1)-1200.webp",
@@ -263,74 +293,44 @@
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-events-placeholder-0",
-      "url": "https://picsum.photos/seed/events-placeholder-0/1200/900",
+      "name": "Media (1).jpeg",
+      "url": "/images/events/generated/Media (1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/events-placeholder-0/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-0/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-0/1200/900 1200w"
+        "/images/events/generated/Media (1)-400.webp 400w",
+        "/images/events/generated/Media (1)-800.webp 800w",
+        "/images/events/generated/Media (1)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.776831345826235
     },
     {
-      "name": "picsum-events-placeholder-1",
-      "url": "https://picsum.photos/seed/events-placeholder-1/1200/900",
+      "name": "Media (2).jpeg",
+      "url": "/images/events/generated/Media (2)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/events-placeholder-1/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-1/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-1/1200/900 1200w"
+        "/images/events/generated/Media (2)-400.webp 400w",
+        "/images/events/generated/Media (2)-800.webp 800w",
+        "/images/events/generated/Media (2)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.4992175273865416
     },
     {
-      "name": "picsum-events-placeholder-2",
-      "url": "https://picsum.photos/seed/events-placeholder-2/1200/900",
+      "name": "Media (4).jpeg",
+      "url": "/images/events/generated/Media (4)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/events-placeholder-2/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-2/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-2/1200/900 1200w"
+        "/images/events/generated/Media (4)-400.webp 400w",
+        "/images/events/generated/Media (4)-800.webp 800w",
+        "/images/events/generated/Media (4)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 0.7502768549280178
     },
     {
-      "name": "picsum-events-placeholder-3",
-      "url": "https://picsum.photos/seed/events-placeholder-3/1200/900",
+      "name": "Media (5).jpeg",
+      "url": "/images/events/generated/Media (5)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/events-placeholder-3/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-3/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-3/1200/900 1200w"
+        "/images/events/generated/Media (5)-400.webp 400w",
+        "/images/events/generated/Media (5)-800.webp 800w",
+        "/images/events/generated/Media (5)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
-    },
-    {
-      "name": "picsum-events-placeholder-4",
-      "url": "https://picsum.photos/seed/events-placeholder-4/1200/900",
-      "srcset": [
-        "https://picsum.photos/seed/events-placeholder-4/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-4/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-4/1200/900 1200w"
-      ],
-      "aspect": 1.3333333333333333
-    },
-    {
-      "name": "picsum-events-placeholder-5",
-      "url": "https://picsum.photos/seed/events-placeholder-5/1200/900",
-      "srcset": [
-        "https://picsum.photos/seed/events-placeholder-5/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-5/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-5/1200/900 1200w"
-      ],
-      "aspect": 1.3333333333333333
-    },
-    {
-      "name": "picsum-events-placeholder-6",
-      "url": "https://picsum.photos/seed/events-placeholder-6/1200/900",
-      "srcset": [
-        "https://picsum.photos/seed/events-placeholder-6/400/300 400w",
-        "https://picsum.photos/seed/events-placeholder-6/800/600 800w",
-        "https://picsum.photos/seed/events-placeholder-6/1200/900 1200w"
-      ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.4992175273865416
     }
   ],
   "lunch": [
@@ -427,92 +427,92 @@
   ],
   "conferences": [
     {
-      "name": "picsum-conferences-placeholder-0",
-      "url": "https://picsum.photos/seed/conferences-placeholder-0/1200/900",
+      "name": "Image (1).jpeg",
+      "url": "/images/conferences/generated/Image (1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-0/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-0/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-0/1200/900 1200w"
+        "/images/conferences/generated/Image (1)-400.webp 400w",
+        "/images/conferences/generated/Image (1)-800.webp 800w",
+        "/images/conferences/generated/Image (1)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-1",
-      "url": "https://picsum.photos/seed/conferences-placeholder-1/1200/900",
+      "name": "Image (2).jpeg",
+      "url": "/images/conferences/generated/Image (2)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-1/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-1/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-1/1200/900 1200w"
+        "/images/conferences/generated/Image (2)-400.webp 400w",
+        "/images/conferences/generated/Image (2)-800.webp 800w",
+        "/images/conferences/generated/Image (2)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-2",
-      "url": "https://picsum.photos/seed/conferences-placeholder-2/1200/900",
+      "name": "Image (3).jpeg",
+      "url": "/images/conferences/generated/Image (3)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-2/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-2/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-2/1200/900 1200w"
+        "/images/conferences/generated/Image (3)-400.webp 400w",
+        "/images/conferences/generated/Image (3)-800.webp 800w",
+        "/images/conferences/generated/Image (3)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-3",
-      "url": "https://picsum.photos/seed/conferences-placeholder-3/1200/900",
+      "name": "Image (4).jpeg",
+      "url": "/images/conferences/generated/Image (4)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-3/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-3/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-3/1200/900 1200w"
+        "/images/conferences/generated/Image (4)-400.webp 400w",
+        "/images/conferences/generated/Image (4)-800.webp 800w",
+        "/images/conferences/generated/Image (4)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-4",
-      "url": "https://picsum.photos/seed/conferences-placeholder-4/1200/900",
+      "name": "Image (5).jpeg",
+      "url": "/images/conferences/generated/Image (5)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-4/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-4/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-4/1200/900 1200w"
+        "/images/conferences/generated/Image (5)-400.webp 400w",
+        "/images/conferences/generated/Image (5)-800.webp 800w",
+        "/images/conferences/generated/Image (5)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-5",
-      "url": "https://picsum.photos/seed/conferences-placeholder-5/1200/900",
+      "name": "Image (6).jpeg",
+      "url": "/images/conferences/generated/Image (6)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-5/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-5/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-5/1200/900 1200w"
+        "/images/conferences/generated/Image (6)-400.webp 400w",
+        "/images/conferences/generated/Image (6)-800.webp 800w",
+        "/images/conferences/generated/Image (6)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-6",
-      "url": "https://picsum.photos/seed/conferences-placeholder-6/1200/900",
+      "name": "Image (7).jpeg",
+      "url": "/images/conferences/generated/Image (7)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-6/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-6/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-6/1200/900 1200w"
+        "/images/conferences/generated/Image (7)-400.webp 400w",
+        "/images/conferences/generated/Image (7)-800.webp 800w",
+        "/images/conferences/generated/Image (7)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-7",
-      "url": "https://picsum.photos/seed/conferences-placeholder-7/1200/900",
+      "name": "Image (8).jpeg",
+      "url": "/images/conferences/generated/Image (8)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-7/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-7/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-7/1200/900 1200w"
+        "/images/conferences/generated/Image (8)-400.webp 400w",
+        "/images/conferences/generated/Image (8)-800.webp 800w",
+        "/images/conferences/generated/Image (8)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-conferences-placeholder-8",
-      "url": "https://picsum.photos/seed/conferences-placeholder-8/1200/900",
+      "name": "Image (9).jpeg",
+      "url": "/images/conferences/generated/Image (9)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/conferences-placeholder-8/400/300 400w",
-        "https://picsum.photos/seed/conferences-placeholder-8/800/600 800w",
-        "https://picsum.photos/seed/conferences-placeholder-8/1200/900 1200w"
+        "/images/conferences/generated/Image (9)-400.webp 400w",
+        "/images/conferences/generated/Image (9)-800.webp 800w",
+        "/images/conferences/generated/Image (9)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     }
@@ -611,14 +611,14 @@
   ],
   "bts": [
     {
-      "name": "Copy of 187D6DD9-6B61-4809-8899-6BB428A870F5.JPG",
-      "url": "/images/behindTheScenes/generated/Copy of 187D6DD9-6B61-4809-8899-6BB428A870F5-1200.webp",
+      "name": "0-Media (17).jpeg",
+      "url": "/images/behindTheScenes/generated/0-Media (17)-1200.webp",
       "srcset": [
-        "/images/behindTheScenes/generated/Copy of 187D6DD9-6B61-4809-8899-6BB428A870F5-400.webp 400w",
-        "/images/behindTheScenes/generated/Copy of 187D6DD9-6B61-4809-8899-6BB428A870F5-800.webp 800w",
-        "/images/behindTheScenes/generated/Copy of 187D6DD9-6B61-4809-8899-6BB428A870F5-1200.webp 1200w"
+        "/images/behindTheScenes/generated/0-Media (17)-400.webp 400w",
+        "/images/behindTheScenes/generated/0-Media (17)-800.webp 800w",
+        "/images/behindTheScenes/generated/0-Media (17)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
       "name": "Copy of 30E0AA2D-10D1-43FB-9B9D-424D3C14FA19.JPG",
@@ -641,64 +641,64 @@
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-bts-placeholder-0",
-      "url": "https://picsum.photos/seed/bts-placeholder-0/1200/900",
+      "name": "Media (16).jpeg",
+      "url": "/images/behindTheScenes/generated/Media (16)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/bts-placeholder-0/400/300 400w",
-        "https://picsum.photos/seed/bts-placeholder-0/800/600 800w",
-        "https://picsum.photos/seed/bts-placeholder-0/1200/900 1200w"
+        "/images/behindTheScenes/generated/Media (16)-400.webp 400w",
+        "/images/behindTheScenes/generated/Media (16)-800.webp 800w",
+        "/images/behindTheScenes/generated/Media (16)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.7730496453900708
     },
     {
-      "name": "picsum-bts-placeholder-1",
-      "url": "https://picsum.photos/seed/bts-placeholder-1/1200/900",
+      "name": "Media (16b).jpeg",
+      "url": "/images/behindTheScenes/generated/Media (16b)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/bts-placeholder-1/400/300 400w",
-        "https://picsum.photos/seed/bts-placeholder-1/800/600 800w",
-        "https://picsum.photos/seed/bts-placeholder-1/1200/900 1200w"
+        "/images/behindTheScenes/generated/Media (16b)-400.webp 400w",
+        "/images/behindTheScenes/generated/Media (16b)-800.webp 800w",
+        "/images/behindTheScenes/generated/Media (16b)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-bts-placeholder-2",
-      "url": "https://picsum.photos/seed/bts-placeholder-2/1200/900",
+      "name": "Media (18).jpeg",
+      "url": "/images/behindTheScenes/generated/Media (18)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/bts-placeholder-2/400/300 400w",
-        "https://picsum.photos/seed/bts-placeholder-2/800/600 800w",
-        "https://picsum.photos/seed/bts-placeholder-2/1200/900 1200w"
+        "/images/behindTheScenes/generated/Media (18)-400.webp 400w",
+        "/images/behindTheScenes/generated/Media (18)-800.webp 800w",
+        "/images/behindTheScenes/generated/Media (18)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.7777777777777777
     },
     {
-      "name": "picsum-bts-placeholder-3",
-      "url": "https://picsum.photos/seed/bts-placeholder-3/1200/900",
+      "name": "Media (19).jpeg",
+      "url": "/images/behindTheScenes/generated/Media (19)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/bts-placeholder-3/400/300 400w",
-        "https://picsum.photos/seed/bts-placeholder-3/800/600 800w",
-        "https://picsum.photos/seed/bts-placeholder-3/1200/900 1200w"
+        "/images/behindTheScenes/generated/Media (19)-400.webp 400w",
+        "/images/behindTheScenes/generated/Media (19)-800.webp 800w",
+        "/images/behindTheScenes/generated/Media (19)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-bts-placeholder-4",
-      "url": "https://picsum.photos/seed/bts-placeholder-4/1200/900",
+      "name": "Media (20).jpeg",
+      "url": "/images/behindTheScenes/generated/Media (20)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/bts-placeholder-4/400/300 400w",
-        "https://picsum.photos/seed/bts-placeholder-4/800/600 800w",
-        "https://picsum.photos/seed/bts-placeholder-4/1200/900 1200w"
+        "/images/behindTheScenes/generated/Media (20)-400.webp 400w",
+        "/images/behindTheScenes/generated/Media (20)-800.webp 800w",
+        "/images/behindTheScenes/generated/Media (20)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-bts-placeholder-5",
-      "url": "https://picsum.photos/seed/bts-placeholder-5/1200/900",
+      "name": "Media (21).jpeg",
+      "url": "/images/behindTheScenes/generated/Media (21)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/bts-placeholder-5/400/300 400w",
-        "https://picsum.photos/seed/bts-placeholder-5/800/600 800w",
-        "https://picsum.photos/seed/bts-placeholder-5/1200/900 1200w"
+        "/images/behindTheScenes/generated/Media (21)-400.webp 400w",
+        "/images/behindTheScenes/generated/Media (21)-800.webp 800w",
+        "/images/behindTheScenes/generated/Media (21)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     }
   ]
 }
