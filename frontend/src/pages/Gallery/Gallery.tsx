@@ -164,7 +164,9 @@ function runScrollDriver(page: HTMLElement, refs: GalleryRefs) {
         if (burst) {
           // Keep the burst mathematically centered in the viewport exactly
           // as in the original reference (no navbar compensation).
-          const dotOp = clamp(1 - (burstP - 0.85) / 0.10);
+          // Fade the anchor dot IN as the burst begins (so it isn't a stray
+          // circle behind the heading at the top) and OUT near the end.
+          const dotOp = clamp(burstP / 0.04) * clamp(1 - (burstP - 0.85) / 0.10);
           const dotS = lerp(0.6, 1.2, clamp(burstP * 4));
           burst.style.setProperty('--dot-op', dotOp.toFixed(3));
           burst.style.setProperty('--dot-s', dotS.toFixed(3));

@@ -103,7 +103,7 @@ html[data-theme="dark"] .section[data-bg="paper"] { background: var(--g-ink); co
   background: var(--g-red);
   border-radius: 999px;
   transform: translate(-50%, -50%) scale(var(--dot-s, 1));
-  opacity: var(--dot-op, 1);
+  opacity: var(--dot-op, 0);
   z-index: 10;
   box-shadow: 0 0 0 6px rgba(229, 41, 43, 0.18);
   transition: opacity 0.2s ease;

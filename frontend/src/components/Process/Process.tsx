@@ -1,59 +1,88 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import './Process.css';
 
 /* ─── Config ────────────────────────────────────────────────────── */
-const START_DATE = new Date('2026-04-06');
-const END_DATE   = new Date('2026-06-13');
 const DAY_PX     = 42;
 const CANVAS_H   = 560;
+const BAR_COLOR = '#EB1C24';
 const diffDays = (a: Date, b: Date) =>
   Math.round((b.getTime() - a.getTime()) / 86400000);
 
-const TOTAL_DAYS = diffDays(START_DATE, END_DATE);
-const TOTAL_W    = TOTAL_DAYS * DAY_PX + 120;
+/* ─── Per-batch timeline data ───────────────────────────────────────
+   Every batch shares the same phases, events, cards and theme — only
+   the dates change. Add more batches here and they appear in the toggle. */
+type Duration = { label: string; opacity: number; start: string; end: string; row: number };
+type TimelineEvent = { title: string; date: string; detail: string; icon: string };
+type BatchConfig = { start: string; end: string; durations: Duration[]; events: TimelineEvent[] };
 
-/* ─── Timeline data ─────────────────────────────────────────────── */
-const BAR_COLOR = '#EB1C24';
-const DURATIONS = [
-  { label: 'Onboarding & Orientation', opacity: 0.55, start: '2026-04-06', end: '2026-04-17', row: 0 },
-  { label: 'Discovery & Team Match',   opacity: 0.40, start: '2026-04-18', end: '2026-05-01', row: 1 },
-  { label: 'Build Sprint',             opacity: 0.90, start: '2026-05-02', end: '2026-05-22', row: 0 },
-  { label: 'Polish & Integrate',       opacity: 0.65, start: '2026-05-23', end: '2026-06-05', row: 1 },
-  { label: 'Demo & Showcase',          opacity: 0.75, start: '2026-06-06', end: '2026-06-13', row: 0 },
-];
-
-const EVENTS = [
-  { title: 'Welcome Day',       date: '2026-04-06', detail: 'Kickoff session, team introductions and Adobe tools setup.', icon: '⚡' },
-  { title: 'Mentor Reveal',     date: '2026-04-14', detail: 'Meet your assigned mentor and map out your project goals.', icon: '🤝' },
-  { title: 'First Prototype',   date: '2026-04-28', detail: 'Present rough screens and first API integrations.',          icon: '✏️' },
-  { title: 'Mid-point Review',  date: '2026-05-08', detail: 'Progress check with leadership. Celebrate wins, refine scope.', icon: '📊' },
-  { title: 'UX Polish Sprint',  date: '2026-05-18', detail: 'Accessibility audit, performance tweaks and design review.', icon: '✨' },
-  { title: 'Final Integration', date: '2026-05-30', detail: 'End-to-end testing and stakeholder walkthroughs.',           icon: '🔗' },
-  { title: 'Demo Day 🏆',       date: '2026-06-10', detail: 'Final showcase to ACS leadership. Celebrate!',              icon: '🏆' },
-];
+const BATCHES: Record<number, BatchConfig> = {
+  1: {
+    start: '2026-04-06',
+    end: '2026-06-13',
+    durations: [
+      { label: 'Onboarding & Orientation', opacity: 0.55, start: '2026-04-06', end: '2026-04-17', row: 0 },
+      { label: 'Discovery & Team Match',   opacity: 0.40, start: '2026-04-18', end: '2026-05-01', row: 1 },
+      { label: 'Build Sprint',             opacity: 0.90, start: '2026-05-02', end: '2026-05-22', row: 0 },
+      { label: 'Polish & Integrate',       opacity: 0.65, start: '2026-05-23', end: '2026-06-05', row: 1 },
+      { label: 'Demo & Showcase',          opacity: 0.75, start: '2026-06-06', end: '2026-06-13', row: 0 },
+    ],
+    events: [
+      { title: 'Welcome Day',       date: '2026-04-06', detail: 'Kickoff session, team introductions and Adobe tools setup.', icon: '⚡' },
+      { title: 'Mentor Reveal',     date: '2026-04-14', detail: 'Meet your assigned mentor and map out your project goals.', icon: '🤝' },
+      { title: 'First Prototype',   date: '2026-04-28', detail: 'Present rough screens and first API integrations.',          icon: '✏️' },
+      { title: 'Mid-point Review',  date: '2026-05-08', detail: 'Progress check with leadership. Celebrate wins, refine scope.', icon: '📊' },
+      { title: 'UX Polish Sprint',  date: '2026-05-18', detail: 'Accessibility audit, performance tweaks and design review.', icon: '✨' },
+      { title: 'Final Integration', date: '2026-05-30', detail: 'End-to-end testing and stakeholder walkthroughs.',           icon: '🔗' },
+      { title: 'Demo Day 🏆',       date: '2026-06-10', detail: 'Final showcase to ACS leadership. Celebrate!',              icon: '🏆' },
+    ],
+  },
+  2: {
+    start: '2026-05-11',
+    end: '2026-07-16',
+    durations: [
+      { label: 'Onboarding & Orientation', opacity: 0.55, start: '2026-05-11', end: '2026-05-21', row: 0 },
+      { label: 'Discovery & Team Match',   opacity: 0.40, start: '2026-05-22', end: '2026-06-02', row: 1 },
+      { label: 'Build Sprint',             opacity: 0.90, start: '2026-06-03', end: '2026-07-04', row: 0 },
+      { label: 'Polish & Integrate',       opacity: 0.65, start: '2026-07-05', end: '2026-07-12', row: 1 },
+      { label: 'Demo & Showcase',          opacity: 0.75, start: '2026-07-13', end: '2026-07-16', row: 0 },
+    ],
+    events: [
+      { title: 'Welcome Day',       date: '2026-05-11', detail: 'Kickoff session, team introductions and Adobe tools setup.', icon: '⚡' },
+      { title: 'Mentor Reveal',     date: '2026-05-18', detail: 'Meet your assigned mentor and map out your project goals.', icon: '🤝' },
+      { title: 'First Prototype',   date: '2026-05-30', detail: 'Present rough screens and first API integrations.',          icon: '✏️' },
+      { title: 'Mid-point Review',  date: '2026-06-16', detail: 'Progress check with leadership. Celebrate wins, refine scope.', icon: '📊' },
+      { title: 'UX Polish Sprint',  date: '2026-06-30', detail: 'Accessibility audit, performance tweaks and design review.', icon: '✨' },
+      { title: 'Final Integration', date: '2026-07-09', detail: 'End-to-end testing and stakeholder walkthroughs.',           icon: '🔗' },
+      { title: 'Demo Day 🏆',       date: '2026-07-13', detail: 'Final showcase to ACS leadership. Celebrate!',              icon: '🏆' },
+    ],
+  },
+};
 
 /* ─── Helpers ───────────────────────────────────────────────────── */
-const dateToX = (d: string) => diffDays(START_DATE, new Date(d)) * DAY_PX + 60;
-const EVENT_DATES = new Set(EVENTS.map(e => e.date));
+/* Build all derived geometry (width, ruler, dateToX) for one batch. */
+const buildTimeline = (cfg: BatchConfig) => {
+  const startDate = new Date(cfg.start);
+  const endDate   = new Date(cfg.end);
+  const totalDays = diffDays(startDate, endDate);
+  const totalW    = totalDays * DAY_PX + 120;
+  const dateToX   = (d: string) => diffDays(startDate, new Date(d)) * DAY_PX + 60;
+  const eventDates = new Set(cfg.events.map(e => e.date));
 
-const buildRuler = () => {
   const months: { label: string; x: number }[] = [];
   const days: { label: string; x: number; isEvent: boolean }[] = [];
-  let d = new Date(START_DATE);
+  let d = new Date(startDate);
   let lastMonth = '';
-  while (d <= END_DATE) {
-    const x = diffDays(START_DATE, d) * DAY_PX + 60;
+  while (d <= endDate) {
+    const x = diffDays(startDate, d) * DAY_PX + 60;
     const month = d.toLocaleString('default', { month: 'long', year: 'numeric' });
     if (month !== lastMonth) { months.push({ label: month, x }); lastMonth = month; }
     const dateStr = d.toISOString().split('T')[0];
-    const isEvent = EVENT_DATES.has(dateStr);
-    days.push({ label: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }), x, isEvent });
+    days.push({ label: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }), x, isEvent: eventDates.has(dateStr) });
     d = new Date(d.getTime() + 86400000);
   }
-  return { months, days };
+  return { startDate, totalDays, totalW, dateToX, months, days, durations: cfg.durations, events: cfg.events };
 };
-const { months, days } = buildRuler();
 
 /* Draw the 3D perspective grid on canvas. `rgb` is the line color base
    ('255,255,255' for dark theme, '0,0,0' for light theme). */
@@ -120,6 +149,13 @@ const Process: React.FC = () => {
   const isDragging = useRef(false);
   const dragStart  = useRef({ x: 0, scroll: 0 });
 
+  // Which batch's dates to show. Everything else (layout, cards, theme) is identical.
+  const [batch, setBatch] = useState<number>(1);
+  const { startDate, totalDays, totalW, dateToX, months, days, durations, events } = useMemo(
+    () => buildTimeline(BATCHES[batch]),
+    [batch],
+  );
+
   // Track the live theme (data-theme on <html>) so the canvas grid recolors on toggle.
   useEffect(() => {
     const el = document.documentElement;
@@ -145,6 +181,15 @@ const Process: React.FC = () => {
     redrawGrid(scrollRef.current?.scrollLeft ?? 0);
   }, [redrawGrid]);
 
+  // On batch switch: jump back to the start of the (new) timeline and repaint.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollLeft = 0;
+    setScrollX(0);
+    setHoveredDate('');
+    redrawGrid(0);
+  }, [batch, redrawGrid]);
+
   const handleScroll = useCallback(() => {
     const sx = scrollRef.current?.scrollLeft ?? 0;
     setScrollX(sx);
@@ -152,11 +197,11 @@ const Process: React.FC = () => {
     redrawGrid(sx);
     const centerX = sx + (scrollRef.current?.clientWidth ?? 0) / 2;
     const dayIdx  = Math.round((centerX - 60) / DAY_PX);
-    if (dayIdx >= 0 && dayIdx <= TOTAL_DAYS) {
-      const d = new Date(START_DATE.getTime() + dayIdx * 86400000);
+    if (dayIdx >= 0 && dayIdx <= totalDays) {
+      const d = new Date(startDate.getTime() + dayIdx * 86400000);
       setHoveredDate(d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }));
     }
-  }, [redrawGrid]);
+  }, [redrawGrid, startDate, totalDays]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -178,7 +223,17 @@ const Process: React.FC = () => {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const onWheel = (e: WheelEvent) => { e.preventDefault(); el.scrollLeft += e.deltaY + e.deltaX; };
+    const onWheel = (e: WheelEvent) => {
+      const delta = e.deltaY + e.deltaX;
+      const atStart = el.scrollLeft <= 0;
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 1;
+      // Hijack vertical wheel into horizontal only while the arc can still
+      // scroll that way. Once it hits an edge, let the page scroll normally.
+      if ((delta > 0 && !atEnd) || (delta < 0 && !atStart)) {
+        e.preventDefault();
+        el.scrollLeft += delta;
+      }
+    };
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
   }, []);
@@ -202,7 +257,7 @@ const Process: React.FC = () => {
      Alternate: even index → card ABOVE connector line
                 odd index  → card BELOW connector line
   ─────────────────────────────────────────────────────────────── */
-  const eventLayout = EVENTS.map((ev, i) => {
+  const eventLayout = events.map((ev, i) => {
     const cx = dateToX(ev.date);
     const isAbove = i % 2 === 0;
     const cardTop = isAbove
@@ -219,9 +274,24 @@ const Process: React.FC = () => {
     <section id="timeline" ref={ref} className={`tl-section ${isVisible ? 'tl-section--visible' : ''}`}>
 
       <div className="tl-header">
-        <span className="tl-kicker">10-Week Journey</span>
-        <h2 className="tl-heading">Internship arc.</h2>
-        <p className="tl-subhead">Drag or scroll &nbsp;·&nbsp; Click events to expand</p>
+        <div className="tl-header__text">
+          <span className="tl-kicker">10-Week Journey</span>
+          <h2 className="tl-heading">Internship arc.</h2>
+        </div>
+        <div className="tl-batch-toggle" role="tablist" aria-label="Select batch">
+          {[1, 2].map((b) => (
+            <button
+              key={b}
+              type="button"
+              role="tab"
+              aria-selected={batch === b}
+              className={batch === b ? 'is-active' : ''}
+              onClick={() => setBatch(b)}
+            >
+              Batch {b}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="tl-container">
@@ -231,7 +301,7 @@ const Process: React.FC = () => {
           onMouseDown={onMouseDown}
           style={{ cursor: isDragging.current ? 'grabbing' : 'grab' }}
         >
-          <div className="tl-inner" style={{ width: TOTAL_W, height: CANVAS_H }}>
+          <div className="tl-inner" style={{ width: totalW, height: CANVAS_H }}>
 
             {/* Grid canvas */}
             <canvas
@@ -241,7 +311,7 @@ const Process: React.FC = () => {
             />
 
             {/* Ruler */}
-            <div className="tl-ruler" style={{ width: TOTAL_W }}>
+            <div className="tl-ruler" style={{ width: totalW }}>
               {months.map((m, i) => (
                 <div key={i} className="tl-ruler-month" style={{ left: m.x }}>{m.label}</div>
               ))}
@@ -264,10 +334,10 @@ const Process: React.FC = () => {
             {/* ── SVG: duration bars + connector line + stems ───── */}
             <svg
               className="tl-path-svg"
-              style={{ width: TOTAL_W, height: CANVAS_H, position: 'absolute', top: 0, left: 0, zIndex: 6, pointerEvents: 'none' }}
+              style={{ width: totalW, height: CANVAS_H, position: 'absolute', top: 0, left: 0, zIndex: 6, pointerEvents: 'none' }}
             >
               <defs>
-                {DURATIONS.map((dur, i) => (
+                {durations.map((dur, i) => (
                   <linearGradient key={i} id={`dg${i}`} x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%"   stopColor={BAR_COLOR} stopOpacity={Math.min(dur.opacity + 0.25, 1)} />
                     <stop offset="100%" stopColor={BAR_COLOR} stopOpacity={Math.min(dur.opacity * 0.7 + 0.2, 1)} />
@@ -281,7 +351,7 @@ const Process: React.FC = () => {
               </defs>
 
               {/* Duration bars — bottom zone, monotone red */}
-              {DURATIONS.map((dur, i) => {
+              {durations.map((dur, i) => {
                 const x1   = dateToX(dur.start);
                 const x2   = dateToX(dur.end);
                 const barW = Math.max(x2 - x1, 6);
@@ -362,7 +432,7 @@ const Process: React.FC = () => {
             </svg>
 
             {/* Event panels */}
-            {EVENTS.map((ev, i) => {
+            {events.map((ev, i) => {
               const { cx, isAbove, cardTop } = eventLayout[i];
               const dateStr = new Date(ev.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
               return (

@@ -13,6 +13,11 @@
 .tl-header {
   padding: 0 clamp(1.5rem, 5vw, 4rem);
   margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 .tl-kicker {
   display: block;
@@ -37,6 +42,46 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   margin: 0;
+}
+
+/* ─── Batch toggle ───────────────────────────────────────────────── */
+.tl-batch-toggle {
+  display: inline-flex;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.tl-batch-toggle button {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font: inherit;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.42rem 1.05rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.25s, background 0.25s;
+}
+.tl-batch-toggle button.is-active {
+  background: #EB1C24;
+  color: #fff;
+}
+html[data-theme="light"] .tl-batch-toggle {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+html[data-theme="light"] .tl-batch-toggle button {
+  color: rgba(0, 0, 0, 0.5);
+}
+html[data-theme="light"] .tl-batch-toggle button.is-active {
+  background: #EB1C24;
+  color: #fff;
 }
 
 /* ─── Legend ────────────────────────────────────────────────────── */

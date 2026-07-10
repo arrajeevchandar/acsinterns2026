@@ -306,7 +306,7 @@ const ProjectsPage: FC = () => {
             <p className="hero__stat-label">Teams</p>
           </div>
           <div>
-            <p className="hero__stat-num">32</p>
+            <p className="hero__stat-num">35</p>
             <p className="hero__stat-label">Interns</p>
           </div>
         </div>
