@@ -16,6 +16,7 @@ import type { Project, Team } from '../components/projects/types';
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function getInitials(name: string): string {
+  if (name.includes(',')) return 'GP';
   return name.split(' ').map((w) => w[0]).join('').toUpperCase();
 }
 
@@ -90,7 +91,7 @@ const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
             </h2>
           </div>
           <span className="team-card__count" aria-hidden="true">
-            {team.number} Projects
+            {team.projects.length} Projects
           </span>
         </div>
         <div className="project-grid" role="list">
@@ -218,7 +219,18 @@ const Modal: FC<ModalProps> = ({ project, teamIndex, projectIndex, isOpen, onClo
 
           {/* Footer */}
           <div className="project-modal__footer">
-            <button className="btn-primary">View Full Project →</button>
+            {project.link ? (
+              <a
+                className="btn-primary"
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Full Project →
+              </a>
+            ) : (
+              <button className="btn-primary" disabled>No Link Available</button>
+            )}
             <button className="btn-secondary" onClick={onClose}>Close</button>
           </div>
         </div>
