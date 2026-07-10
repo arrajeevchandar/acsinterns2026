@@ -24,3 +24,6 @@ __pycache__/
 
 # Vector store (ChromaDB persistence)
 vector_db/
+
+# Virtual environment
+venv/
