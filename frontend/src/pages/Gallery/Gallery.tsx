@@ -114,7 +114,7 @@ interface WallConfig {
 const WALLS: WallConfig[] = [
   { id: 'events',      bg: 'dark',  heading: 'Events',            layoutKey: 'events',      seedPrefix: 'ev' },
   { id: 'lunch',       bg: 'paper', heading: 'Team Lunch',        layoutKey: 'lunch',       seedPrefix: 'lu' },
-  { id: 'conferences', bg: 'red',   heading: 'Conferences',       layoutKey: 'conferences', seedPrefix: 'cf' },
+  { id: 'conferences', bg: 'dark',  heading: 'Conferences',       layoutKey: 'conferences', seedPrefix: 'cf' },
   { id: 'workshops',   bg: 'dark',  heading: 'Workshops',         layoutKey: 'workshops',   seedPrefix: 'wk' },
   { id: 'bts',         bg: 'paper', heading: 'Behind the Scenes', layoutKey: 'bts',         seedPrefix: 'bt' },
 ];

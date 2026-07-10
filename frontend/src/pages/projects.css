@@ -740,6 +740,9 @@ html[data-theme='light'] .project-modal__close {
 
 .project-modal .btn-primary {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 20px;
   border-radius: 999px;
   background: var(--red);
@@ -750,6 +753,7 @@ html[data-theme='light'] .project-modal__close {
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -759,6 +763,18 @@ html[data-theme='light'] .project-modal__close {
   color: var(--red);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(225, 37, 27, 0.35);
+}
+
+.project-modal .btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.project-modal .btn-primary:disabled:hover {
+  background: var(--red);
+  color: #fff;
+  transform: none;
+  box-shadow: none;
 }
 
 .project-modal .btn-secondary {

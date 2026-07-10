@@ -12,6 +12,7 @@ export interface Project {
   stack: string;
   impact: ImpactLevel;
   desc: string;
+  link: string;
   tags: string[];
 }
 
