@@ -367,6 +367,20 @@
   background: rgba(255, 255, 255, 0.56);
 }
 
+/* Light mode: the default hover turns text white, which vanishes on the
+   light hover background. Keep it dark and high-contrast instead. */
+[data-theme="light"] .team-tile__count {
+  color: var(--text-2);
+}
+[data-theme="light"] .team-tile.is-hovered .team-tile__count {
+  color: var(--text-1);
+}
+[data-theme="light"] .team-tile.is-hovered .team-tile__chip {
+  color: rgba(0, 0, 0, 0.85);
+  border-color: rgba(0, 0, 0, 0.24);
+  background: rgba(0, 0, 0, 0.05);
+}
+
 /* ══════════════════════════════════════════════════
    DETAIL PAGE
    ══════════════════════════════════════════════════ */
@@ -603,7 +617,10 @@
   box-shadow: var(--liquid-shadow);
 }
 
-.members-grid:hover .member-card:not(:hover) {
+/* Dim the other cards ONLY while an actual card is hovered (via :has), so
+   hovering empty grid space/gaps never fades anything. `:only-child` also
+   skips single-member sections (e.g. Workfront, Content). */
+.members-grid:has(.member-card:hover) .member-card:not(:hover):not(:only-child) {
   opacity: 0.4;
   filter: grayscale(60%);
 }

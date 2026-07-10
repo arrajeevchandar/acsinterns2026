@@ -91,7 +91,7 @@ const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
             </h2>
           </div>
           <span className="team-card__count" aria-hidden="true">
-            {team.projects.length} Projects
+            {team.number} Projects
           </span>
         </div>
         <div className="project-grid" role="list">
@@ -321,7 +321,7 @@ const ProjectsPage: FC = () => {
             <p className="hero__stat-label">Teams</p>
           </div>
           <div>
-            <p className="hero__stat-num">32</p>
+            <p className="hero__stat-num">35</p>
             <p className="hero__stat-label">Interns</p>
           </div>
         </div>

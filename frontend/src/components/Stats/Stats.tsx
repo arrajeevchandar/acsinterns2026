@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 const STATS = [
-  { value: 30, suffix: '+', label: 'Interns' },
-  { value: 5, suffix: '', label: 'Teams' },
+  { value: 35, suffix: '', label: 'Interns' },
+  { value: 7, suffix: '', label: 'Teams' },
   { value: 3, suffix: '', label: 'Views' },
   { value: 1, suffix: '', label: 'Portal' },
 ];

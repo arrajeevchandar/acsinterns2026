@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import SplashScreen from '../components/SplashScreen/SplashScreen';
 import Hero from '../components/Hero/Hero';
 import Marquee from '../components/Marquee/Marquee';
-import About from '../components/About/About';
 import Process from '../components/Process/Process';
 import CoreValues from '../components/CoreValues/CoreValues';
 import Stats from '../components/Stats/Stats';
@@ -26,7 +25,6 @@ function Home() {
         <Hero contentReady={contentReady} />
         <Marquee />
         <CoreValues />
-        <About />
         <Process />
         <Stats />
         
