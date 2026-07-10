@@ -375,52 +375,52 @@
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-lunch-placeholder-0",
-      "url": "https://picsum.photos/seed/lunch-placeholder-0/1200/900",
+      "name": "Media (16).jpeg",
+      "url": "/images/teamlunch/generated/Media (16)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/lunch-placeholder-0/400/300 400w",
-        "https://picsum.photos/seed/lunch-placeholder-0/800/600 800w",
-        "https://picsum.photos/seed/lunch-placeholder-0/1200/900 1200w"
+        "/images/teamlunch/generated/Media (16)-400.webp 400w",
+        "/images/teamlunch/generated/Media (16)-800.webp 800w",
+        "/images/teamlunch/generated/Media (16)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-lunch-placeholder-1",
-      "url": "https://picsum.photos/seed/lunch-placeholder-1/1200/900",
+      "name": "Media (17).jpeg",
+      "url": "/images/teamlunch/generated/Media (17)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/lunch-placeholder-1/400/300 400w",
-        "https://picsum.photos/seed/lunch-placeholder-1/800/600 800w",
-        "https://picsum.photos/seed/lunch-placeholder-1/1200/900 1200w"
+        "/images/teamlunch/generated/Media (17)-400.webp 400w",
+        "/images/teamlunch/generated/Media (17)-800.webp 800w",
+        "/images/teamlunch/generated/Media (17)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-lunch-placeholder-2",
-      "url": "https://picsum.photos/seed/lunch-placeholder-2/1200/900",
+      "name": "Media (24).jpeg",
+      "url": "/images/teamlunch/generated/Media (24)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/lunch-placeholder-2/400/300 400w",
-        "https://picsum.photos/seed/lunch-placeholder-2/800/600 800w",
-        "https://picsum.photos/seed/lunch-placeholder-2/1200/900 1200w"
+        "/images/teamlunch/generated/Media (24)-400.webp 400w",
+        "/images/teamlunch/generated/Media (24)-800.webp 800w",
+        "/images/teamlunch/generated/Media (24)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 0.7498616491422246
     },
     {
-      "name": "picsum-lunch-placeholder-3",
-      "url": "https://picsum.photos/seed/lunch-placeholder-3/1200/900",
+      "name": "team (3) (1).jpeg",
+      "url": "/images/teamlunch/generated/team (3) (1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/lunch-placeholder-3/400/300 400w",
-        "https://picsum.photos/seed/lunch-placeholder-3/800/600 800w",
-        "https://picsum.photos/seed/lunch-placeholder-3/1200/900 1200w"
+        "/images/teamlunch/generated/team (3) (1)-400.webp 400w",
+        "/images/teamlunch/generated/team (3) (1)-800.webp 800w",
+        "/images/teamlunch/generated/team (3) (1)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-lunch-placeholder-4",
-      "url": "https://picsum.photos/seed/lunch-placeholder-4/1200/900",
+      "name": "team_lunch (1).jpeg",
+      "url": "/images/teamlunch/generated/team_lunch (1)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/lunch-placeholder-4/400/300 400w",
-        "https://picsum.photos/seed/lunch-placeholder-4/800/600 800w",
-        "https://picsum.photos/seed/lunch-placeholder-4/1200/900 1200w"
+        "/images/teamlunch/generated/team_lunch (1)-400.webp 400w",
+        "/images/teamlunch/generated/team_lunch (1)-800.webp 800w",
+        "/images/teamlunch/generated/team_lunch (1)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     }
@@ -519,94 +519,94 @@
   ],
   "workshops": [
     {
-      "name": "picsum-workshops-placeholder-0",
-      "url": "https://picsum.photos/seed/workshops-placeholder-0/1200/900",
+      "name": "IMG-20260604-WA0010.jpg",
+      "url": "/images/workshops/generated/IMG-20260604-WA0010-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-0/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-0/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-0/1200/900 1200w"
+        "/images/workshops/generated/IMG-20260604-WA0010-400.webp 400w",
+        "/images/workshops/generated/IMG-20260604-WA0010-800.webp 800w",
+        "/images/workshops/generated/IMG-20260604-WA0010-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "picsum-workshops-placeholder-1",
-      "url": "https://picsum.photos/seed/workshops-placeholder-1/1200/900",
+      "name": "IMG20260710142927.jpg",
+      "url": "/images/workshops/generated/IMG20260710142927-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-1/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-1/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-1/1200/900 1200w"
+        "/images/workshops/generated/IMG20260710142927-400.webp 400w",
+        "/images/workshops/generated/IMG20260710142927-800.webp 800w",
+        "/images/workshops/generated/IMG20260710142927-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 0.75
     },
     {
-      "name": "picsum-workshops-placeholder-2",
-      "url": "https://picsum.photos/seed/workshops-placeholder-2/1200/900",
+      "name": "Media (10).jpeg",
+      "url": "/images/workshops/generated/Media (10)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-2/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-2/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-2/1200/900 1200w"
+        "/images/workshops/generated/Media (10)-400.webp 400w",
+        "/images/workshops/generated/Media (10)-800.webp 800w",
+        "/images/workshops/generated/Media (10)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     },
     {
-      "name": "picsum-workshops-placeholder-3",
-      "url": "https://picsum.photos/seed/workshops-placeholder-3/1200/900",
+      "name": "Media (12).jpeg",
+      "url": "/images/workshops/generated/Media (12)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-3/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-3/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-3/1200/900 1200w"
+        "/images/workshops/generated/Media (12)-400.webp 400w",
+        "/images/workshops/generated/Media (12)-800.webp 800w",
+        "/images/workshops/generated/Media (12)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-workshops-placeholder-4",
-      "url": "https://picsum.photos/seed/workshops-placeholder-4/1200/900",
+      "name": "Media (13).jpeg",
+      "url": "/images/workshops/generated/Media (13)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-4/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-4/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-4/1200/900 1200w"
+        "/images/workshops/generated/Media (13)-400.webp 400w",
+        "/images/workshops/generated/Media (13)-800.webp 800w",
+        "/images/workshops/generated/Media (13)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-workshops-placeholder-5",
-      "url": "https://picsum.photos/seed/workshops-placeholder-5/1200/900",
+      "name": "Media (14).jpeg",
+      "url": "/images/workshops/generated/Media (14)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-5/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-5/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-5/1200/900 1200w"
+        "/images/workshops/generated/Media (14)-400.webp 400w",
+        "/images/workshops/generated/Media (14)-800.webp 800w",
+        "/images/workshops/generated/Media (14)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 0.7502768549280178
     },
     {
-      "name": "picsum-workshops-placeholder-6",
-      "url": "https://picsum.photos/seed/workshops-placeholder-6/1200/900",
+      "name": "Media (15).jpeg",
+      "url": "/images/workshops/generated/Media (15)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-6/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-6/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-6/1200/900 1200w"
+        "/images/workshops/generated/Media (15)-400.webp 400w",
+        "/images/workshops/generated/Media (15)-800.webp 800w",
+        "/images/workshops/generated/Media (15)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-workshops-placeholder-7",
-      "url": "https://picsum.photos/seed/workshops-placeholder-7/1200/900",
+      "name": "Media (29).jpeg",
+      "url": "/images/workshops/generated/Media (29)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-7/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-7/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-7/1200/900 1200w"
+        "/images/workshops/generated/Media (29)-400.webp 400w",
+        "/images/workshops/generated/Media (29)-800.webp 800w",
+        "/images/workshops/generated/Media (29)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1.3335793357933579
     },
     {
-      "name": "picsum-workshops-placeholder-8",
-      "url": "https://picsum.photos/seed/workshops-placeholder-8/1200/900",
+      "name": "Media (9).jpeg",
+      "url": "/images/workshops/generated/Media (9)-1200.webp",
       "srcset": [
-        "https://picsum.photos/seed/workshops-placeholder-8/400/300 400w",
-        "https://picsum.photos/seed/workshops-placeholder-8/800/600 800w",
-        "https://picsum.photos/seed/workshops-placeholder-8/1200/900 1200w"
+        "/images/workshops/generated/Media (9)-400.webp 400w",
+        "/images/workshops/generated/Media (9)-800.webp 800w",
+        "/images/workshops/generated/Media (9)-1200.webp 1200w"
       ],
-      "aspect": 1.3333333333333333
+      "aspect": 1
     }
   ],
   "bts": [
