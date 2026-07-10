@@ -132,44 +132,6 @@
   transform: scale(1.06);
 }
 
-.moment-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.72));
-}
-
-.moment-card div {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 1;
-  display: grid;
-  gap: 0.4rem;
-  padding: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.36);
-  border-radius: 14px;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(22px) saturate(1.7);
-  -webkit-backdrop-filter: blur(22px) saturate(1.7);
-}
-
-.moment-card span {
-  font-size: 0.58rem;
-  font-weight: 850;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-
-.moment-card strong {
-  font-size: 2rem;
-  line-height: 0.9;
-  letter-spacing: -0.06em;
-}
-
 .home-section::before {
   content: '';
   position: absolute;
@@ -1188,6 +1150,19 @@ html[data-theme="light"] .moments--scroll .moments__arrow {
   transform-origin: left;
 }
 
+/* Full-width progress bar sitting beneath the carousel photos */
+.moments__progress--bottom {
+  width: min(1180px, 92%);
+  height: 4px;
+  margin: 1.5rem auto 0;
+}
+.moments__progress--bottom span {
+  transition: transform 0.12s linear;
+}
+html[data-theme="dark"] .moments__progress--bottom {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .moments__viewport {
   width: 100%;
   margin: 0 auto;
@@ -1209,8 +1184,10 @@ html[data-theme="light"] .moments--scroll .moments__arrow {
 }
 
 .moments--scroll .moment-card {
-  width: clamp(260px, 34vw, 430px);
-  min-height: clamp(360px, 58vh, 560px);
+  width: clamp(360px, 46vw, 620px);
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  height: auto;
   opacity: 0.72;
   transform: scale(0.94);
 }
@@ -1373,7 +1350,8 @@ html[data-theme="light"] .moments--scroll .moments__arrow {
 }
 
 .moments--scroll .moment-card img {
-  min-height: clamp(360px, 58vh, 560px);
+  min-height: 0;
+  height: 100%;
 }
 
 /* Repaired internship journey */

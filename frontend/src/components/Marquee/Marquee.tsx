@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 const MOMENTS = [
-  { title: 'Day One', tag: 'Onboarding', img: 'team-collab.png' },
-  { title: 'Team Lunch', tag: 'Food', img: 'hero-bg.png' },
-  { title: 'Runathon', tag: 'Runathon', img: 'innovation.png' },
-  { title: 'Squad Sync', tag: 'Team', img: 'team-collab.png' },
-  { title: 'Demo Room', tag: 'Demo', img: 'innovation.png' },
-  { title: 'Campus Walk', tag: 'Onboarding', img: 'hero-bg.png' },
+  { title: 'Day One', tag: 'Onboarding', img: 'gallery/Copy of 0C97642B-E9FD-41E4-9D72-6658BEF0CB6C.JPG' },
+  { title: 'Team Lunch', tag: 'Food', img: 'gallery/Copy of 545F3177-202D-4C3D-82FB-9D2BC8FAC8B0.JPG' },
+  { title: 'Runathon', tag: 'Runathon', img: 'gallery/IMG-20260609-WA0029(1).jpg' },
+  { title: 'Squad Sync', tag: 'Team', img: 'events/generated/C1Y03258 (1)-800.webp' },
+  { title: 'Demo Room', tag: 'Demo', img: 'events/generated/Media (1)-1200.webp' },
+  { title: 'Campus Walk', tag: 'Onboarding', img: 'events/generated/Media (2)-800.webp' },
 ];
+
+// Continuous auto-scroll speed (px per animation frame).
+const AUTO_SPEED = 0.6;
 
 // Render: [clones of end] + [real cards] + [clones of start]
 const CLONE_COUNT = 3;
@@ -16,9 +19,9 @@ const CLONES_END   = MOMENTS.slice(0, CLONE_COUNT); // first N cards cloned at b
 const ALL_CARDS    = [...CLONES_START, ...MOMENTS, ...CLONES_END];
 
 const Marquee: React.FC = () => {
-  const [active, setActive] = useState(0);
+  // `active` is the ALL_CARDS index of the card currently in the middle.
+  const [active, setActive] = useState(CLONE_COUNT);
   const [progress, setProgress] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
   const isJumping = useRef(false);
 
@@ -26,12 +29,10 @@ const Marquee: React.FC = () => {
   useEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport) return;
-    // Each card is ~CARD_SCROLL wide; jump past the CLONE_COUNT clones silently
     const jumpTo = () => {
       const cardWidth = viewport.scrollWidth / ALL_CARDS.length;
       viewport.scrollLeft = cardWidth * CLONE_COUNT;
     };
-    // Wait for layout
     requestAnimationFrame(jumpTo);
   }, []);
 
@@ -46,23 +47,24 @@ const Marquee: React.FC = () => {
 
     // Silent jump: if we've scrolled into the clones, teleport to the real equivalent
     if (scrolled < cardWidth * 0.5) {
-      // Scrolled to cloned-start zone — jump to real end
       isJumping.current = true;
       viewport.scrollLeft = realEnd - cardWidth;
       isJumping.current = false;
     } else if (scrolled >= realEnd - cardWidth * 0.5) {
-      // Scrolled to cloned-end zone — jump to real start
       isJumping.current = true;
       viewport.scrollLeft = realStart;
       isJumping.current = false;
     }
 
-    // Update active index based on position within real cards
+    // Focus the card whose region contains the viewport's horizontal center.
+    // This flips the moment the next card crosses the middle.
+    const centerX = viewport.scrollLeft + viewport.clientWidth / 2;
+    const centerIndex = Math.floor(centerX / cardWidth);
+    setActive(centerIndex);
+
+    // Progress across the real cards
     const posInReal = viewport.scrollLeft - realStart;
-    const rawIndex  = Math.round(posInReal / cardWidth);
-    const clampedIndex = Math.max(0, Math.min(MOMENTS.length - 1, rawIndex));
-    setActive(clampedIndex);
-    setProgress(clampedIndex / (MOMENTS.length - 1));
+    setProgress(Math.max(0, Math.min(1, posInReal / (cardWidth * (MOMENTS.length - 1)))));
   }, []);
 
   useEffect(() => {
@@ -72,27 +74,17 @@ const Marquee: React.FC = () => {
     return () => viewport.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  // Wheel hijack when hovered — no edge blocking since it's infinite
+  // Self-scroll: continuously advance the carousel (no manual mouse scrolling).
   useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-    const handleWheel = (e: WheelEvent) => {
-      if (!isHovered) return;
-      e.preventDefault();
-      viewport.scrollLeft += e.deltaY;
+    let raf = 0;
+    const tick = () => {
+      const viewport = viewportRef.current;
+      if (viewport) viewport.scrollLeft += AUTO_SPEED;
+      raf = requestAnimationFrame(tick);
     };
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, [isHovered]);
-
-  const scrollBy = (dir: 'left' | 'right') => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-    // Advance exactly one card: use the real per-card pitch (card width + gap),
-    // matching handleScroll's measurement, so each click lands on the next card.
-    const cardWidth = viewport.scrollWidth / ALL_CARDS.length;
-    viewport.scrollBy({ left: dir === 'right' ? cardWidth : -cardWidth, behavior: 'smooth' });
-  };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <section id="gallery" className="moments moments--scroll">
@@ -102,57 +94,29 @@ const Marquee: React.FC = () => {
             <span className="section-kicker">Moments</span>
             <h2 className="moments__title">Inside the cohort.</h2>
           </div>
-
-          <div className="moments__controls">
-            <div className="moments__progress" aria-hidden="true">
-              <span style={{ transform: `scaleX(${progress})` }} />
-            </div>
-            <div className="moments__arrows">
-              <button className="moments__arrow" onClick={() => scrollBy('left')} aria-label="Previous">←</button>
-              <button className="moments__arrow" onClick={() => scrollBy('right')} aria-label="Next">→</button>
-            </div>
-          </div>
         </div>
 
         <div
           className="moments__viewport"
           ref={viewportRef}
-          style={{ overflowX: 'auto', overflowY: 'hidden', cursor: 'grab' }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onMouseDown={(e) => {
-            const el = viewportRef.current;
-            if (!el) return;
-            el.style.cursor = 'grabbing';
-            const startX = e.pageX - el.offsetLeft;
-            const startScroll = el.scrollLeft;
-            const onMove = (ev: MouseEvent) => {
-              el.scrollLeft = startScroll - (ev.pageX - el.offsetLeft - startX);
-            };
-            const onUp = () => {
-              el.style.cursor = 'grab';
-              window.removeEventListener('mousemove', onMove);
-              window.removeEventListener('mouseup', onUp);
-            };
-            window.addEventListener('mousemove', onMove);
-            window.addEventListener('mouseup', onUp);
-          }}
+          style={{ overflowX: 'hidden', overflowY: 'hidden' }}
         >
           <div className="moments__strip">
             {ALL_CARDS.map((moment, index) => (
               <article
-                className={`moment-card ${active === (index - CLONE_COUNT + MOMENTS.length) % MOMENTS.length ? 'is-active' : ''}`}
+                className={`moment-card ${active === index ? 'is-active' : ''}`}
                 key={`card-${index}`}
                 aria-hidden={index < CLONE_COUNT || index >= CLONE_COUNT + MOMENTS.length}
               >
-                <img src={`${import.meta.env.BASE_URL}images/${moment.img}`} alt={moment.title} />
-                <div>
-                  <span>{moment.tag}</span>
-                  <strong>{moment.title}</strong>
-                </div>
+                <img src={encodeURI(`${import.meta.env.BASE_URL}images/${moment.img}`)} alt={moment.title} />
               </article>
             ))}
           </div>
+        </div>
+
+        {/* Progress bar beneath the photos */}
+        <div className="moments__progress moments__progress--bottom" aria-hidden="true">
+          <span style={{ transform: `scaleX(${progress})` }} />
         </div>
       </div>
     </section>

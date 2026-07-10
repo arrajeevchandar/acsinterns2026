@@ -124,14 +124,19 @@ html[data-theme="light"] .tl-batch-toggle button.is-active {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   scrollbar-width: thin;
-  scrollbar-color: #EB1C24 rgba(235,28,36,0.12);
+  scrollbar-color: #ffffff transparent;
   border-top: 1px solid rgba(255,255,255,0.05);
   user-select: none;
 }
 .tl-canvas-wrap::-webkit-scrollbar { height: 7px; }
-.tl-canvas-wrap::-webkit-scrollbar-track { background: rgba(235,28,36,0.12); border-radius: 999px; }
-.tl-canvas-wrap::-webkit-scrollbar-thumb { background: #EB1C24; border-radius: 999px; }
-.tl-canvas-wrap::-webkit-scrollbar-thumb:hover { background: #c81019; }
+.tl-canvas-wrap::-webkit-scrollbar-track { background: transparent; }
+.tl-canvas-wrap::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 999px; }
+.tl-canvas-wrap::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.8); }
+
+/* Light theme: a white scrollbar would vanish on the light arc — use dark. */
+html[data-theme="light"] .tl-canvas-wrap { scrollbar-color: #333 transparent; }
+html[data-theme="light"] .tl-canvas-wrap::-webkit-scrollbar-thumb { background: #333; }
+html[data-theme="light"] .tl-canvas-wrap::-webkit-scrollbar-thumb:hover { background: #111; }
 
 /* ─── Inner container ───────────────────────────────────────────── */
 .tl-inner {

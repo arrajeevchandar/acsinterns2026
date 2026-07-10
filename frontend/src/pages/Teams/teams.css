@@ -617,10 +617,10 @@
   box-shadow: var(--liquid-shadow);
 }
 
-/* Dim non-hovered cards to focus the hovered one — but only when there is
-   more than one card. `:only-child` skips single-member sections (e.g.
-   Workfront, Content) so the lone card never fades on section hover. */
-.members-grid:hover .member-card:not(:hover):not(:only-child) {
+/* Dim the other cards ONLY while an actual card is hovered (via :has), so
+   hovering empty grid space/gaps never fades anything. `:only-child` also
+   skips single-member sections (e.g. Workfront, Content). */
+.members-grid:has(.member-card:hover) .member-card:not(:hover):not(:only-child) {
   opacity: 0.4;
   filter: grayscale(60%);
 }
