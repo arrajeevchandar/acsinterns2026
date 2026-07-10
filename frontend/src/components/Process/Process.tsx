@@ -55,8 +55,9 @@ const buildRuler = () => {
 };
 const { months, days } = buildRuler();
 
-/* Draw the 3D perspective grid on canvas */
-const drawGrid = (canvas: HTMLCanvasElement, scrollX: number) => {
+/* Draw the 3D perspective grid on canvas. `rgb` is the line color base
+   ('255,255,255' for dark theme, '0,0,0' for light theme). */
+const drawGrid = (canvas: HTMLCanvasElement, scrollX: number, rgb: string) => {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const W = canvas.width;
@@ -72,22 +73,22 @@ const drawGrid = (canvas: HTMLCanvasElement, scrollX: number) => {
   const firstCol = Math.floor(scrollX / colSpacing) * colSpacing;
   for (let wx = firstCol; wx <= firstCol + W + colSpacing; wx += colSpacing) {
     const sx = wx - scrollX;
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.strokeStyle = `rgba(${rgb},0.05)`;
     ctx.beginPath(); ctx.moveTo(sx, 8); ctx.lineTo(sx, floorY); ctx.stroke();
   }
   for (let wx = firstCol; wx <= firstCol + W + colSpacing; wx += colSpacing) {
     const sx = wx - scrollX;
     const bottomX = sx + (sx - vanishX) * 0.6;
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.strokeStyle = `rgba(${rgb},0.05)`;
     ctx.beginPath(); ctx.moveTo(sx, floorY); ctx.lineTo(bottomX, H); ctx.stroke();
   }
   for (let i = 1; i <= 8; i++) {
     const t = i / 8;
     const y = floorY + (H - floorY) * (t * t);
-    ctx.strokeStyle = `rgba(255,255,255,${0.02 + t * 0.045})`;
+    ctx.strokeStyle = `rgba(${rgb},${0.02 + t * 0.045})`;
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
   }
-  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  ctx.strokeStyle = `rgba(${rgb},0.1)`;
   ctx.beginPath(); ctx.moveTo(0, floorY); ctx.lineTo(W, floorY); ctx.stroke();
 };
 
@@ -113,16 +114,36 @@ const Process: React.FC = () => {
   const [scrollX, setScrollX]     = useState(0);
   const [viewportW, setViewportW] = useState(0);
   const [hoveredDate, setHoveredDate] = useState('');
+  const [theme, setTheme] = useState<string>(
+    () => document.documentElement.getAttribute('data-theme') || 'dark'
+  );
   const isDragging = useRef(false);
   const dragStart  = useRef({ x: 0, scroll: 0 });
+
+  // Track the live theme (data-theme on <html>) so the canvas grid recolors on toggle.
+  useEffect(() => {
+    const el = document.documentElement;
+    const obs = new MutationObserver(() =>
+      setTheme(el.getAttribute('data-theme') || 'dark')
+    );
+    obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => obs.disconnect();
+  }, []);
+
+  const gridRGB = theme === 'light' ? '0,0,0' : '255,255,255';
 
   const redrawGrid = useCallback((sx: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     canvas.width  = canvas.offsetWidth;
     canvas.height = CANVAS_H;
-    drawGrid(canvas, sx);
-  }, []);
+    drawGrid(canvas, sx, gridRGB);
+  }, [gridRGB]);
+
+  // Redraw the grid whenever the theme changes.
+  useEffect(() => {
+    redrawGrid(scrollRef.current?.scrollLeft ?? 0);
+  }, [redrawGrid]);
 
   const handleScroll = useCallback(() => {
     const sx = scrollRef.current?.scrollLeft ?? 0;
@@ -248,8 +269,8 @@ const Process: React.FC = () => {
               <defs>
                 {DURATIONS.map((dur, i) => (
                   <linearGradient key={i} id={`dg${i}`} x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%"   stopColor={BAR_COLOR} stopOpacity={dur.opacity} />
-                    <stop offset="100%" stopColor={BAR_COLOR} stopOpacity={dur.opacity * 0.55} />
+                    <stop offset="0%"   stopColor={BAR_COLOR} stopOpacity={Math.min(dur.opacity + 0.25, 1)} />
+                    <stop offset="100%" stopColor={BAR_COLOR} stopOpacity={Math.min(dur.opacity * 0.7 + 0.2, 1)} />
                   </linearGradient>
                 ))}
                 {/* Glow filter for connector line */}
@@ -275,13 +296,13 @@ const Process: React.FC = () => {
                     {/* Track */}
                     <rect x={x1} y={y} width={barW} height={BAR_HEIGHT} rx={3}
                       fill={BAR_COLOR} fillOpacity={0.06}
-                      stroke={BAR_COLOR} strokeOpacity={dur.opacity * 0.35} strokeWidth={1} />
+                      stroke={BAR_COLOR} strokeOpacity={Math.min(dur.opacity * 0.5 + 0.35, 1)} strokeWidth={1} />
                     {/* Fill */}
                     <rect x={x1} y={y} width={barW} height={BAR_HEIGHT} rx={3}
                       fill={`url(#dg${i})`} />
                     {/* Left accent stripe */}
                     <rect x={x1} y={y} width={4} height={BAR_HEIGHT} rx={2}
-                      fill={BAR_COLOR} fillOpacity={Math.min(dur.opacity + 0.1, 1)} />
+                      fill={BAR_COLOR} fillOpacity={1} />
                     {/* Label */}
                     {label && (
                       <text
@@ -334,7 +355,7 @@ const Process: React.FC = () => {
               {/* Dots on the polyline */}
               {eventLayout.map((p, i) => (
                 <g key={i}>
-                  <circle cx={p.cx} cy={CONNECTOR_Y} r={6}  fill="#111" stroke="#EB1C24" strokeWidth={2} />
+                  <circle cx={p.cx} cy={CONNECTOR_Y} r={6}  fill={theme === 'light' ? '#fff' : '#111'} stroke="#EB1C24" strokeWidth={2} />
                   <circle cx={p.cx} cy={CONNECTOR_Y} r={2.5} fill="#EB1C24" />
                 </g>
               ))}

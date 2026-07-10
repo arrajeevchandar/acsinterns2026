@@ -45,6 +45,25 @@ html[data-theme='light'] #projects, html[data-theme='light'] .project-modal-over
   --team-count-color: rgba(0, 0, 0, 0.06);
 }
 
+/* Light mode · Option 2 (frosted glass) — mirrors the member modal fix.
+   Replace the white→red liquid gradient with flat frosted-white surfaces so
+   the popup reads cleanly. Text already resolves dark via the theme vars. */
+html[data-theme='light'] .project-modal {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 30px 80px rgba(20, 20, 20, 0.2);
+}
+html[data-theme='light'] .project-modal__meta-item,
+html[data-theme='light'] .project-modal__author-row,
+html[data-theme='light'] .project-modal__tag {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+html[data-theme='light'] .project-modal__close {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
 #projects {
   scroll-behavior: smooth;
 }

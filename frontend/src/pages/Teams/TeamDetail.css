@@ -261,6 +261,17 @@
   transform: translate(4px, -4px);
 }
 
+/* Light mode: --text-3 (#AAA) is too faint on the light card, especially on
+   the brightened hover background. Bump the low-contrast text up. */
+[data-theme="light"] .member-card__uni,
+[data-theme="light"] .member-card__num,
+[data-theme="light"] .member-card__arrow {
+  color: var(--text-2);
+}
+[data-theme="light"] .member-card.is-hovered .member-card__arrow {
+  color: var(--accent);
+}
+
 /* ── Reduced motion ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .member-card,

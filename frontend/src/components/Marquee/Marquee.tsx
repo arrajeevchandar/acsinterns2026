@@ -9,8 +9,6 @@ const MOMENTS = [
   { title: 'Campus Walk', tag: 'Onboarding', img: 'hero-bg.png' },
 ];
 
-const CARD_SCROLL = 380;
-
 // Render: [clones of end] + [real cards] + [clones of start]
 const CLONE_COUNT = 3;
 const CLONES_START = MOMENTS.slice(-CLONE_COUNT);  // last N cards cloned at front
@@ -88,7 +86,12 @@ const Marquee: React.FC = () => {
   }, [isHovered]);
 
   const scrollBy = (dir: 'left' | 'right') => {
-    viewportRef.current?.scrollBy({ left: dir === 'right' ? CARD_SCROLL : -CARD_SCROLL, behavior: 'smooth' });
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    // Advance exactly one card: use the real per-card pitch (card width + gap),
+    // matching handleScroll's measurement, so each click lands on the next card.
+    const cardWidth = viewport.scrollWidth / ALL_CARDS.length;
+    viewport.scrollBy({ left: dir === 'right' ? cardWidth : -cardWidth, behavior: 'smooth' });
   };
 
   return (

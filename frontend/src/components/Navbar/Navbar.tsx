@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
 import './Navbar.css';
 
@@ -12,8 +12,15 @@ const NAV_LINKS = [
 
 const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const isActive = (href: string) => {
+    if (href.startsWith('#')) return false;
+    if (href === '/') return location.pathname === '/' || location.pathname === '/home';
+    return location.pathname === href;
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -55,7 +62,8 @@ const Navbar: React.FC = () => {
             ) : (
               <Link
                 to={link.href}
-                className="navbar__link"
+                className={`navbar__link ${isActive(link.href) ? 'is-active' : ''}`}
+                aria-current={isActive(link.href) ? 'page' : undefined}
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   window.scrollTo(0, 0);
@@ -123,7 +131,8 @@ const Navbar: React.FC = () => {
             <Link
               key={link.href}
               to={link.href}
-              className="navbar__mobile-link"
+              className={`navbar__mobile-link ${isActive(link.href) ? 'is-active' : ''}`}
+              aria-current={isActive(link.href) ? 'page' : undefined}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <span className="navbar__mobile-link-num">0{i + 1}</span>

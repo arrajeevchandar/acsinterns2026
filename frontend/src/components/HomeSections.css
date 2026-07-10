@@ -1148,6 +1148,29 @@ html[data-theme="dark"] .week-map button em {
   cursor: default;
 }
 
+/* Authoritative arrow styling — overrides the generic `.moments__controls button`
+   rules so the icon stays visible at rest and gets a clear hover state.
+   Uses `.moments--scroll` for the specificity needed to win the cascade. */
+.moments--scroll .moments__arrow {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.45);
+  transition: color 200ms ease, background 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+html[data-theme="light"] .moments--scroll .moments__arrow {
+  color: #111;
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.55);
+}
+
+.moments--scroll .moments__arrow:hover:not(:disabled) {
+  color: #fff;
+  background: #EB1C24;
+  border-color: #EB1C24;
+  transform: translateY(-2px);
+}
+
 .moments__progress {
   width: min(260px, 28vw);
   height: 8px;
@@ -1801,6 +1824,13 @@ html[data-theme="dark"] .stats-cinema__label {
   backdrop-filter: blur(30px) saturate(1.75);
   -webkit-backdrop-filter: blur(30px) saturate(1.75);
   box-shadow: 0 30px 100px rgba(20, 20, 20, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+/* Light mode: make the stat cards stand out against the light page */
+html[data-theme="light"] .stats-cinema__item {
+  border-color: rgba(0, 0, 0, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 22px 60px rgba(20, 20, 20, 0.16), 0 2px 8px rgba(20, 20, 20, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .phase__screen {

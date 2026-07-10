@@ -89,9 +89,6 @@ const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
               Team {team.navLabel}
             </h2>
           </div>
-          <span className="team-card__count" aria-hidden="true">
-            {team.number} Projects
-          </span>
         </div>
         <div className="project-grid" role="list">
           {team.projects.map((project, pi) => (

@@ -279,6 +279,51 @@
   display: none !important;
 }
 
+/* Remove white gradient sheen overlay on the project data card */
+.member-modal__project.glass::before {
+  display: none !important;
+}
+
+/* Dark mode: project box is a subtle black gradient. */
+.member-modal__project.glass,
+.member-modal__project.glass:hover {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.28) 55%, rgba(0, 0, 0, 0.45));
+}
+
+/* Dark mode: keep the modal panel static — cancel the shared `.glass:hover`
+   background/border lightening so hovering the modal does nothing. */
+html[data-theme="dark"] .member-modal__panel.glass:hover {
+  background: var(--liquid-bg);
+  border-color: var(--liquid-border);
+}
+
+/* ── Light mode · Option 2 (Frosted glass) ─────────────────────────
+   Flat frosted-white panel instead of the white→red liquid gradient,
+   with a red top accent bar. Project box becomes a frosted sub-panel
+   with dark text. */
+html[data-theme="light"] .member-modal__panel.glass {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 3px solid var(--red);
+  box-shadow: 0 30px 80px rgba(20, 20, 20, 0.2);
+}
+/* Kill the glass sheen overlay in light mode — it re-introduces a gradient. */
+html[data-theme="light"] .member-modal__panel.glass::before {
+  display: none !important;
+}
+
+html[data-theme="light"] .member-modal__project.glass,
+html[data-theme="light"] .member-modal__project.glass:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+html[data-theme="light"] .member-modal__project-title {
+  color: #141414;
+}
+html[data-theme="light"] .member-modal__project-summary {
+  color: #555;
+}
+
 /* Scroll lock */
 body.modal-open {
   overflow: hidden;
