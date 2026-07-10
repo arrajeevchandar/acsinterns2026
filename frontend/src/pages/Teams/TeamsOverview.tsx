@@ -32,7 +32,7 @@ export default function TeamsOverview({ onSelectTeam }: TeamsOverviewProps) {
           <div className="teams-hero__stats">
             {[
               { num: '32', label: 'Interns' },
-              { num: '06', label: 'Teams' },
+              { num: '07', label: 'Teams' },
               { num: '10', label: 'Weeks' },
             ].map((stat) => (
               <div className="teams-hero__stat" key={stat.label}>
