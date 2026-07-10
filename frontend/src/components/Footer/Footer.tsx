@@ -19,16 +19,7 @@ const Footer: React.FC = () => {
         </div>
 
         <p className="footer__credit">
-          Developed by the{' '}
-          <button
-            type="button"
-            className="footer__teamButton"
-            aria-haspopup="dialog"
-            aria-expanded={isTeamOpen}
-            onClick={openTeam}
-          >
-            Team
-          </button>
+          Developed by Adobe's Intern 2026.
         </p>
 
         <div className="footer__links">
