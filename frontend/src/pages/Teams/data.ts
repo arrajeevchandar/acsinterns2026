@@ -42,6 +42,16 @@ export interface AvatarColor {
 
 export const TEAMS: Team[] = [
   {
+    id: 'content',
+    code: 'CONTENT',
+    name: 'Content',
+    tagline: 'Voice, narrative, and the words that ship with every product.',
+    description: 'Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.',
+    stack: ['AEM', 'Java', 'Sling', 'HTL'],
+    lead: 'Shirish Halapeth', // sourced from the "AEM" practice row
+    memberCount: 4,
+  },
+  {
     id: 'ui',
     code: 'UI',
     name: 'User Interface',
@@ -72,26 +82,6 @@ export const TEAMS: Team[] = [
     memberCount: 4,
   },
   {
-    id: 'content',
-    code: 'CONTENT',
-    name: 'Content',
-    tagline: 'Voice, narrative, and the words that ship with every product.',
-    description: 'Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.',
-    stack: ['AEM', 'Java', 'Sling', 'HTL'],
-    lead: 'Shirish Halapeth', // sourced from the "AEM" practice row
-    memberCount: 4,
-  },
-  {
-    id: 'workfront',
-    code: 'WORKFRONT',
-    name: 'Adobe Workfront',
-    tagline: 'Where work meets workflow - operationalizing creative teams.',
-    description: 'Operationalizing how teams plan, request, review, and ship - automating the unglamorous so creatives can stay creative.',
-    stack: ['Workfront', 'Fusion', 'REST APIs', 'JavaScript'],
-    lead: 'Narendra Gorla',
-    memberCount: 1,
-  },
-  {
     id: 'cjm',
     code: 'CJM',
     name: 'Customer Journey Management',
@@ -110,6 +100,16 @@ export const TEAMS: Team[] = [
     stack: ['Elasticsearch', 'Python', 'React', 'Node.js'],
     lead: 'Punya Sekhar',
     memberCount: 2,
+  },
+  {
+    id: 'workfront',
+    code: 'WORKFRONT',
+    name: 'Adobe Workfront',
+    tagline: 'Where work meets workflow - operationalizing creative teams.',
+    description: 'Operationalizing how teams plan, request, review, and ship - automating the unglamorous so creatives can stay creative.',
+    stack: ['Workfront', 'Fusion', 'REST APIs', 'JavaScript'],
+    lead: 'Narendra Gorla',
+    memberCount: 1,
   }
 ];
 
@@ -210,7 +210,7 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "project": {
         "name": "SkillHire",
         "description": "SkillHire is a two-sided freelance marketplace built on Adobe Edge Delivery Services. Clients post projects, browse freelancers, and send hire invites. Freelancers apply to projects, counter offers, and manage proposals — all via a localStorage-powered dashboard. Features include role-based auth, paywall upgrades, profile setup, and a full hire-to-acceptance workflow.",
-        "url": "https://github.com/Horizon2553/skill-eds"
+        "url": "https://main--skill-eds--horizon2553.aem.live/"
       },
       "bio": "Intern on the Content team specializing in HTML, CSS, JS, EDS.",
       "mentor": "Ankitha R.",
@@ -230,7 +230,7 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "project": {
         "name": "HackVerse",
         "description": "A Hackathon website built in vanilla js and replicated in EDS.",
-        "url": "https://hackathon-lilac-chi.vercel.app"
+        "url": "https://main--new--shruti-1622.aem.live/"
       },
       "bio": "Intern on the Content team specializing in Vanilla JS.",
       "mentor": "Ankitha R",
@@ -317,6 +317,66 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "github": "https://github.com/EvelynJessica45",
       "linkedin": "https://www.linkedin.com/in/evelyn-jessica-9a066a231/",
       "avatarHue": 310
+    },
+    {
+      "id": "content-sudeepasanthanam",
+      "name": "Sudeepa Santhanam",
+      "initials": "SS",
+      "photo": "/images/Individuals/sudeepa-santhanam.jpeg",
+      "role": "Content Intern",
+      "university": "Christ (Deemed to be University)",
+      "batch": "Summer 2026",
+      "skills": ["AEM"],
+      "project": {
+        "name": "AdobeSphere",
+        "description": "AdobeSphere is a full-stack web application developed using Adobe Edge Delivery Services (EDS) that provides a unified platform for event management and community engagement. The application enables users to explore and register for events, create and manage blogs, and interact with dynamic content through a responsive user interface. The project emphasizes modern web development practices, efficient content delivery, and scalable architecture while leveraging Adobe's EDS ecosystem to optimize website performance, content management, and user experience. It showcases frontend development, content-driven workflows, and integration with Adobe's cloud-based technologies.",
+        "url": "https://main--eds-adobesphere--sudeeepaa.aem.live/"
+      },
+      "bio": "Intern on the Content team specializing in AEM.",
+      "mentor": "Sai Kunal / Jai Shankar",
+      "github": "",
+      "linkedin": "https://www.linkedin.com/in/sudeepasanthanam",
+      "avatarHue": 335
+    },
+    {
+      "id": "content-arrajeevchandar",
+      "name": "A R Rajeev Chandar",
+      "initials": "RC",
+      "photo": "/images/Individuals/ar-rajeev-chandar.jpg",
+      "role": "Content Intern",
+      "university": "Christ University",
+      "batch": "Summer 2026",
+      "skills": ["EDS", "CSS", "JS"],
+      "project": {
+        "name": "AdoKicks",
+        "description": "AdoKicks — an individual project built on Adobe Edge Delivery Services (EDS) using EDS, CSS, and JS.",
+        "url": "https://main--adokicks--rajeevc-adobe.aem.live/"
+      },
+      "bio": "Intern on the Content team specializing in EDS, CSS, JS.",
+      "mentor": "Sai Kunal BMD / Jaishankar",
+      "github": "https://github.com/arrajeevchandar",
+      "linkedin": "https://www.linkedin.com/in/a-r-rajeev-chandar-442141264/?skipRedirect=true",
+      "avatarHue": 0
+    },
+    {
+      "id": "content-deekshabaluni",
+      "name": "Deeksha Baluni",
+      "initials": "DB",
+      "photo": "/images/Individuals/default_girl.png",
+      "role": "Content Intern",
+      "university": "National Institute of Technology, Surathkal",
+      "batch": "Summer 2026",
+      "skills": ["Adobe EDS", "CSS", "Vanilla JS"],
+      "project": {
+        "name": "Adobe Clubs",
+        "description": "The Adobe Clubs platform is an internal community portal designed to foster networking, skill development, and work-life balance for all Adobe employees and interns. It enables users to easily discover and join special interest groups, attend exclusive events, and access dedicated career and wellness resources.",
+        "url": "https://main--adobe-club-management-portal--deeksha-baluni.aem.page/"
+      },
+      "bio": "Intern on the Content team specializing in Adobe EDS, CSS, Vanilla JS.",
+      "mentor": "Asha Aravind / Jaishankar Nagaraja",
+      "github": "https://github.com/deeksha-baluni",
+      "linkedin": "https://www.linkedin.com/in/deeksha-baluni1097/",
+      "avatarHue": 25
     }
   ],
   "data": [
@@ -585,6 +645,26 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "github": "https://github.com/mihira4/",
       "linkedin": "https://www.linkedin.com/in/mihiragupta",
       "avatarHue": 10
+    },
+    {
+      "id": "workfront-vigneshrnayak",
+      "name": "Vignesh R Nayak",
+      "initials": "VN",
+      "photo": "/images/Individuals/default_boy.png",
+      "role": "Workfront Intern",
+      "university": "Canara Engineering College, Mangalore",
+      "batch": "Summer 2026",
+      "skills": ["React"],
+      "project": {
+        "name": "Workfront AI Agent Hub",
+        "description": "",
+        "url": "https://github.com/vigneshnayak1818/Adobe-Workfront-Ai-Ageny-Hub"
+      },
+      "bio": "Intern on the Workfront team, working on the Workfront AI Agent Hub.",
+      "mentor": "Dibyajyoti Mishra / Amit Pandey",
+      "github": "",
+      "linkedin": "https://www.linkedin.com/in/vignesh-r-nayak-8672372a3",
+      "avatarHue": 35
     }
   ],
   "sbc": [
