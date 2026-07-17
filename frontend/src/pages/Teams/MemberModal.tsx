@@ -9,6 +9,10 @@ interface MemberModalProps {
   onClose: () => void;
 }
 
+function isGithubUrl(url: string): boolean {
+  return /github\.com/i.test(url);
+}
+
 export default function MemberModal({ member, team, onClose }: MemberModalProps) {
   useEffect(() => {
     document.body.classList.add('modal-open');
@@ -88,7 +92,7 @@ export default function MemberModal({ member, team, onClose }: MemberModalProps)
               {member.project.description ? (
                 <p className="member-modal__project-summary">{member.project.description}</p>
               ) : null}
-              {member.project.url ? (
+              {member.project.url && isGithubUrl(member.project.url) ? null : member.project.url && team.id === 'content' ? (
                 <a
                   href={member.project.url}
                   target="_blank"

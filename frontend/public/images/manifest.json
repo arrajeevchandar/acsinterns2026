@@ -517,96 +517,96 @@
       "aspect": 1.3333333333333333
     }
   ],
-  "workshops": [
+  "leadersConnect": [
     {
-      "name": "IMG-20260604-WA0010.jpg",
-      "url": "/images/workshops/generated/IMG-20260604-WA0010-1200.webp",
+      "name": "Image (1).jpeg",
+      "url": "/images/leadersConnect/generated/Image (1)-1200.webp",
       "srcset": [
-        "/images/workshops/generated/IMG-20260604-WA0010-400.webp 400w",
-        "/images/workshops/generated/IMG-20260604-WA0010-800.webp 800w",
-        "/images/workshops/generated/IMG-20260604-WA0010-1200.webp 1200w"
+        "/images/leadersConnect/generated/Image (1)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (1)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (1)-1200.webp 1200w"
       ],
       "aspect": 1.3333333333333333
     },
     {
-      "name": "IMG20260710142927.jpg",
-      "url": "/images/workshops/generated/IMG20260710142927-1200.webp",
+      "name": "Image (2).jpeg",
+      "url": "/images/leadersConnect/generated/Image (2)-1200.webp",
       "srcset": [
-        "/images/workshops/generated/IMG20260710142927-400.webp 400w",
-        "/images/workshops/generated/IMG20260710142927-800.webp 800w",
-        "/images/workshops/generated/IMG20260710142927-1200.webp 1200w"
+        "/images/leadersConnect/generated/Image (2)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (2)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (2)-1200.webp 1200w"
+      ],
+      "aspect": 1.3333333333333333
+    },
+    {
+      "name": "Image (3).jpeg",
+      "url": "/images/leadersConnect/generated/Image (3)-1200.webp",
+      "srcset": [
+        "/images/leadersConnect/generated/Image (3)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (3)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (3)-1200.webp 1200w"
+      ],
+      "aspect": 1.3333333333333333
+    },
+    {
+      "name": "Image (4).jpeg",
+      "url": "/images/leadersConnect/generated/Image (4)-1200.webp",
+      "srcset": [
+        "/images/leadersConnect/generated/Image (4)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (4)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (4)-1200.webp 1200w"
+      ],
+      "aspect": 1.3333333333333333
+    },
+    {
+      "name": "Image (5).jpeg",
+      "url": "/images/leadersConnect/generated/Image (5)-1200.webp",
+      "srcset": [
+        "/images/leadersConnect/generated/Image (5)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (5)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (5)-1200.webp 1200w"
       ],
       "aspect": 0.75
     },
     {
-      "name": "Media (10).jpeg",
-      "url": "/images/workshops/generated/Media (10)-1200.webp",
+      "name": "Image (6).jpeg",
+      "url": "/images/leadersConnect/generated/Image (6)-1200.webp",
       "srcset": [
-        "/images/workshops/generated/Media (10)-400.webp 400w",
-        "/images/workshops/generated/Media (10)-800.webp 800w",
-        "/images/workshops/generated/Media (10)-1200.webp 1200w"
+        "/images/leadersConnect/generated/Image (6)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (6)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (6)-1200.webp 1200w"
       ],
-      "aspect": 1
+      "aspect": 1.3333333333333333
     },
     {
-      "name": "Media (12).jpeg",
-      "url": "/images/workshops/generated/Media (12)-1200.webp",
+      "name": "Image (7).jpeg",
+      "url": "/images/leadersConnect/generated/Image (7)-1200.webp",
       "srcset": [
-        "/images/workshops/generated/Media (12)-400.webp 400w",
-        "/images/workshops/generated/Media (12)-800.webp 800w",
-        "/images/workshops/generated/Media (12)-1200.webp 1200w"
+        "/images/leadersConnect/generated/Image (7)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (7)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (7)-1200.webp 1200w"
       ],
-      "aspect": 1.3335793357933579
+      "aspect": 1.3333333333333333
     },
     {
-      "name": "Media (13).jpeg",
-      "url": "/images/workshops/generated/Media (13)-1200.webp",
+      "name": "Image (8).jpeg",
+      "url": "/images/leadersConnect/generated/Image (8)-1200.webp",
       "srcset": [
-        "/images/workshops/generated/Media (13)-400.webp 400w",
-        "/images/workshops/generated/Media (13)-800.webp 800w",
-        "/images/workshops/generated/Media (13)-1200.webp 1200w"
+        "/images/leadersConnect/generated/Image (8)-400.webp 400w",
+        "/images/leadersConnect/generated/Image (8)-800.webp 800w",
+        "/images/leadersConnect/generated/Image (8)-1200.webp 1200w"
       ],
-      "aspect": 1.3335793357933579
+      "aspect": 1.3333333333333333
     },
     {
-      "name": "Media (14).jpeg",
-      "url": "/images/workshops/generated/Media (14)-1200.webp",
+      "name": "Image.jpeg",
+      "url": "/images/leadersConnect/generated/Image-1200.webp",
       "srcset": [
-        "/images/workshops/generated/Media (14)-400.webp 400w",
-        "/images/workshops/generated/Media (14)-800.webp 800w",
-        "/images/workshops/generated/Media (14)-1200.webp 1200w"
+        "/images/leadersConnect/generated/Image-400.webp 400w",
+        "/images/leadersConnect/generated/Image-800.webp 800w",
+        "/images/leadersConnect/generated/Image-1200.webp 1200w"
       ],
-      "aspect": 0.7502768549280178
-    },
-    {
-      "name": "Media (15).jpeg",
-      "url": "/images/workshops/generated/Media (15)-1200.webp",
-      "srcset": [
-        "/images/workshops/generated/Media (15)-400.webp 400w",
-        "/images/workshops/generated/Media (15)-800.webp 800w",
-        "/images/workshops/generated/Media (15)-1200.webp 1200w"
-      ],
-      "aspect": 1.3335793357933579
-    },
-    {
-      "name": "Media (29).jpeg",
-      "url": "/images/workshops/generated/Media (29)-1200.webp",
-      "srcset": [
-        "/images/workshops/generated/Media (29)-400.webp 400w",
-        "/images/workshops/generated/Media (29)-800.webp 800w",
-        "/images/workshops/generated/Media (29)-1200.webp 1200w"
-      ],
-      "aspect": 1.3335793357933579
-    },
-    {
-      "name": "Media (9).jpeg",
-      "url": "/images/workshops/generated/Media (9)-1200.webp",
-      "srcset": [
-        "/images/workshops/generated/Media (9)-400.webp 400w",
-        "/images/workshops/generated/Media (9)-800.webp 800w",
-        "/images/workshops/generated/Media (9)-1200.webp 1200w"
-      ],
-      "aspect": 1
+      "aspect": 1.3333333333333333
     }
   ],
   "bts": [

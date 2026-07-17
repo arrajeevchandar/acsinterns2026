@@ -14,7 +14,7 @@ const folders = {
   events: { dir: 'events', max: 9 },
   lunch: { dir: 'teamlunch', max: 9 },
   conferences: { dir: 'conferences', max: 9 },
-  workshops: { dir: 'workshops', max: 9 },
+  leadersConnect: { dir: 'leadersConnect', max: 9 },
   bts: { dir: 'behindTheScenes', max: 9 },
 };
 const sizes = [400, 800, 1200];

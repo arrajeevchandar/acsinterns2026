@@ -49,7 +49,7 @@ export const TEAMS: Team[] = [
     description: 'Editorial strategy, UX writing, and the long-form storytelling that gives every product its register.',
     stack: ['AEM', 'Java', 'Sling', 'HTL'],
     lead: 'Shirish Halapeth', // sourced from the "AEM" practice row
-    memberCount: 4,
+    memberCount: 9,
   },
   {
     id: 'ui',
@@ -69,7 +69,7 @@ export const TEAMS: Team[] = [
     description: 'Pipelines, warehouses, and the analytics layer that powers every other team. They turn the noisy into the navigable.',
     stack: ['Snowflake', 'Airflow', 'dbt', 'Python'],
     lead: 'Surya Kothapalli',
-    memberCount: 4,
+    memberCount: 9,
   },
   {
     id: 'dacoe',
@@ -79,7 +79,7 @@ export const TEAMS: Team[] = [
     description: 'Instrumentation, measurement strategy, and the governance that keeps every metric trustworthy across the org.',
     stack: ['Adobe Analytics', 'Launch', 'SQL', 'Tableau'],
     lead: 'Narendra Gorla',
-    memberCount: 4,
+    memberCount: 2,
   },
   {
     id: 'cjm',
@@ -99,7 +99,7 @@ export const TEAMS: Team[] = [
     description: 'Building and optimizing search experiences, recommendation systems, and discovery mechanisms.',
     stack: ['Elasticsearch', 'Python', 'React', 'Node.js'],
     lead: 'Punya Sekhar',
-    memberCount: 2,
+    memberCount: 3,
   },
   {
     id: 'workfront',
@@ -109,7 +109,7 @@ export const TEAMS: Team[] = [
     description: 'Operationalizing how teams plan, request, review, and ship - automating the unglamorous so creatives can stay creative.',
     stack: ['Workfront', 'Fusion', 'REST APIs', 'JavaScript'],
     lead: 'Narendra Gorla',
-    memberCount: 1,
+    memberCount: 3,
   }
 ];
 
@@ -519,6 +519,46 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "github": "https://github.com/Shashank-Adobe",
       "linkedin": "https://in.linkedin.com/in/shashank-s-godavari-25b14a202",
       "avatarHue": 165
+    },
+    {
+      "id": "data-kanikajain",
+      "name": "Kanika Jain",
+      "initials": "KJ",
+      "photo": "/images/Individuals/default_girl.png",
+      "role": "Data Intern",
+      "university": "Christ (Deemed to be University)",
+      "batch": "Summer 2026",
+      "skills": ["React", "FastAPI"],
+      "project": {
+        "name": "PQL2SQL Segment Converter",
+        "description": "Built a utility tool leveraging LLM and RAG to automate segment validation on Adobe Experience Platform, significantly reducing manual effort.",
+        "url": ""
+      },
+      "bio": "Intern on the Data team, working on the PQL2SQL Segment Converter.",
+      "mentor": "Kumar Sameer",
+      "github": "https://github.com/Kanika244/PQL_SQL2",
+      "linkedin": "https://www.linkedin.com/in/kanika-jain-31b916284/",
+      "avatarHue": 195
+    },
+    {
+      "id": "data-anamayasaraogi",
+      "name": "Anamaya Saraogi",
+      "initials": "AS",
+      "photo": "/images/Individuals/default_girl.png",
+      "role": "Data Intern",
+      "university": "Christ University",
+      "batch": "Summer 2026",
+      "skills": ["Python FastAPI", "React"],
+      "project": {
+        "name": "PQL2SQL Segment Converter",
+        "description": "Built a utility tool leveraging LLM and RAG to automate segment validation on Adobe Experience Platform, significantly reducing manual effort.",
+        "url": ""
+      },
+      "bio": "Intern on the Data team, working on the PQL2SQL Segment Converter.",
+      "mentor": "Aditya Desai",
+      "github": "https://github.com/AnamayaSaraogi",
+      "linkedin": "https://www.linkedin.com/in/anamaya-saraogi-904b0924b",
+      "avatarHue": 220
     }
   ],
   "dacoe": [
@@ -665,6 +705,26 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "github": "",
       "linkedin": "https://www.linkedin.com/in/vignesh-r-nayak-8672372a3",
       "avatarHue": 35
+    },
+    {
+      "id": "workfront-ishitasingh",
+      "name": "Ishita Singh",
+      "initials": "IS",
+      "photo": "/images/Individuals/default_girl.png",
+      "role": "Workfront Intern",
+      "university": "Bangalore Institute Of Technology",
+      "batch": "Summer 2026",
+      "skills": ["Workfront Core", "Fusion", "App Builder", "Google Gemini", "Microsoft Teams"],
+      "project": {
+        "name": "Meetflow AI",
+        "description": "An end to end Meeting Intelligence and action item tracking platform.",
+        "url": "https://adobe-my.sharepoint.com/:p:/r/personal/ishsingh_adobe_com/Documents/Microsoft%20Teams%20Chat%20Files/MeetFlow_AI_Presentation(final)%201.pptx?d=w917664a531d84458a614f594dba708eb&csf=1&web=1&e=rehoKO"
+      },
+      "bio": "Intern on the Workfront team, working on Meetflow AI.",
+      "mentor": "Srishti Agarwal",
+      "github": "https://github.com/Ishita345678",
+      "linkedin": "https://www.linkedin.com/in/ishita-singh-596364229",
+      "avatarHue": 60
     }
   ],
   "sbc": [
@@ -707,6 +767,26 @@ export const MEMBERS_BY_TEAM: Record<TeamId, Member[]> = {
       "github": "",
       "linkedin": "https://www.linkedin.com/in/manoshiraha19/",
       "avatarHue": 80
+    },
+    {
+      "id": "sbc-abhinavkumar",
+      "name": "Abhinav Kumar",
+      "initials": "AK",
+      "photo": "/images/Individuals/default_boy.png",
+      "role": "SBC Intern",
+      "university": "N/A",
+      "batch": "Summer 2026",
+      "skills": [],
+      "project": {
+        "name": "Resume Screening Assistant",
+        "description": "",
+        "url": "https://adobe-my.sharepoint.com/:p:/r/personal/abhinavkumar_adobe_com/Documents/Microsoft%20Teams%20Chat%20Files/Adobe_SBC_Resume_Agent_Deck%20(1).pptx"
+      },
+      "bio": "Intern on the SBC team, working on the Resume Screening Assistant.",
+      "mentor": "Lakshman Hariharan",
+      "github": "N/A",
+      "linkedin": "N/A",
+      "avatarHue": 105
     }
   ]
 };

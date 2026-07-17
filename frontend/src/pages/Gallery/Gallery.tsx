@@ -82,7 +82,7 @@ const LAYOUTS: Record<string, CardLayout[]> = {
     { x: 18, y: 64, w: 30, h: 30 },
     { x: 50, y: 66, w: 26, h: 28 },
   ],
-  workshops: [
+  leadersConnect: [
     { x: 2,  y: 4,  w: 18, h: 40 },
     { x: 22, y: 8,  w: 18, h: 30 },
     { x: 42, y: 4,  w: 18, h: 44 },
@@ -115,7 +115,7 @@ const WALLS: WallConfig[] = [
   { id: 'events',      bg: 'dark',  heading: 'Events',            layoutKey: 'events',      seedPrefix: 'ev' },
   { id: 'lunch',       bg: 'paper', heading: 'Team Lunch',        layoutKey: 'lunch',       seedPrefix: 'lu' },
   { id: 'conferences', bg: 'dark',  heading: 'Conferences',       layoutKey: 'conferences', seedPrefix: 'cf' },
-  { id: 'workshops',   bg: 'dark',  heading: 'Workshops',         layoutKey: 'workshops',   seedPrefix: 'wk' },
+  { id: 'leadersConnect', bg: 'dark', heading: "Leader's Connect", layoutKey: 'leadersConnect', seedPrefix: 'lc' },
   { id: 'bts',         bg: 'paper', heading: 'Behind the Scenes', layoutKey: 'bts',         seedPrefix: 'bt' },
 ];
 

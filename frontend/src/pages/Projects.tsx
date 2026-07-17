@@ -24,6 +24,10 @@ function getAvatarColor(teamIndex: number, projectIndex: number) {
   return AVATAR_COLORS[(teamIndex + projectIndex) % AVATAR_COLORS.length];
 }
 
+function isGithubUrl(url: string): boolean {
+  return /github\.com/i.test(url);
+}
+
 // ─── Project Card ─────────────────────────────────────────────────────────────
 
 interface ProjectCardProps {
@@ -91,7 +95,7 @@ const TeamSection = React.forwardRef<HTMLElement, TeamSectionProps>(
             </h2>
           </div>
           <span className="team-card__count" aria-hidden="true">
-            {team.number} Projects
+            {team.projects.length} Projects
           </span>
         </div>
         <div className="project-grid" role="list">
@@ -219,7 +223,7 @@ const Modal: FC<ModalProps> = ({ project, teamIndex, projectIndex, isOpen, onClo
 
           {/* Footer */}
           <div className="project-modal__footer">
-            {project.link ? (
+            {project.link && isGithubUrl(project.link) ? null : project.link && TEAMS[teamIndex].id === 'team-content' ? (
               <a
                 className="btn-primary"
                 href={project.link}
